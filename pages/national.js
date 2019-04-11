@@ -3,13 +3,13 @@ import axios from 'axios'
 
 
 
-export default class Index extends React.Component {
+export default class National extends React.Component {
 
   constructor(props) {
     super(props);
   }
-  
-  static async getInitialProps () {
+
+  static async getInitialProps() {
     const response = await axios.get('http://localhost:3000/BM/national/2016/info');
     console.log(response);
     return {}
@@ -19,11 +19,10 @@ export default class Index extends React.Component {
     return (
       <div>
         <Head title="National" />
-          <h1>Hello</h1>
-          <button onClick={this.fetchData}>
-            Fetch Data
+        <h1>Hello</h1>
+        <button onClick={this.fetchData}>
+          Fetch Data
           </button>
-
         <style jsx>{`
      
     `}</style>

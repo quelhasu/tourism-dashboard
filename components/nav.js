@@ -28,12 +28,9 @@ const navbarStyle = {
 }
 
 const headerStyle = {
-  marginBottom: 100
+  marginBottom: 30
 };
 
-const menuLinks = {
-  marginRight: 'auto'
-}
 
 const links = [
   { href: 'https://github.com/segmentio/create-next-app', label: 'Github', icon: 'fab fa-github-alt' },
@@ -43,6 +40,7 @@ const links = [
 })
 
 const menu = [
+  { href: '/stats', label: 'Stats', icon:''},
   { href: '/national', label: 'National', icon: '' },
   { href: '#', label: 'International', icon: '' },
   { href: '#', label: 'Grouping', icon: '' }
@@ -56,8 +54,8 @@ const Navi = () => (
     <Navbar style={navbarStyle} fixed="top" color="light" light expand="md">
       <Link href="/">
         <a className="navbar-brand">
-          <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/facebook/105/european-castle_1f3f0.png" style={navbarLogoStyle} />
-          Castle
+          <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
+          Tourism
         </a>
       </Link>
       <Nav className="mr-auto" navbar>
