@@ -13,10 +13,12 @@
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
     "express": "^4.16.4",
     "next": "^8.0.4",
     "nprogress": "^0.2.0",
     "react": "^16.8.6",
+    "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
     "reactstrap": "^8.0.0"
   },
