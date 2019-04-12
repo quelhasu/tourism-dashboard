@@ -93,6 +93,221 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./components/diff-table.js":
+/*!**********************************!*\
+  !*** ./components/diff-table.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DiffTable; });
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+
+var DiffTable =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(DiffTable, _React$Component);
+
+  function DiffTable(props) {
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, DiffTable);
+
+    return Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(DiffTable).call(this, props));
+  }
+
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(DiffTable, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h2", null, this.props.var, " evolution"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("table", {
+        className: "table"
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
+        scope: "col"
+      }), _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).map(function (value) {
+        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", null, value);
+      }))), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tbody", null, [this.props.year, this.props.year - 1, 'diff'].map(function (rowVar) {
+        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
+          scope: "row"
+        }, rowVar), _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(_this.props.evolution).map(function (year) {
+          var value = _this.props.evolution[year][rowVar][_this.props.var];
+
+          if (rowVar == 'diff') {
+            value = value > 0 ? "+".concat(value, "%") : "".concat(value, "%");
+            return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", {
+              style: {
+                fontWeight: "bold"
+              }
+            }, value);
+          } else return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", null, value);
+        }));
+      }))));
+    }
+  }]);
+
+  return DiffTable;
+}(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./components/going-chart.js":
+/*!***********************************!*\
+  !*** ./components/going-chart.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GoingChart; });
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+
+
+
+var options = {
+  datasetFill: true,
+  legend: {
+    display: false
+  },
+  scales: {
+    xAxes: [{
+      gridLines: {
+        color: "rgba(0, 0, 0, 0)"
+      },
+      ticks: {
+        stepSize: 50
+      }
+    }],
+    yAxes: [{
+      ticks: {
+        beginAtZero: true,
+        callback: function callback(value, index, values) {
+          return value + "%";
+        },
+        stepSize: 2
+      }
+    }]
+  }
+};
+var data = {
+  datasets: [{
+    label: 'Ingoing',
+    borderWidth: 1
+  }, {
+    label: 'Outgoing',
+    borderWidth: 1
+  }]
+};
+
+var GoingChart =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(GoingChart, _React$Component);
+
+  function GoingChart(props) {
+    var _this;
+
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, GoingChart);
+
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(GoingChart).call(this, props));
+    chartData(props);
+    return _this;
+  }
+
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(GoingChart, [{
+    key: "render",
+    value: function render() {
+      _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).forEach(function (key, i) {// console.log(this.props.evolution[key][this.props.year])
+        // console.log(i, this.props.evolution[key])
+        // if(i == 1) return props.evolution[year]['Ingoing']
+      });
+
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__["Bar"], {
+        data: data,
+        width: 100,
+        height: 20,
+        options: options
+      }));
+    }
+  }]);
+
+  return GoingChart;
+}(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
+
+
+
+function chartData(props) {
+  data.labels = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+    return key;
+  });
+  data.datasets[0].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+    return props.evolution[key][props.year]['Ingoing'];
+  });
+  data.datasets[1].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+    return props.evolution[key][props.year]['Outgoing'];
+  });
+  var colors = orderColors(data.labels);
+  data.datasets[0].backgroundColor = colors.ingoing;
+  data.datasets[0].borderColor = colors.ingoing;
+  data.datasets[1].backgroundColor = colors.outgoing;
+  data.datasets[1].borderColor = colors.outgoing;
+}
+
+function orderColors(names) {
+  var alpha = "0.3";
+  var ingoing = [],
+      outgoing = [];
+
+  for (var i = 0; i < names.length; i++) {
+    ingoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][names[i]]);
+    outgoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
+  }
+
+  ;
+  return {
+    ingoing: ingoing,
+    outgoing: outgoing
+  };
+}
+
+/***/ }),
+
 /***/ "./components/head.js":
 /*!****************************!*\
   !*** ./components/head.js ***!
@@ -189,6 +404,122 @@ Head.propTypes = {
 
 /***/ }),
 
+/***/ "./components/month-chart.js":
+/*!***********************************!*\
+  !*** ./components/month-chart.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MonthChart; });
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+
+
+
+var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var options = {
+  responsive: true,
+  title: {
+    display: true,
+    text: 'Monthly evolution per ingoing region'
+  },
+  tooltips: {
+    mode: 'index',
+    intersect: false
+  },
+  hover: {
+    mode: 'nearest',
+    intersect: true
+  },
+  scales: {
+    xAxes: [{
+      display: true,
+      scaleLabel: {
+        display: false,
+        labelString: 'Month'
+      }
+    }],
+    yAxes: [{
+      display: true,
+      scaleLabel: {
+        display: true,
+        labelString: 'Value'
+      }
+    }]
+  }
+};
+var data = {
+  labels: MONTHS,
+  datasets: []
+};
+
+var MonthChart =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(MonthChart, _React$Component);
+
+  function MonthChart(props) {
+    var _this;
+
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MonthChart);
+
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(MonthChart).call(this, props));
+    chartData(props);
+    return _this;
+  }
+
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MonthChart, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__["Line"], {
+        height: 60,
+        data: data,
+        options: options
+      }));
+    }
+  }]);
+
+  return MonthChart;
+}(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
+
+
+
+function chartData(props) {
+  data.datasets = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+    return {
+      label: key,
+      backgroundColor: _utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][key],
+      borderColor: _utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][key],
+      data: props.evolution[key][props.var].months.map(function (el) {
+        return el.low;
+      }),
+      fill: false
+    };
+  });
+}
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime-corejs2/core-js/object/create.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@babel/runtime-corejs2/core-js/object/create.js ***!
@@ -219,6 +550,17 @@ module.exports = __webpack_require__(/*! core-js/library/fn/object/define-proper
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! core-js/library/fn/object/get-prototype-of */ "core-js/library/fn/object/get-prototype-of");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/core-js/object/keys.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/object/keys */ "core-js/library/fn/object/keys");
 
 /***/ }),
 
@@ -1313,6 +1655,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_head__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/head */ "./components/head.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_going_chart__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/going-chart */ "./components/going-chart.js");
+/* harmony import */ var _components_diff_table__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/diff-table */ "./components/diff-table.js");
+/* harmony import */ var _components_month_chart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/month-chart */ "./components/month-chart.js");
 
 
 
@@ -1324,6 +1669,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+var selectedYear = 2016;
 
 var National =
 /*#__PURE__*/
@@ -1345,12 +1694,23 @@ function (_React$Component) {
         title: "National"
       }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("h1", {
         className: "jsx-1607256993"
-      }, "Hello"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("button", {
-        onClick: this.fetchData,
-        className: "jsx-1607256993"
-      }, "Fetch Data"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_7___default.a, {
+      }, "National"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        evolution: this.props.data['Evolution'],
+        year: selectedYear
+      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        evolution: this.props.data['Evolution'],
+        year: selectedYear,
+        var: "Ingoing"
+      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        evolution: this.props.data['Evolution'],
+        year: selectedYear,
+        var: "Outgoing"
+      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        evolution: this.props.data['Monthly'],
+        var: "Ingoing"
+      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_7___default.a, {
         id: "1607256993"
-      }, "\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9wYWdlcy9uYXRpb25hbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUF5Qm9CIiwiZmlsZSI6Ii9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9wYWdlcy9uYXRpb25hbC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBIZWFkIGZyb20gJy4uL2NvbXBvbmVudHMvaGVhZCdcbmltcG9ydCBheGlvcyBmcm9tICdheGlvcydcblxuXG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIE5hdGlvbmFsIGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50IHtcblxuICBjb25zdHJ1Y3Rvcihwcm9wcykge1xuICAgIHN1cGVyKHByb3BzKTtcbiAgfVxuXG4gIHN0YXRpYyBhc3luYyBnZXRJbml0aWFsUHJvcHMoKSB7XG4gICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBheGlvcy5nZXQoJ2h0dHA6Ly9sb2NhbGhvc3Q6MzAwMC9CTS9uYXRpb25hbC8yMDE2L2luZm8nKTtcbiAgICBjb25zb2xlLmxvZyhyZXNwb25zZSk7XG4gICAgcmV0dXJuIHt9XG4gIH1cblxuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxkaXY+XG4gICAgICAgIDxIZWFkIHRpdGxlPVwiTmF0aW9uYWxcIiAvPlxuICAgICAgICA8aDE+SGVsbG88L2gxPlxuICAgICAgICA8YnV0dG9uIG9uQ2xpY2s9e3RoaXMuZmV0Y2hEYXRhfT5cbiAgICAgICAgICBGZXRjaCBEYXRhXG4gICAgICAgICAgPC9idXR0b24+XG4gICAgICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgXG4gICAgYH08L3N0eWxlPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG5cbn0iXX0= */\n/*@ sourceURL=/Users/qunnamed/S8-stage/tourism-dashboard/pages/national.js */"));
+      }, "\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9wYWdlcy9uYXRpb25hbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFrQ29CIiwiZmlsZSI6Ii9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9wYWdlcy9uYXRpb25hbC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBIZWFkIGZyb20gJy4uL2NvbXBvbmVudHMvaGVhZCdcbmltcG9ydCBheGlvcyBmcm9tICdheGlvcydcbmltcG9ydCBHb2luZ0NoYXJ0IGZyb20gJy4uL2NvbXBvbmVudHMvZ29pbmctY2hhcnQnXG5pbXBvcnQgRGlmZlRhYmxlIGZyb20gJy4uL2NvbXBvbmVudHMvZGlmZi10YWJsZSc7XG5pbXBvcnQgTW9udGhDaGFydCBmcm9tICcuLi9jb21wb25lbnRzL21vbnRoLWNoYXJ0JztcblxudmFyIHNlbGVjdGVkWWVhciA9IDIwMTZcblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgTmF0aW9uYWwgZXh0ZW5kcyBSZWFjdC5Db21wb25lbnQge1xuXG4gIGNvbnN0cnVjdG9yKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpO1xuICB9XG5cbiAgc3RhdGljIGFzeW5jIGdldEluaXRpYWxQcm9wcygpIHtcbiAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGF4aW9zLmdldCgnaHR0cDovL2xvY2FsaG9zdDozMDAwL0JNL25hdGlvbmFsLzIwMTYvP2NvdW50cmllcz1CZWxnaXVtLEZyYW5jZScpO1xuICAgIGNvbnNvbGUubG9nKHJlc3BvbnNlKTtcbiAgICByZXR1cm4ge1xuICAgICAgZGF0YSA6IHJlc3BvbnNlLmRhdGFcbiAgICB9XG4gIFxuICB9XG5cbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICA8SGVhZCB0aXRsZT1cIk5hdGlvbmFsXCIgLz5cbiAgICAgICAgPGgxPk5hdGlvbmFsPC9oMT5cbiAgICAgICAgPEdvaW5nQ2hhcnQgZXZvbHV0aW9uPXt0aGlzLnByb3BzLmRhdGFbJ0V2b2x1dGlvbiddfSB5ZWFyPXtzZWxlY3RlZFllYXJ9Lz5cblxuICAgICAgICA8RGlmZlRhYmxlIGV2b2x1dGlvbj17dGhpcy5wcm9wcy5kYXRhWydFdm9sdXRpb24nXX0geWVhcj17c2VsZWN0ZWRZZWFyfSB2YXI9J0luZ29pbmcnLz5cbiAgICAgICAgPERpZmZUYWJsZSBldm9sdXRpb249e3RoaXMucHJvcHMuZGF0YVsnRXZvbHV0aW9uJ119IHllYXI9e3NlbGVjdGVkWWVhcn0gdmFyPSdPdXRnb2luZycvPlxuXG4gICAgICAgIDxNb250aENoYXJ0IGV2b2x1dGlvbj17dGhpcy5wcm9wcy5kYXRhWydNb250aGx5J119IHZhcj0nSW5nb2luZycvPlxuICAgICAgICA8c3R5bGUganN4PntgXG4gICAgIFxuICAgIGB9PC9zdHlsZT5cbiAgICAgIDwvZGl2PlxuICAgIClcbiAgfVxuXG59Il19 */\n/*@ sourceURL=/Users/qunnamed/S8-stage/tourism-dashboard/pages/national.js */"));
     }
   }], [{
     key: "getInitialProps",
@@ -1364,12 +1724,14 @@ function (_React$Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_10___default.a.get('http://localhost:3000/BM/national/2016/info');
+                return axios__WEBPACK_IMPORTED_MODULE_10___default.a.get('http://localhost:3000/BM/national/2016/?countries=Belgium,France');
 
               case 2:
                 response = _context.sent;
                 console.log(response);
-                return _context.abrupt("return", {});
+                return _context.abrupt("return", {
+                  data: response.data
+                });
 
               case 5:
               case "end":
@@ -1391,6 +1753,29 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_8___default.a.Component);
 
 
+
+/***/ }),
+
+/***/ "./utils/colors.js":
+/*!*************************!*\
+  !*** ./utils/colors.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.selectedColors = {
+  "Aquitaine": 'rgb(181, 46, 58)',
+  "Midi-Pyrénées": 'rgb(240, 140, 60)',
+  "Poitou-Charentes": 'rgb(255, 99, 132)',
+  "Île-de-France": 'rgb(255, 205, 86)',
+  "Languedoc-Roussillon": 'rgb(220, 59, 59)',
+  "Provence-Alpes-Côte d'Azur": 'rgb(241, 175, 65)',
+  "Pays de la Loire": 'rgb(177, 193, 78)',
+  "Centre": 'rgb(210, 210, 210)',
+  "Rhône-Alpes": 'rgb(59, 52, 96)',
+  "Bretagne": 'rgb(13, 32, 98)',
+  "Limousin": 'rgb(61, 138, 63)'
+};
 
 /***/ }),
 
@@ -1447,6 +1832,17 @@ module.exports = require("core-js/library/fn/object/define-property");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/library/fn/object/get-prototype-of");
+
+/***/ }),
+
+/***/ "core-js/library/fn/object/keys":
+/*!*************************************************!*\
+  !*** external "core-js/library/fn/object/keys" ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/library/fn/object/keys");
 
 /***/ }),
 
@@ -1524,6 +1920,17 @@ module.exports = require("prop-types");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-chartjs-2":
+/*!**********************************!*\
+  !*** external "react-chartjs-2" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-chartjs-2");
 
 /***/ }),
 

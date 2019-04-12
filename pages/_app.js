@@ -32,6 +32,16 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props
     return (
       <Container>
+        <style jsx>{`
+            :global(body) {
+                margin: 0;
+                // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+                //   Helvetica, sans-serif;
+                font-family: "Montserrat", sans-serif;
+                padding: 35px;
+                padding-top: 70px;
+              }   
+          `}</style>
         {/* <div style={{ marginBottom: 20 }}>
           <Link href='/'>
             <a style={linkStyle}>Home</a>

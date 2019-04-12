@@ -1,7 +1,10 @@
 import Head from '../components/head'
 import axios from 'axios'
+import GoingChart from '../components/going-chart'
+import DiffTable from '../components/diff-table';
+import MonthChart from '../components/month-chart';
 
-
+var selectedYear = 2016
 
 export default class National extends React.Component {
 
@@ -10,19 +13,25 @@ export default class National extends React.Component {
   }
 
   static async getInitialProps() {
-    const response = await axios.get('http://localhost:3000/BM/national/2016/info');
+    const response = await axios.get('http://localhost:3000/BM/national/2016/?countries=Belgium,France');
     console.log(response);
-    return {}
+    return {
+      data : response.data
+    }
+  
   }
 
   render() {
     return (
       <div>
         <Head title="National" />
-        <h1>Hello</h1>
-        <button onClick={this.fetchData}>
-          Fetch Data
-          </button>
+        <h1>National</h1>
+        <GoingChart evolution={this.props.data['Evolution']} year={selectedYear}/>
+
+        <DiffTable evolution={this.props.data['Evolution']} year={selectedYear} var='Ingoing'/>
+        <DiffTable evolution={this.props.data['Evolution']} year={selectedYear} var='Outgoing'/>
+
+        <MonthChart evolution={this.props.data['Monthly']} var='Ingoing'/>
         <style jsx>{`
      
     `}</style>
