@@ -9,8 +9,8 @@ export default class DiffTable extends React.Component {
 
     return (
       <div>
-        <h2>{this.props.var} evolution</h2>
-        <table className="table">
+        <h3>{this.props.var} evolution</h3>
+        <table style={{fontSize: 'small'}} className="table">
           <thead>
             <tr>
               <th scope="col"></th>
