@@ -14,11 +14,10 @@ export default class National extends React.Component {
 
   static async getInitialProps() {
     const response = await axios.get('http://localhost:3000/BM/national/2016/?countries=Belgium,France');
-    console.log(response);
     return {
-      data : response.data
+      data: response.data
     }
-  
+
   }
 
   render() {
@@ -26,14 +25,22 @@ export default class National extends React.Component {
       <div>
         <Head title="National" />
         <h1>National</h1>
-        <GoingChart evolution={this.props.data['Evolution']} year={selectedYear}/>
+        <GoingChart evolution={this.props.data['Evolution']} year={selectedYear} />
 
-        <DiffTable evolution={this.props.data['Evolution']} year={selectedYear} var='Ingoing'/>
-        <DiffTable evolution={this.props.data['Evolution']} year={selectedYear} var='Outgoing'/>
+        <DiffTable evolution={this.props.data['Evolution']} year={selectedYear} var='Ingoing' />
+        <DiffTable evolution={this.props.data['Evolution']} year={selectedYear} var='Outgoing' />
 
-        <MonthChart evolution={this.props.data['Monthly']} var='Ingoing'/>
+        <div className="row">
+          <div className="col-md-6">
+            <MonthChart evolution={this.props.data['Monthly']} var='Ingoing' />
+          </div>
+          <div className="col-md-6">
+            <MonthChart evolution={this.props.data['Monthly']} var='Outgoing' />
+          </div>
+        </div>
         <style jsx>{`
-     
+        
+
     `}</style>
       </div>
     )
