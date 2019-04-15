@@ -25,28 +25,54 @@ const options = {
   }
 }
 
-var data = {
-  datasets: [
-    {
-      label: 'Ingoing',
-      borderWidth: 1,
-    },
-    {
-      label: 'Outgoing',
-      borderWidth: 1,
-    }
-  ]
-};
+
 
 export default class GoingChart extends React.Component {
 
+  chartData = (props) => {
+    this.data.labels = Object.keys(props.evolution).map(key => { return key })
+  
+    this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
+      return props.evolution[key][props.year]['Ingoing']
+    })
+  
+    this.data.datasets[1].data = Object.keys(props.evolution).map(key => {
+      return props.evolution[key][props.year]['Outgoing']
+    })
+  
+    const colors = orderColors(this.data.labels)
+  
+    this.data.datasets[0].backgroundColor = colors.ingoing
+    this.data.datasets[0].borderColor = colors.ingoing
+  
+    this.data.datasets[1].backgroundColor = colors.outgoing
+    this.data.datasets[1].borderColor = colors.outgoing
+  }
 
   constructor(props) {
     super(props);
-    chartData(props);
+    this.data = {
+      labels:'',
+      datasets: [
+        {
+          label: 'Ingoing',
+          borderWidth: 1,
+        },
+        {
+          label: 'Outgoing',
+          borderWidth: 1,
+        }
+      ]
+    }
+    this.chartData(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.chartData(nextProps);
   }
 
   render() {
+    this
     Object.keys(this.props.evolution).forEach((key, i) => {
       // console.log(this.props.evolution[key][this.props.year])
       // console.log(i, this.props.evolution[key])
@@ -55,7 +81,7 @@ export default class GoingChart extends React.Component {
     return (
       <div>
         <Bar
-          data={data}
+          data={this.data}
           width={100}
           height={20}
           options={options}
@@ -64,26 +90,6 @@ export default class GoingChart extends React.Component {
     )
   }
 
-}
-
-function chartData(props) {
-  data.labels = Object.keys(props.evolution).map(key => { return key })
-
-  data.datasets[0].data = Object.keys(props.evolution).map(key => {
-    return props.evolution[key][props.year]['Ingoing']
-  })
-
-  data.datasets[1].data = Object.keys(props.evolution).map(key => {
-    return props.evolution[key][props.year]['Outgoing']
-  })
-
-  const colors = orderColors(data.labels)
-
-  data.datasets[0].backgroundColor = colors.ingoing
-  data.datasets[0].borderColor = colors.ingoing
-
-  data.datasets[1].backgroundColor = colors.outgoing
-  data.datasets[1].borderColor = colors.outgoing
 }
 
 function orderColors(names) {

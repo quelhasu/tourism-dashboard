@@ -6,7 +6,7 @@ export default class DiffTable extends React.Component {
   }
 
   render() {
-
+    console.log(this.props);
     return (
       <div>
         <h3>{this.props.var} evolution</h3>

@@ -136,7 +136,11 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h2", null, this.props.var, " evolution"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("table", {
+      console.log(this.props);
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h3", null, this.props.var, " evolution"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("table", {
+        style: {
+          fontSize: 'small'
+        },
         className: "table"
       }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
         scope: "col"
@@ -184,13 +188,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_10__);
+
+
 
 
 
@@ -225,41 +233,69 @@ var options = {
     }]
   }
 };
-var data = {
-  datasets: [{
-    label: 'Ingoing',
-    borderWidth: 1
-  }, {
-    label: 'Outgoing',
-    borderWidth: 1
-  }]
-};
 
 var GoingChart =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(GoingChart, _React$Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(GoingChart, _React$Component);
 
-  function GoingChart(props) {
+  function GoingChart(_props) {
     var _this;
 
     Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, GoingChart);
 
-    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(GoingChart).call(this, props));
-    chartData(props);
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(GoingChart).call(this, _props));
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "chartData", function (props) {
+      _this.data.labels = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+        return key;
+      });
+      _this.data.datasets[0].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+        return props.evolution[key][props.year]['Ingoing'];
+      });
+      _this.data.datasets[1].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+        return props.evolution[key][props.year]['Outgoing'];
+      });
+      var colors = orderColors(_this.data.labels);
+      _this.data.datasets[0].backgroundColor = colors.ingoing;
+      _this.data.datasets[0].borderColor = colors.ingoing;
+      _this.data.datasets[1].backgroundColor = colors.outgoing;
+      _this.data.datasets[1].borderColor = colors.outgoing;
+    });
+
+    _this.data = {
+      labels: '',
+      datasets: [{
+        label: 'Ingoing',
+        borderWidth: 1
+      }, {
+        label: 'Outgoing',
+        borderWidth: 1
+      }]
+    };
+
+    _this.chartData(_props);
+
     return _this;
   }
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(GoingChart, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.chartData(nextProps);
+    }
+  }, {
     key: "render",
     value: function render() {
+      this;
+
       _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).forEach(function (key, i) {// console.log(this.props.evolution[key][this.props.year])
         // console.log(i, this.props.evolution[key])
         // if(i == 1) return props.evolution[year]['Ingoing']
       });
 
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__["Bar"], {
-        data: data,
+      return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Bar"], {
+        data: this.data,
         width: 100,
         height: 20,
         options: options
@@ -268,26 +304,9 @@ function (_React$Component) {
   }]);
 
   return GoingChart;
-}(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_8___default.a.Component);
 
 
-
-function chartData(props) {
-  data.labels = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
-    return key;
-  });
-  data.datasets[0].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
-    return props.evolution[key][props.year]['Ingoing'];
-  });
-  data.datasets[1].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
-    return props.evolution[key][props.year]['Outgoing'];
-  });
-  var colors = orderColors(data.labels);
-  data.datasets[0].backgroundColor = colors.ingoing;
-  data.datasets[0].borderColor = colors.ingoing;
-  data.datasets[1].backgroundColor = colors.outgoing;
-  data.datasets[1].borderColor = colors.outgoing;
-}
 
 function orderColors(names) {
   var alpha = "0.3";
@@ -295,8 +314,8 @@ function orderColors(names) {
       outgoing = [];
 
   for (var i = 0; i < names.length; i++) {
-    ingoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][names[i]]);
-    outgoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
+    ingoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][names[i]]);
+    outgoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
   }
 
   ;
@@ -404,6 +423,38 @@ Head.propTypes = {
 
 /***/ }),
 
+/***/ "./components/menu.js":
+/*!****************************!*\
+  !*** ./components/menu.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "./node_modules/styled-jsx/style.js");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Menu = function Menu(props) {
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "jsx-142388237"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "jsx-142388237"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+    className: "jsx-142388237"
+  }, props.children)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "142388237"
+  }, "\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9jb21wb25lbnRzL21lbnUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6Ii9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9jb21wb25lbnRzL21lbnUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJcbmNvbnN0IE1lbnUgPSBwcm9wcyA9PiAoXG4gIDxkaXY+XG4gICAgPGRpdj5cbiAgICAgIDxmb3JtPlxuICAgICAgICB7cHJvcHMuY2hpbGRyZW59XG4gICAgICA8L2Zvcm0+XG4gICAgPC9kaXY+XG4gICAgPHN0eWxlIGpzeD57YFxuICAgIFxuICBgfVxuICAgIDwvc3R5bGU+XG4gIDwvZGl2PlxuKTtcblxuZXhwb3J0IGRlZmF1bHQgTWVudTtcbiJdfQ== */\n/*@ sourceURL=/Users/qunnamed/S8-stage/tourism-dashboard/components/menu.js */"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Menu);
+
+/***/ }),
+
 /***/ "./components/month-chart.js":
 /*!***********************************!*\
   !*** ./components/month-chart.js ***!
@@ -420,13 +471,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_10__);
+
+
 
 
 
@@ -437,46 +492,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-var options = {
-  responsive: true,
-  title: {
-    display: true,
-    text: 'Monthly evolution per ingoing region'
-  },
-  tooltips: {
-    mode: 'index',
-    intersect: false
-  },
-  hover: {
-    mode: 'nearest',
-    intersect: true
-  },
-  scales: {
-    xAxes: [{
-      display: true,
-      scaleLabel: {
-        display: false,
-        labelString: 'Month'
-      }
-    }],
-    yAxes: [{
-      display: true,
-      scaleLabel: {
-        display: true,
-        labelString: 'Value'
-      }
-    }]
-  }
-};
-var data = {
-  labels: MONTHS,
-  datasets: []
-};
 
 var MonthChart =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(MonthChart, _React$Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(MonthChart, _React$Component);
 
   function MonthChart(props) {
     var _this;
@@ -484,32 +504,71 @@ function (_React$Component) {
     Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MonthChart);
 
     _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(MonthChart).call(this, props));
-    chartData(props);
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "options", {
+      responsive: true,
+      title: {
+        display: true,
+        text: 'Monthly evolution per region'
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: false,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      }
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "data", {
+      labels: MONTHS,
+      datasets: []
+    });
+
+    _this.data.datasets = chartData(props);
+    _this.options.title.text = props.var;
     return _this;
   }
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MonthChart, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__["Line"], {
-        height: 60,
-        data: data,
-        options: options
+      return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Line"], {
+        height: 200,
+        data: this.data,
+        options: this.options
       }));
     }
   }]);
 
   return MonthChart;
-}(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_8___default.a.Component);
 
 
 
 function chartData(props) {
-  data.datasets = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+  return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
     return {
       label: key,
-      backgroundColor: _utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][key],
-      borderColor: _utils_colors__WEBPACK_IMPORTED_MODULE_8__["selectedColors"][key],
+      backgroundColor: _utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][key],
+      borderColor: _utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][key],
       data: props.evolution[key][props.var].months.map(function (el) {
         return el.low;
       }),
@@ -727,6 +786,36 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _defineProperty; });
+/* harmony import */ var _core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+/* harmony import */ var _core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0__);
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    _core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0___default()(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
 }
 
 /***/ }),
@@ -1647,17 +1736,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-jsx/style */ "./node_modules/styled-jsx/style.js");
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_head__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/head */ "./components/head.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! axios */ "axios");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_going_chart__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/going-chart */ "./components/going-chart.js");
-/* harmony import */ var _components_diff_table__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/diff-table */ "./components/diff-table.js");
-/* harmony import */ var _components_month_chart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/month-chart */ "./components/month-chart.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_head__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/head */ "./components/head.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_going_chart__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/going-chart */ "./components/going-chart.js");
+/* harmony import */ var _components_diff_table__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/diff-table */ "./components/diff-table.js");
+/* harmony import */ var _components_month_chart__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/month-chart */ "./components/month-chart.js");
+/* harmony import */ var _components_menu__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/menu */ "./components/menu.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-select */ "react-select");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_select__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! nprogress */ "nprogress");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_17__);
 
 
 
@@ -1672,73 +1766,174 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var selectedYear = 2016;
+
+
+
+
 
 var National =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(National, _React$Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__["default"])(National, _React$Component);
 
   function National(props) {
+    var _this;
+
     Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, National);
 
-    return Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(National).call(this, props));
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(National).call(this, props));
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_8__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this), "topYear", [{
+      value: 2014,
+      label: '2014'
+    }, {
+      value: 2015,
+      label: '2015'
+    }, {
+      value: 2016,
+      label: '2016'
+    }]);
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_8__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this), "axiosProgress", function (url) {
+      nprogress__WEBPACK_IMPORTED_MODULE_17___default.a.start();
+      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.get(url).then(function (res) {
+        nprogress__WEBPACK_IMPORTED_MODULE_17___default.a.done();
+        return res;
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_8__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this), "handleYearChange",
+    /*#__PURE__*/
+    function () {
+      var _ref = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
+      /*#__PURE__*/
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selectedYear) {
+        var res;
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.axiosProgress('http://localhost:3000/BM/national/' + selectedYear.value + '/?countries=Belgium,France');
+
+              case 2:
+                res = _context.sent;
+
+                _this.setState({
+                  data: res.data,
+                  selectedYear: selectedYear
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+
+    _this.handleYearChange = _this.handleYearChange.bind(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this));
+    _this.state = {
+      selectedYear: {
+        value: 2016,
+        label: '2016'
+      },
+      data: props.data
+    };
+    return _this;
   }
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(National, [{
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        className: "jsx-1607256993"
-      }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      var selectedYear = this.state.selectedYear;
+      return react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "col-md-2"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "position-fixed"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_menu__WEBPACK_IMPORTED_MODULE_15__["default"], null, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("form", {
+        onSubmit: this.handleSubmit.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("h1", null, "Menu"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "form-group row"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "col-md-10"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_16___default.a, {
+        value: selectedYear,
+        onChange: this.handleYearChange,
+        options: this.topYear
+      }))), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("button", {
+        type: "submit",
+        class: "btn btn-primary"
+      }, "Update"))))), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "col-md-10",
+        style: {
+          borderLeft: '1px #e9ecef solid'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_10__["default"], {
         title: "National"
-      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("h1", {
-        className: "jsx-1607256993"
-      }, "National"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        evolution: this.props.data['Evolution'],
-        year: selectedYear
-      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        evolution: this.props.data['Evolution'],
-        year: selectedYear,
+      }), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        evolution: this.state.data['Evolution'],
+        year: this.state.selectedYear['value']
+      }), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        evolution: this.state.data['Evolution'],
+        year: this.state.selectedYear['value'],
         var: "Ingoing"
-      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        evolution: this.props.data['Evolution'],
-        year: selectedYear,
+      }), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        evolution: this.state.data['Evolution'],
+        year: this.state.selectedYear['value'],
         var: "Outgoing"
-      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        evolution: this.props.data['Monthly'],
+      }), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        evolution: this.state.data['Monthly'],
         var: "Ingoing"
-      }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_7___default.a, {
-        id: "1607256993"
-      }, "\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9wYWdlcy9uYXRpb25hbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFrQ29CIiwiZmlsZSI6Ii9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9wYWdlcy9uYXRpb25hbC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBIZWFkIGZyb20gJy4uL2NvbXBvbmVudHMvaGVhZCdcbmltcG9ydCBheGlvcyBmcm9tICdheGlvcydcbmltcG9ydCBHb2luZ0NoYXJ0IGZyb20gJy4uL2NvbXBvbmVudHMvZ29pbmctY2hhcnQnXG5pbXBvcnQgRGlmZlRhYmxlIGZyb20gJy4uL2NvbXBvbmVudHMvZGlmZi10YWJsZSc7XG5pbXBvcnQgTW9udGhDaGFydCBmcm9tICcuLi9jb21wb25lbnRzL21vbnRoLWNoYXJ0JztcblxudmFyIHNlbGVjdGVkWWVhciA9IDIwMTZcblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgTmF0aW9uYWwgZXh0ZW5kcyBSZWFjdC5Db21wb25lbnQge1xuXG4gIGNvbnN0cnVjdG9yKHByb3BzKSB7XG4gICAgc3VwZXIocHJvcHMpO1xuICB9XG5cbiAgc3RhdGljIGFzeW5jIGdldEluaXRpYWxQcm9wcygpIHtcbiAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGF4aW9zLmdldCgnaHR0cDovL2xvY2FsaG9zdDozMDAwL0JNL25hdGlvbmFsLzIwMTYvP2NvdW50cmllcz1CZWxnaXVtLEZyYW5jZScpO1xuICAgIGNvbnNvbGUubG9nKHJlc3BvbnNlKTtcbiAgICByZXR1cm4ge1xuICAgICAgZGF0YSA6IHJlc3BvbnNlLmRhdGFcbiAgICB9XG4gIFxuICB9XG5cbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICA8SGVhZCB0aXRsZT1cIk5hdGlvbmFsXCIgLz5cbiAgICAgICAgPGgxPk5hdGlvbmFsPC9oMT5cbiAgICAgICAgPEdvaW5nQ2hhcnQgZXZvbHV0aW9uPXt0aGlzLnByb3BzLmRhdGFbJ0V2b2x1dGlvbiddfSB5ZWFyPXtzZWxlY3RlZFllYXJ9Lz5cblxuICAgICAgICA8RGlmZlRhYmxlIGV2b2x1dGlvbj17dGhpcy5wcm9wcy5kYXRhWydFdm9sdXRpb24nXX0geWVhcj17c2VsZWN0ZWRZZWFyfSB2YXI9J0luZ29pbmcnLz5cbiAgICAgICAgPERpZmZUYWJsZSBldm9sdXRpb249e3RoaXMucHJvcHMuZGF0YVsnRXZvbHV0aW9uJ119IHllYXI9e3NlbGVjdGVkWWVhcn0gdmFyPSdPdXRnb2luZycvPlxuXG4gICAgICAgIDxNb250aENoYXJ0IGV2b2x1dGlvbj17dGhpcy5wcm9wcy5kYXRhWydNb250aGx5J119IHZhcj0nSW5nb2luZycvPlxuICAgICAgICA8c3R5bGUganN4PntgXG4gICAgIFxuICAgIGB9PC9zdHlsZT5cbiAgICAgIDwvZGl2PlxuICAgIClcbiAgfVxuXG59Il19 */\n/*@ sourceURL=/Users/qunnamed/S8-stage/tourism-dashboard/pages/national.js */"));
+      })), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        className: "col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        evolution: this.state.data['Monthly'],
+        var: "Outgoing"
+      })))));
     }
   }], [{
     key: "getInitialProps",
     value: function () {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var response;
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_10___default.a.get('http://localhost:3000/BM/national/2016/?countries=Belgium,France');
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_11___default.a.get('http://localhost:3000/BM/national/2016/?countries=Belgium,France');
 
               case 2:
-                response = _context.sent;
-                console.log(response);
-                return _context.abrupt("return", {
+                response = _context2.sent;
+                return _context2.abrupt("return", {
                   data: response.data
                 });
 
-              case 5:
+              case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
       function getInitialProps() {
@@ -1750,7 +1945,7 @@ function (_React$Component) {
   }]);
 
   return National;
-}(react__WEBPACK_IMPORTED_MODULE_8___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_9___default.a.Component);
 
 
 
@@ -1901,6 +2096,17 @@ module.exports = require("next/head");
 
 /***/ }),
 
+/***/ "nprogress":
+/*!****************************!*\
+  !*** external "nprogress" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("nprogress");
+
+/***/ }),
+
 /***/ "prop-types":
 /*!*****************************!*\
   !*** external "prop-types" ***!
@@ -1931,6 +2137,17 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-chartjs-2");
+
+/***/ }),
+
+/***/ "react-select":
+/*!*******************************!*\
+  !*** external "react-select" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-select");
 
 /***/ }),
 
