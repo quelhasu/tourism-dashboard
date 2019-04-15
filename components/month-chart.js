@@ -2,61 +2,62 @@ import { Line } from 'react-chartjs-2';
 import { selectedColors } from "../utils/colors";
 
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const options = {
-    responsive: true,
-    title: {
-      display: true,
-      text: 'Monthly evolution per ingoing region'
-    },
-    tooltips: {
-      mode: 'index',
-      intersect: false,
-    },
-    hover: {
-      mode: 'nearest',
-      intersect: true
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        scaleLabel: {
-          display: false,
-          labelString: 'Month'
-        }
-      }],
-      yAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Value'
-        }
-      }]
-    }
-  };
-
-  var data = {
-      labels: MONTHS,
-      datasets: []
-  }
 
 export default class MonthChart extends React.Component {
-  constructor(props){
+    options= {
+      responsive: true,
+      title: {
+        display: true,
+        text: 'Monthly evolution per region'
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: false,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      }
+    }
+    data = {
+      labels: MONTHS,
+      datasets: []
+    }
+
+  constructor(props) {
     super(props);
-    chartData(props);
+    this.data.datasets = chartData(props);
+    this.options.title.text = props.var
   }
 
   render() {
     return (
       <div>
-        <Line height={60} data={data} options={options} />
+        <Line height={200} data={this.data} options={this.options} />
       </div>
     )
   }
 }
 
 function chartData(props) {
-  data.datasets = Object.keys(props.evolution).map(key => { 
-    return{
+   return Object.keys(props.evolution).map(key => {
+    return {
       label: key,
       backgroundColor: selectedColors[key],
       borderColor: selectedColors[key],
