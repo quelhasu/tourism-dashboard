@@ -65,14 +65,6 @@ const Navi = () => (
           </NavItem>
         ))}
       </Nav>
-
-      <Nav className="ml-auto" navbar>
-        {links.map(({ key, href, label, icon }) => (
-          <NavItem>
-            <NavLink key={key} href={href}>{label} <i className={icon}></i></NavLink>
-          </NavItem>
-        ))}
-      </Nav>
     </Navbar>
 
     <style jsx>{`

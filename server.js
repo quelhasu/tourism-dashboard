@@ -7,9 +7,17 @@ const handle = app.getRequestHandler();
 app.prepare()
 .then(() => {
   const server = express();
+
+  server.get('/national/:year', (req, res) => {
+    const actualPage = '/national'
+    const queryParams = { year: req.params.year }
+    app.render(req, res, actualPage, queryParams);
+  });
+
   server.get('*', (req, res) => {
     return handle(req, res);
   });
+
 
   server.listen(3001, (err) => {
     if (err) throw err;
