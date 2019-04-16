@@ -6,8 +6,8 @@ import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
 import Select from 'react-select';
 import NProgress from 'nprogress'
-import Link from 'next/link';
-import { Nav, NavItem, NavLink } from "reactstrap";
+import { Navbar, Nav, NavItem } from 'reactstrap';
+import Link from 'next/link'
 
 export default class National extends React.Component {
   topYear = [
@@ -34,6 +34,7 @@ export default class National extends React.Component {
         })
       }
     }
+    this.selected = JSON.parse(JSON.stringify(this.state.info));
   }
 
   static async getInitialProps(context) {
@@ -57,8 +58,8 @@ export default class National extends React.Component {
   }
 
   handleYearChange = async (selectedYear) => {
-    const res = await this.axiosProgress('http://localhost:3000/BM/national/' + selectedYear.value + '/?countries=Belgium,France&limit=5')
-    const info = await axios.get('http://localhost:3000/BM/national/2016/info')
+    const res = await this.axiosProgress(`http://localhost:3000/BM/national/${selectedYear.value}/`)
+    const info = await axios.get(`http://localhost:3000/BM/national/${selectedYear.value}/info`)
     this.setState({
       data: res.data,
       selectedYear,
@@ -74,17 +75,23 @@ export default class National extends React.Component {
         })
       }
     });
+    this.selected = JSON.parse(JSON.stringify(this.state.info));
     NProgress.done();
   }
 
   handleCountriesChange = async (newValue, actionMeta) => {
-    this.topCountries = newValue;
+    this.selected.topCountries = newValue
   }
 
+  handleRegionsChange = async (newValue, actionMeta) => {
+    this.selected.topRegions = newValue
+  }
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await this.axiosProgress(`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.topCountries.map(el => el.value).join()}`)
+    const res = await this.axiosProgress(
+      `http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&regions=${this.selected.topRegions.map(el => el.value).join()}`
+    )
     this.setState({ data: res.data });
     NProgress.done();
   }
@@ -92,8 +99,18 @@ export default class National extends React.Component {
   render() {
     const { selectedYear } = this.state;
     return (
-      
       <div className="col">
+        <div className="row">
+          <div className="col-md-11">
+            <Nav className="justify-content-center">
+              {this.topYear.map(({ value, label }) => (
+                <NavItem>
+                  <Link href={value}><a className="nav-link">{label} </a></Link>
+                </NavItem>
+              ))}
+            </Nav>
+          </div>
+        </div>
         <Menu>
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="form-group row">
@@ -104,10 +121,11 @@ export default class National extends React.Component {
                   defaultValue={this.state.info.topCountries}
                   isSearchable isClearable isMulti
                   name="countries"
+                  closeMenuOnSelect={false}
                   options={this.state.info.topCountries}
                   className="basic-multi-select"
                   classNamePrefix="select"
-                  placeholder="Coutries"
+                  placeholder="Select.."
                   onChange={this.handleCountriesChange}
                 />
               </div>
@@ -120,20 +138,20 @@ export default class National extends React.Component {
                   defaultValue={this.state.info.topRegions}
                   isMulti isClearable isSearchable
                   name="regions"
+                  closeMenuOnSelect={false}
                   options={this.state.info.topRegions}
                   className="basic-multi-select"
                   classNamePrefix="select"
+                  onChange={this.handleRegionsChange}
                 />
               </div>
             </div>
             <div className="form-group row">
-            <label className="col-md-1 col-form-label ml-auto">Year</label>
+              {/* <label className="col-md-1 col-form-label ml-auto">Year</label>
               <div className="col-md-2 ">
-                {/* <div className="col-md-2"> */}
                 <Select value={selectedYear} onChange={this.handleYearChange} options={this.topYear} />
-                {/* </div> */}
-              </div>
-              <label className="col-md-1 col-form-label">Ages</label>
+              </div> */}
+              <label className="col-md-1 col-form-label  ml-auto">Ages</label>
               <div className="col-md-2">
                 <Select
                   key={JSON.stringify(this.state.info.topAges)}
