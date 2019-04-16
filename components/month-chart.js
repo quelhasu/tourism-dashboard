@@ -46,6 +46,10 @@ export default class MonthChart extends React.Component {
     this.options.title.text = props.var
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.data.datasets = chartData(nextProps);
+  }
+
   render() {
     return (
       <div>
