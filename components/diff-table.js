@@ -14,22 +14,22 @@ export default class DiffTable extends React.Component {
             <tr>
               <th scope="col"></th>
               {Object.keys(this.props.evolution).map((value) => {
-                return (<th>{value}</th>)
+                return (<th key={`head-${value}`}>{value}</th>)
               })}
             </tr>
           </thead>
           <tbody>
             {[this.props.year, this.props.year - 1, 'diff'].map(rowVar => {
               return (
-                <tr>
-                  <th scope="row">{rowVar}</th>
+                <tr key={`body-tr-${rowVar}`}>
+                  <th key={`body-th-${rowVar}`}scope="row">{rowVar}</th>
                   {Object.keys(this.props.evolution).map((year) => {
                     var value = this.props.evolution[year][rowVar][this.props.var];
                     if (rowVar == 'diff') {
                       value = value > 0 ? `+${value}%` : `${value}%`
-                      return (<td style={{ fontWeight: "bold" }}>{value}</td>)
+                      return (<td key={`body-td-${value}-${year}`} style={{ fontWeight: "bold" }}>{value}</td>)
                     }
-                    else return (<td >{value}</td>)
+                    else return (<td key={`body-td-${value}-${year}`}>{value}</td>)
                   })}
                 </tr>
               )

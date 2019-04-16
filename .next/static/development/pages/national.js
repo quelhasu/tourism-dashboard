@@ -51,9 +51,14 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
         scope: "col"
       }), _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).map(function (value) {
-        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", null, value);
+        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
+          key: "head-".concat(value)
+        }, value);
       }))), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tbody", null, [this.props.year, this.props.year - 1, 'diff'].map(function (rowVar) {
-        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
+        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", {
+          key: "body-tr-".concat(rowVar)
+        }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
+          key: "body-th-".concat(rowVar),
           scope: "row"
         }, rowVar), _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(_this.props.evolution).map(function (year) {
           var value = _this.props.evolution[year][rowVar][_this.props.var];
@@ -61,11 +66,14 @@ function (_React$Component) {
           if (rowVar == 'diff') {
             value = value > 0 ? "+".concat(value, "%") : "".concat(value, "%");
             return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", {
+              key: "body-td-".concat(value, "-").concat(year),
               style: {
                 fontWeight: "bold"
               }
             }, value);
-          } else return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", null, value);
+          } else return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", {
+            key: "body-td-".concat(value, "-").concat(year)
+          }, value);
         }));
       }))));
     }
@@ -452,6 +460,11 @@ function (_React$Component) {
   }
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MonthChart, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.data.datasets = chartData(nextProps);
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Line"], {
@@ -74129,10 +74142,10 @@ module.exports = function(module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return National; });
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js");
-/* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js");
+/* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/asyncToGenerator */ "./node_modules/@babel/runtime-corejs2/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
@@ -74153,9 +74166,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_20__);
 
 
 
@@ -74215,19 +74228,19 @@ function (_React$Component) {
     function () {
       var _ref = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(selectedYear) {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selectedYear) {
         var res, info;
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.axiosProgress('http://localhost:3000/BM/national/' + selectedYear.value + '/?countries=Belgium,France&limit=5');
+                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(selectedYear.value, "/"));
 
               case 2:
                 res = _context.sent;
                 _context.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get('http://localhost:3000/BM/national/2016/info');
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(selectedYear.value, "/info"));
 
               case 5:
                 info = _context.sent;
@@ -74257,9 +74270,10 @@ function (_React$Component) {
                   }
                 });
 
+                _this.selected = JSON.parse(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(_this.state.info));
                 nprogress__WEBPACK_IMPORTED_MODULE_18___default.a.done();
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -74277,12 +74291,12 @@ function (_React$Component) {
     function () {
       var _ref2 = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(newValue, actionMeta) {
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(newValue, actionMeta) {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this.topCountries = newValue;
+                _this.selected.topCountries = newValue;
 
               case 1:
               case "end":
@@ -74297,25 +74311,52 @@ function (_React$Component) {
       };
     }());
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleSubmit",
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleRegionsChange",
     /*#__PURE__*/
     function () {
       var _ref3 = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee3(event) {
-        var res;
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee3$(_context3) {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(newValue, actionMeta) {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                _this.selected.topRegions = newValue;
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x4, _x5) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleSubmit",
+    /*#__PURE__*/
+    function () {
+      var _ref4 = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
+      /*#__PURE__*/
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(event) {
+        var res;
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
                 event.preventDefault();
-                _context3.next = 3;
-                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(_this.state.selectedYear.value, "/?countries=").concat(_this.topCountries.map(function (el) {
+                _context4.next = 3;
+                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(_this.state.selectedYear.value, "/?countries=").concat(_this.selected.topCountries.map(function (el) {
+                  return el.value;
+                }).join(), "&regions=").concat(_this.selected.topRegions.map(function (el) {
                   return el.value;
                 }).join()));
 
               case 3:
-                res = _context3.sent;
+                res = _context4.sent;
 
                 _this.setState({
                   data: res.data
@@ -74325,14 +74366,14 @@ function (_React$Component) {
 
               case 6:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }));
 
-      return function (_x4) {
-        return _ref3.apply(this, arguments);
+      return function (_x6) {
+        return _ref4.apply(this, arguments);
       };
     }());
 
@@ -74364,6 +74405,7 @@ function (_React$Component) {
         })
       }
     };
+    _this.selected = JSON.parse(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(_this.state.info));
     return _this;
   }
 
@@ -74373,7 +74415,24 @@ function (_React$Component) {
       var selectedYear = this.state.selectedYear;
       return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_menu__WEBPACK_IMPORTED_MODULE_16__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col-md-11"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_19__["Nav"], {
+        className: "justify-content-center"
+      }, this.topYear.map(function (_ref5) {
+        var value = _ref5.value,
+            label = _ref5.label;
+        return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_19__["NavItem"], {
+          key: "nav-navitem-".concat(label)
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_20___default.a, {
+          key: "nav-navitem-link".concat(label),
+          href: value
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", {
+          className: "nav-link"
+        }, label, " ")));
+      })))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_menu__WEBPACK_IMPORTED_MODULE_16__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
         onSubmit: this.handleSubmit.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
@@ -74382,16 +74441,17 @@ function (_React$Component) {
       }, "Countries"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-11"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17__["default"], {
-        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default()(this.state.info.topCountries),
+        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topCountries),
         defaultValue: this.state.info.topCountries,
         isSearchable: true,
         isClearable: true,
         isMulti: true,
         name: "countries",
+        closeMenuOnSelect: false,
         options: this.state.info.topCountries,
         className: "basic-multi-select",
         classNamePrefix: "select",
-        placeholder: "Coutries",
+        placeholder: "Select..",
         onChange: this.handleCountriesChange
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
@@ -74400,31 +74460,25 @@ function (_React$Component) {
       }, "Regions"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-11"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17__["default"], {
-        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default()(this.state.info.topRegions),
+        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topRegions),
         defaultValue: this.state.info.topRegions,
         isMulti: true,
         isClearable: true,
         isSearchable: true,
         name: "regions",
+        closeMenuOnSelect: false,
         options: this.state.info.topRegions,
         className: "basic-multi-select",
-        classNamePrefix: "select"
+        classNamePrefix: "select",
+        onChange: this.handleRegionsChange
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
-        className: "col-md-1 col-form-label ml-auto"
-      }, "Year"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md-2 "
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17__["default"], {
-        value: selectedYear,
-        onChange: this.handleYearChange,
-        options: this.topYear
-      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
-        className: "col-md-1 col-form-label"
+        className: "col-md-1 col-form-label  ml-auto"
       }, "Ages"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-2"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17__["default"], {
-        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default()(this.state.info.topAges),
+        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topAges),
         defaultValue: [this.state.info.topAges[0]],
         isClearable: true,
         name: "ages",
@@ -74435,7 +74489,7 @@ function (_React$Component) {
         className: "col-auto"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("button", {
         type: "submit",
-        class: "btn btn-outline-primary"
+        className: "btn btn-outline-primary"
       }, "Update"))))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_11__["default"], {
         title: "National"
       }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -74468,24 +74522,24 @@ function (_React$Component) {
     value: function () {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee4(context) {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
         var year, response, info;
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 year = Number(context.query) || 2016;
-                _context4.next = 3;
+                _context5.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/?countries=Belgium,France"));
 
               case 3:
-                response = _context4.sent;
-                _context4.next = 6;
+                response = _context5.sent;
+                _context5.next = 6;
                 return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/info"));
 
               case 6:
-                info = _context4.sent;
-                return _context4.abrupt("return", {
+                info = _context5.sent;
+                return _context5.abrupt("return", {
                   data: response.data,
                   info: info.data,
                   year: year
@@ -74493,13 +74547,13 @@ function (_React$Component) {
 
               case 8:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
-      function getInitialProps(_x5) {
+      function getInitialProps(_x7) {
         return _getInitialProps.apply(this, arguments);
       }
 

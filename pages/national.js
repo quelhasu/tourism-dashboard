@@ -104,8 +104,8 @@ export default class National extends React.Component {
           <div className="col-md-11">
             <Nav className="justify-content-center">
               {this.topYear.map(({ value, label }) => (
-                <NavItem>
-                  <Link href={value}><a className="nav-link">{label} </a></Link>
+                <NavItem key={`nav-navitem-${label}`}>
+                  <Link key={`nav-navitem-link${label}`} href={value}><a className="nav-link">{label} </a></Link>
                 </NavItem>
               ))}
             </Nav>
@@ -163,7 +163,7 @@ export default class National extends React.Component {
                 />
               </div>
               <div className="col-auto">
-                <button type="submit" class="btn btn-outline-primary">Update</button>
+                <button type="submit" className="btn btn-outline-primary">Update</button>
               </div>
             </div>
 

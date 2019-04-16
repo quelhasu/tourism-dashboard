@@ -60,8 +60,8 @@ const Navi = () => (
       </Link>
       <Nav className="mr-auto" navbar>
         {menu.map(({ key, href, label, icon }) => (
-          <NavItem>
-            <Link href={href}><a className="nav-link">{label} <i className={icon}></i></a></Link>
+          <NavItem key={key}>
+            <Link key={`link-${key}`} href={href}><a className="nav-link">{label} <i className={icon}></i></a></Link>
           </NavItem>
         ))}
       </Nav>
