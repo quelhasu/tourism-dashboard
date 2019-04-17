@@ -108,9 +108,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_10__);
-
 
 
 
@@ -157,6 +154,7 @@ function (_React$Component) {
 
     Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, GoingChart);
 
+    console.log(_props);
     _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(GoingChart).call(this, _props));
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "chartData", function (props) {
@@ -169,7 +167,7 @@ function (_React$Component) {
       _this.data.datasets[1].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
         return props.evolution[key][props.year]['Outgoing'];
       });
-      var colors = orderColors(_this.data.labels);
+      var colors = orderColors(_this.data.labels, _this.selectedColors);
       _this.data.datasets[0].backgroundColor = colors.ingoing;
       _this.data.datasets[0].borderColor = colors.ingoing;
       _this.data.datasets[1].backgroundColor = colors.outgoing;
@@ -186,6 +184,7 @@ function (_React$Component) {
         borderWidth: 1
       }]
     };
+    _this.selectedColors = _props.colors;
 
     _this.chartData(_props);
 
@@ -220,14 +219,14 @@ function (_React$Component) {
 
 
 
-function orderColors(names) {
+function orderColors(names, selectedColors) {
   var alpha = "0.3";
   var ingoing = [],
       outgoing = [];
 
   for (var i = 0; i < names.length; i++) {
-    ingoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][names[i]]);
-    outgoing.push(_utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
+    ingoing.push(selectedColors[names[i]]);
+    outgoing.push(selectedColors[names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
   }
 
   ;
@@ -389,9 +388,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
-/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_10__);
-
 
 
 
@@ -467,7 +463,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Line"], {
-        height: 200,
+        height: this.props.height,
         data: this.data,
         options: this.options
       }));
@@ -483,8 +479,8 @@ function chartData(props) {
   return _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
     return {
       label: key,
-      backgroundColor: _utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][key],
-      borderColor: _utils_colors__WEBPACK_IMPORTED_MODULE_10__["selectedColors"][key],
+      backgroundColor: props.colors[key],
+      borderColor: props.colors[key],
       data: props.evolution[key][props.var].months.map(function (el) {
         return el.low;
       }),
@@ -74168,6 +74164,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
+/* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_21__);
+
 
 
 
@@ -74494,7 +74493,8 @@ function (_React$Component) {
         title: "National"
       }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
         evolution: this.state.data['Evolution'],
-        year: this.state.selectedYear['value']
+        year: this.state.selectedYear['value'],
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
@@ -74508,13 +74508,17 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        height: "200",
         evolution: this.state.data['Monthly'],
-        var: "Ingoing"
+        var: "Ingoing",
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        height: "200",
         evolution: this.state.data['Monthly'],
-        var: "Outgoing"
+        var: "Outgoing",
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       }))));
     }
   }], [{
@@ -74576,7 +74580,7 @@ function (_React$Component) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-exports.selectedColors = {
+exports.nationalSelectedColors = {
   "Aquitaine": 'rgb(181, 46, 58)',
   "Midi-Pyrénées": 'rgb(240, 140, 60)',
   "Poitou-Charentes": 'rgb(255, 99, 132)',
@@ -74589,10 +74593,22 @@ exports.selectedColors = {
   "Bretagne": 'rgb(13, 32, 98)',
   "Limousin": 'rgb(61, 138, 63)'
 };
+exports.internationalSelectedColors = {
+  "France": 'rgb(54, 162, 235)',
+  "-": 'rgb(201, 203, 207)',
+  "United Kingdom": 'rgb(255, 99, 132)',
+  "United States": 'rgb(255, 205, 86)',
+  "Spain": 'rgb(255, 159, 64)',
+  "Belgium": 'rgb(153, 102, 255)',
+  "Italy": 'rgb(75, 192, 192)',
+  "Switzerland": 'rgb(240, 240, 240)',
+  "Australia": 'rgb(240, 140, 60)',
+  "Germany": 'rgb(206, 61, 107)'
+};
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!*************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fnational&absolutePagePath=%2FUsers%2Fqunnamed%2FS8-stage%2Ftourism-dashboard%2Fpages%2Fnational.js ***!
   \*************************************************************************************************************************************************/
@@ -74615,5 +74631,5 @@ module.exports = dll_7aff549c98b978433226;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js"]]]));;
+},[[2,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=national.js.map

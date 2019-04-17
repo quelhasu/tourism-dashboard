@@ -14,6 +14,12 @@ app.prepare()
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/international/:year', (req, res) => {
+    const actualPage = '/international'
+    const queryParams = { year: req.params.year }
+    app.render(req, res, actualPage, queryParams);
+  });
+
   server.get('*', (req, res) => {
     return handle(req, res);
   });
