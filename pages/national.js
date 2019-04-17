@@ -15,32 +15,34 @@ export default class National extends React.Component {
     { value: 2015, label: '2015' },
     { value: 2016, label: '2016' }
   ]
+  
+  state = {
+    selectedYear: { value: this.props.year, label: this.props.year },
+    data: this.props.data,
+    info: {
+      topCountries: this.props.info.topCountries.map(el => {
+        return { value: el, label: el }
+      }),
+      topRegions: this.props.info.topRegions.map(el => {
+        return { value: el, label: el }
+      }),
+      topAges: this.props.info.topAges.map(el => {
+        return { value: el, label: el }
+      })
+    }
+  }
 
   constructor(props) {
     super(props);
     this.handleYearChange = this.handleYearChange.bind(this);
-    this.state = {
-      selectedYear: { value: props.year, label: props.year },
-      data: props.data,
-      info: {
-        topCountries: props.info.topCountries.map(el => {
-          return { value: el, label: el }
-        }),
-        topRegions: props.info.topRegions.map(el => {
-          return { value: el, label: el }
-        }),
-        topAges: props.info.topAges.map(el => {
-          return { value: el, label: el }
-        })
-      }
-    }
     this.selected = JSON.parse(JSON.stringify(this.state.info));
   }
 
-  static async getInitialProps(context) {
-    const year = Number(context.query) || 2016
+  static async getInitialProps({ req }) {
+    const year = Number(req.params.year) || 2016
     const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
-    const info = await axios.get(`http://localhost:3000/BM/national/${year}/info`)
+    const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
+
     return {
       data: response.data,
       info: info.data,
@@ -105,7 +107,7 @@ export default class National extends React.Component {
             <Nav className="justify-content-center">
               {this.topYear.map(({ value, label }) => (
                 <NavItem key={`nav-navitem-${label}`}>
-                  <Link key={`nav-navitem-link${label}`} href={value}><a className="nav-link">{label} </a></Link>
+                  <Link key={`nav-navitem-link${label}`} href={`/${value}`}><a className="nav-link">{label} </a></Link>
                 </NavItem>
               ))}
             </Nav>

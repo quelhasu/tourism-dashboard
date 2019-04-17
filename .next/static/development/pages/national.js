@@ -200,13 +200,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      this;
-
-      _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).forEach(function (key, i) {// console.log(this.props.evolution[key][this.props.year])
-        // console.log(i, this.props.evolution[key])
-        // if(i == 1) return props.evolution[year]['Ingoing']
-      });
-
+      // this
+      // Object.keys(this.props.evolution).forEach((key, i) => {
+      //   // console.log(this.props.evolution[key][this.props.year])
+      //   // console.log(i, this.props.evolution[key])
+      //   // if(i == 1) return props.evolution[year]['Ingoing']
+      // });
       return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Bar"], {
         data: this.data,
         width: 100,
@@ -74214,6 +74213,34 @@ function (_React$Component) {
       label: '2016'
     }]);
 
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "state", {
+      selectedYear: {
+        value: _this.props.year,
+        label: _this.props.year
+      },
+      data: _this.props.data,
+      info: {
+        topCountries: _this.props.info.topCountries.map(function (el) {
+          return {
+            value: el,
+            label: el
+          };
+        }),
+        topRegions: _this.props.info.topRegions.map(function (el) {
+          return {
+            value: el,
+            label: el
+          };
+        }),
+        topAges: _this.props.info.topAges.map(function (el) {
+          return {
+            value: el,
+            label: el
+          };
+        })
+      }
+    });
+
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "axiosProgress", function (url) {
       console.log('%c' + url, 'color: blue');
       ;
@@ -74378,33 +74405,6 @@ function (_React$Component) {
     }());
 
     _this.handleYearChange = _this.handleYearChange.bind(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this));
-    _this.state = {
-      selectedYear: {
-        value: props.year,
-        label: props.year
-      },
-      data: props.data,
-      info: {
-        topCountries: props.info.topCountries.map(function (el) {
-          return {
-            value: el,
-            label: el
-          };
-        }),
-        topRegions: props.info.topRegions.map(function (el) {
-          return {
-            value: el,
-            label: el
-          };
-        }),
-        topAges: props.info.topAges.map(function (el) {
-          return {
-            value: el,
-            label: el
-          };
-        })
-      }
-    };
     _this.selected = JSON.parse(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(_this.state.info));
     return _this;
   }
@@ -74428,7 +74428,7 @@ function (_React$Component) {
           key: "nav-navitem-".concat(label)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_20___default.a, {
           key: "nav-navitem-link".concat(label),
-          href: value
+          href: "/".concat(value)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", {
           className: "nav-link"
         }, label, " ")));
@@ -74522,22 +74522,23 @@ function (_React$Component) {
     value: function () {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
-        var year, response, info;
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref6) {
+        var req, year, response, info;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                year = Number(context.query) || 2016;
-                _context5.next = 3;
+                req = _ref6.req;
+                year = Number(req.params.year) || 2016;
+                _context5.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/?countries=Belgium,France"));
 
-              case 3:
+              case 4:
                 response = _context5.sent;
-                _context5.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/info"));
+                _context5.next = 7;
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/info/?limit=10"));
 
-              case 6:
+              case 7:
                 info = _context5.sent;
                 return _context5.abrupt("return", {
                   data: response.data,
@@ -74545,7 +74546,7 @@ function (_React$Component) {
                   year: year
                 });
 
-              case 8:
+              case 9:
               case "end":
                 return _context5.stop();
             }

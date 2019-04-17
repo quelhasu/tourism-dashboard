@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import { selectedColors } from "../utils/colors";
+
 const options = {
   datasetFill: true,
   legend: {
@@ -24,8 +25,6 @@ const options = {
     }]
   }
 }
-
-
 
 export default class GoingChart extends React.Component {
 
@@ -72,12 +71,12 @@ export default class GoingChart extends React.Component {
   }
 
   render() {
-    this
-    Object.keys(this.props.evolution).forEach((key, i) => {
-      // console.log(this.props.evolution[key][this.props.year])
-      // console.log(i, this.props.evolution[key])
-      // if(i == 1) return props.evolution[year]['Ingoing']
-    });
+    // this
+    // Object.keys(this.props.evolution).forEach((key, i) => {
+    //   // console.log(this.props.evolution[key][this.props.year])
+    //   // console.log(i, this.props.evolution[key])
+    //   // if(i == 1) return props.evolution[year]['Ingoing']
+    // });
     return (
       <div>
         <Bar
@@ -97,7 +96,6 @@ function orderColors(names) {
   var ingoing = [],
     outgoing = [];
   for (var i = 0; i < names.length; i++) {
-
     ingoing.push(selectedColors[names[i]]);
     outgoing.push(selectedColors[names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
   };
