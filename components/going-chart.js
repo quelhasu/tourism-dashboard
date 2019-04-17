@@ -1,5 +1,4 @@
 import { Bar } from 'react-chartjs-2';
-import { selectedColors } from "../utils/colors";
 
 const options = {
   datasetFill: true,
@@ -39,7 +38,7 @@ export default class GoingChart extends React.Component {
       return props.evolution[key][props.year]['Outgoing']
     })
   
-    const colors = orderColors(this.data.labels)
+    const colors = orderColors(this.data.labels, this.selectedColors)
   
     this.data.datasets[0].backgroundColor = colors.ingoing
     this.data.datasets[0].borderColor = colors.ingoing
@@ -49,6 +48,7 @@ export default class GoingChart extends React.Component {
   }
 
   constructor(props) {
+    console.log(props);
     super(props);
     this.data = {
       labels:'',
@@ -63,6 +63,7 @@ export default class GoingChart extends React.Component {
         }
       ]
     }
+    this.selectedColors = props.colors
     this.chartData(props);
   }
 
@@ -91,7 +92,7 @@ export default class GoingChart extends React.Component {
 
 }
 
-function orderColors(names) {
+function orderColors(names, selectedColors) {
   var alpha = "0.3"
   var ingoing = [],
     outgoing = [];

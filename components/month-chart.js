@@ -1,5 +1,4 @@
 import { Line } from 'react-chartjs-2';
-import { selectedColors } from "../utils/colors";
 
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -53,7 +52,7 @@ export default class MonthChart extends React.Component {
   render() {
     return (
       <div>
-        <Line height={200} data={this.data} options={this.options} />
+        <Line height={this.props.height} data={this.data} options={this.options} />
       </div>
     )
   }
@@ -63,8 +62,8 @@ function chartData(props) {
    return Object.keys(props.evolution).map(key => {
     return {
       label: key,
-      backgroundColor: selectedColors[key],
-      borderColor: selectedColors[key],
+      backgroundColor: props.colors[key],
+      borderColor: props.colors[key],
       data: props.evolution[key][props.var].months.map(el => el.low),
       fill: false
     }

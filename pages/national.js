@@ -8,6 +8,7 @@ import Select from 'react-select';
 import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
+import { nationalSelectedColors } from '../utils/colors'
 
 export default class National extends React.Component {
   topYear = [
@@ -174,17 +175,17 @@ export default class National extends React.Component {
 
         <Head title="National" />
         <h1>National</h1>
-        <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} />
+        <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors}/>
 
         <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
         <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
 
         <div className="row">
           <div className="col-md-6">
-            <MonthChart evolution={this.state.data['Monthly']} var='Ingoing' />
+            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors}/>
           </div>
           <div className="col-md-6">
-            <MonthChart evolution={this.state.data['Monthly']} var='Outgoing' />
+            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
           </div>
         </div>
       </div>
