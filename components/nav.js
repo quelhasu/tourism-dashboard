@@ -43,7 +43,7 @@ const menu = [
   { href: '/stats', label: 'Stats', icon:''},
   { href: '/national/2016', label: 'National', icon: '' },
   { href: '/international/2016', label: 'International', icon: '' },
-  { href: '#', label: 'Grouping', icon: '' }
+  { href: '/grouping/2016/2/gironde', label: 'Grouping', icon: '' }
 ].map(link => {
   link.key = `menu-link-${link.href}-${link.label}`
   return link

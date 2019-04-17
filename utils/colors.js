@@ -24,3 +24,16 @@ exports.internationalSelectedColors = {
 	"Australia":'rgb(240, 140, 60)',
 	"Germany":'rgb(206, 61, 107)'
 };
+
+exports.groupingSelectedColors = {
+	"Bordeaux":'rgb(54, 162, 235)',
+	"Arcachon":'rgb(201, 203, 207)',
+	"Libourne":'rgb(255, 99, 132)',
+	"Lesparre-Médoc":'rgb(255, 205, 86)',
+	"Langon": 'rgb(255, 159, 64)',
+	"Blaye": 'rgb(153, 102, 255)',
+	"Bayonne":'rgb(75, 192, 192)',
+	"Mont-de-Marsan":'rgb(230, 230, 230)',
+	"Sarlat-la-Canéda":'rgb(240, 140, 60)',
+	"Dax":'rgb(206, 61, 107)'
+};

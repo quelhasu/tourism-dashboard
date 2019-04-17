@@ -1,6 +1,6 @@
 import Head from '../components/head'
 import axios from 'axios'
-import ReviewChart from '../components/review-chart'
+import GoingChart from '../components/going-chart'
 import DiffTable from '../components/diff-table';
 import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
@@ -8,20 +8,25 @@ import Select from 'react-select';
 import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
-import { internationalSelectedColors } from '../utils/colors'
+import { groupingSelectedColors } from '../utils/colors'
 
-export default class International extends React.Component {
+export default class Grouping extends React.Component {
   topYear = [
     { value: 2014, label: '2014' },
     { value: 2015, label: '2015' },
     { value: 2016, label: '2016' }
   ]
-
+  
   state = {
     selectedYear: { value: this.props.year, label: this.props.year },
+    name: { value: this.props.name, label:this.props.name },
+    dep: { value: this.props.dep, label:this.props.dep },
     data: this.props.data,
     info: {
       topCountries: this.props.info.topCountries.map(el => {
+        return { value: el, label: el }
+      }),
+      topAreas: this.props.info.topAreas.map(el => {
         return { value: el, label: el }
       }),
       topAges: this.props.info.topAges.map(el => {
@@ -38,18 +43,22 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/international/${year}/?countries=Belgium,France`);
-    const info = await axios.get(`http://localhost:3000/BM/international/${year}/info/?limit=10`)
+    const name = req.params.name || 2
+    const dep = req.params.dep || 'Gironde'
+    const response = await axios.get(`http://localhost:3000/BM/grouping/${year}/${name}/${dep}/?countries=Belgium,France`);
+    const info = await axios.get(`http://localhost:3000/BM/grouping/${year}/${name}/${dep}/info/?limit=10`)
 
     return {
       data: response.data,
       info: info.data,
-      year: year
+      year: year,
+      name: name,
+      dep: dep
     }
   }
 
   axiosProgress = (url) => {
-    console.log('%c' + url, 'color: blue');;
+    console.log('%c' + url, 'color: orange');;
     NProgress.start();
     return axios.get(url)
       .then(res => {
@@ -58,13 +67,16 @@ export default class International extends React.Component {
   }
 
   handleYearChange = async (selectedYear) => {
-    const res = await this.axiosProgress(`http://localhost:3000/BM/international/${selectedYear.value}/`)
-    const info = await axios.get(`http://localhost:3000/BM/international/${selectedYear.value}/info`)
+    const res = await this.axiosProgress(`http://localhost:3000/BM/grouping/${selectedYear.value}/${this.state.name.value}/${this.state.dep.value}/`)
+    const info = await axios.get(`http://localhost:3000/BM/grouping/${selectedYear.value}/${this.state.name.value}/${this.state.dep.value}/info`)
     this.setState({
       data: res.data,
       selectedYear,
       info: {
         topCountries: info.data.topCountries.map(el => {
+          return { value: el, label: el }
+        }),
+        topAreas: info.data.topAreas.map(el => {
           return { value: el, label: el }
         }),
         topAges: info.data.topAges.map(el => {
@@ -80,14 +92,14 @@ export default class International extends React.Component {
     this.selected.topCountries = newValue
   }
 
-  handleRegionsChange = async (newValue, actionMeta) => {
-    this.selected.topRegions = newValue
+  handleAreasChange = async (newValue, actionMeta) => {
+    this.selected.topAreas = newValue
   }
 
   handleSubmit = async (event) => {
     event.preventDefault();
     const res = await this.axiosProgress(
-      `http://localhost:3000/BM/international/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}`
+      `http://localhost:3000/BM/grouping/${this.state.selectedYear.value}/${this.state.name.value}/${this.state.dep.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`
     )
     this.setState({ data: res.data });
     NProgress.done();
@@ -102,7 +114,7 @@ export default class International extends React.Component {
             <Nav className="justify-content-center">
               {this.topYear.map(({ value, label }) => (
                 <NavItem key={`nav-navitem-${label}`}>
-                  <Link key={`nav-navitem-link${label}`} href={`/${value}`}><a className="nav-link">{label} </a></Link>
+                  <Link key={`nav-navitem-link${label}`} href={`/${value}/${this.state.name.value}/${this.state.dep.value}`}><a className="nav-link">{label} </a></Link>
                 </NavItem>
               ))}
             </Nav>
@@ -124,6 +136,22 @@ export default class International extends React.Component {
                   classNamePrefix="select"
                   placeholder="Select.."
                   onChange={this.handleCountriesChange}
+                />
+              </div>
+            </div>
+            <div className="form-group row">
+              <label className="col-md-1 col-form-label">Areas</label>
+              <div className="col-md-11">
+                <Select
+                  key={JSON.stringify(this.state.info.topAreas)}
+                  defaultValue={this.state.info.topAreas}
+                  isMulti isClearable isSearchable
+                  name="regions"
+                  closeMenuOnSelect={false}
+                  options={this.state.info.topAreas}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={this.handleAreasChange}
                 />
               </div>
             </div>
@@ -151,14 +179,21 @@ export default class International extends React.Component {
           </form>
         </Menu>
 
-        <Head title="International" />
-        <h1>International</h1>
-        <ReviewChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
+        <Head title="Grouping" />
+        <h1>Grouping</h1>
+        <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={groupingSelectedColors}/>
 
-        <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
+        <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
+        <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
 
-        <MonthChart height={80} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-
+        <div className="row">
+          <div className="col-md-6">
+            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Ingoing' colors={groupingSelectedColors}/>
+          </div>
+          <div className="col-md-6">
+            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Outgoing' colors={groupingSelectedColors} />
+          </div>
+        </div>
       </div>
     )
   }

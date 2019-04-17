@@ -64,7 +64,7 @@ function chartData(props) {
       label: key,
       backgroundColor: props.colors[key],
       borderColor: props.colors[key],
-      data: props.evolution[key][props.var].months.map(el => el.low),
+      data: props.evolution[key][props.var].months.map(el => {return el != null ? el.low : 0}),
       fill: false
     }
   })

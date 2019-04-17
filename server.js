@@ -14,6 +14,12 @@ app.prepare()
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/grouping/:year/:name/:dep', (req, res )=> {
+    const actualPage = '/grouping'
+    const queryParams = { year: req.params.year, name: req.params.name, dep: req.params.dep }
+    app.render(req, res, actualPage, queryParams);
+  })
+
   server.get('/international/:year', (req, res) => {
     const actualPage = '/international'
     const queryParams = { year: req.params.year }
