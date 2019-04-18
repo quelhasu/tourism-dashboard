@@ -90,10 +90,19 @@ export default class National extends React.Component {
     this.selected.topRegions = newValue
   }
 
+  handleAgesRange = async (newValue, actionMeta) => {
+    this.selected.topAges = newValue || { value: "-", label: '-' }
+    console.log(this.selected.topAges);
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
     const res = await this.axiosProgress(
-      `http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&regions=${this.selected.topRegions.map(el => el.value).join()}`
+      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?\
+      countries=${this.selected.topCountries.map(el => el.value).join()}&\
+      regions=${this.selected.topRegions.map(el => el.value).join()}&\
+      ages=${this.selected.topAges.value}`)
+      .replace(/ /g,"")
     )
     this.setState({ data: res.data });
     NProgress.done();
@@ -159,10 +168,11 @@ export default class National extends React.Component {
                 <Select
                   key={JSON.stringify(this.state.info.topAges)}
                   defaultValue={[this.state.info.topAges[0]]}
-                  isClearable name="ages"
+                  name="ages"
                   options={this.state.info.topAges}
                   className="basic-multi-select"
                   classNamePrefix="select"
+                  onChange={this.handleAgesRange}
                 />
               </div>
               <div className="col-auto">

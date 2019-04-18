@@ -17,11 +17,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/grouping": [
+    "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/index": [
+    "/national": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

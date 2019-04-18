@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2212,16 +2212,16 @@ module.exports = __webpack_require__(/*! ./dist/style */ "./node_modules/styled-
 
 /***/ }),
 
-/***/ "./pages/grouping.js":
+/***/ "./pages/national.js":
 /*!***************************!*\
-  !*** ./pages/grouping.js ***!
+  !*** ./pages/national.js ***!
   \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Grouping; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return National; });
 /* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js");
 /* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
@@ -2276,17 +2276,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Grouping =
+var National =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__["default"])(Grouping, _React$Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__["default"])(National, _React$Component);
 
-  function Grouping(props) {
+  function National(props) {
     var _this;
 
-    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Grouping);
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, National);
 
-    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(Grouping).call(this, props));
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(National).call(this, props));
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "topYear", [{
       value: 2014,
@@ -2304,14 +2304,6 @@ function (_React$Component) {
         value: _this.props.year,
         label: _this.props.year
       },
-      name: {
-        value: _this.props.name,
-        label: _this.props.name
-      },
-      dep: {
-        value: _this.props.dep,
-        label: _this.props.dep
-      },
       data: _this.props.data,
       info: {
         topCountries: _this.props.info.topCountries.map(function (el) {
@@ -2320,7 +2312,7 @@ function (_React$Component) {
             label: el
           };
         }),
-        topAreas: _this.props.info.topAreas.map(function (el) {
+        topRegions: _this.props.info.topRegions.map(function (el) {
           return {
             value: el,
             label: el
@@ -2336,7 +2328,7 @@ function (_React$Component) {
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "axiosProgress", function (url) {
-      console.log('%c' + url, 'color: orange');
+      console.log('%c' + url, 'color: blue');
       ;
       nprogress__WEBPACK_IMPORTED_MODULE_18___default.a.start();
       return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(url).then(function (res) {
@@ -2356,12 +2348,12 @@ function (_React$Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.axiosProgress("http://localhost:3000/BM/grouping/".concat(selectedYear.value, "/").concat(_this.state.name.value, "/").concat(_this.state.dep.value, "/"));
+                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(selectedYear.value, "/"));
 
               case 2:
                 res = _context.sent;
                 _context.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/grouping/".concat(selectedYear.value, "/").concat(_this.state.name.value, "/").concat(_this.state.dep.value, "/info"));
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(selectedYear.value, "/info"));
 
               case 5:
                 info = _context.sent;
@@ -2376,7 +2368,7 @@ function (_React$Component) {
                         label: el
                       };
                     }),
-                    topAreas: info.data.topAreas.map(function (el) {
+                    topRegions: info.data.topRegions.map(function (el) {
                       return {
                         value: el,
                         label: el
@@ -2432,7 +2424,7 @@ function (_React$Component) {
       };
     }());
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleAreasChange",
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleRegionsChange",
     /*#__PURE__*/
     function () {
       var _ref3 = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
@@ -2442,7 +2434,7 @@ function (_React$Component) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this.selected.topAreas = newValue;
+                _this.selected.topRegions = newValue;
 
               case 1:
               case "end":
@@ -2457,27 +2449,56 @@ function (_React$Component) {
       };
     }());
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleSubmit",
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleAgesRange",
     /*#__PURE__*/
     function () {
       var _ref4 = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(event) {
-        var res;
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(newValue, actionMeta) {
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
+                _this.selected.topAges = newValue || {
+                  value: "-",
+                  label: '-'
+                };
+                console.log(_this.selected.topAges);
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      return function (_x6, _x7) {
+        return _ref4.apply(this, arguments);
+      };
+    }());
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "handleSubmit",
+    /*#__PURE__*/
+    function () {
+      var _ref5 = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
+      /*#__PURE__*/
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(event) {
+        var res;
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
                 event.preventDefault();
-                _context4.next = 3;
-                return _this.axiosProgress("http://localhost:3000/BM/grouping/".concat(_this.state.selectedYear.value, "/").concat(_this.state.name.value, "/").concat(_this.state.dep.value, "/?countries=").concat(_this.selected.topCountries.map(function (el) {
+                _context5.next = 3;
+                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(_this.state.selectedYear.value, "/?      countries=").concat(_this.selected.topCountries.map(function (el) {
                   return el.value;
-                }).join(), "&areas=").concat(_this.selected.topAreas.map(function (el) {
+                }).join(), "&      regions=").concat(_this.selected.topRegions.map(function (el) {
                   return el.value;
-                }).join()));
+                }).join(), "&      ages=").concat(_this.selected.topAges.value).replace(/ /g, ""));
 
               case 3:
-                res = _context4.sent;
+                res = _context5.sent;
 
                 _this.setState({
                   data: res.data
@@ -2487,14 +2508,14 @@ function (_React$Component) {
 
               case 6:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
-      return function (_x6) {
-        return _ref4.apply(this, arguments);
+      return function (_x8) {
+        return _ref5.apply(this, arguments);
       };
     }());
 
@@ -2503,11 +2524,9 @@ function (_React$Component) {
     return _this;
   }
 
-  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(Grouping, [{
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(National, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var selectedYear = this.state.selectedYear;
       return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col"
@@ -2517,14 +2536,14 @@ function (_React$Component) {
         className: "col-md-11"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_19__["Nav"], {
         className: "justify-content-center"
-      }, this.topYear.map(function (_ref5) {
-        var value = _ref5.value,
-            label = _ref5.label;
+      }, this.topYear.map(function (_ref6) {
+        var value = _ref6.value,
+            label = _ref6.label;
         return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_19__["NavItem"], {
           key: "nav-navitem-".concat(label)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_20___default.a, {
           key: "nav-navitem-link".concat(label),
-          href: "/".concat(value, "/").concat(_this2.state.name.value, "/").concat(_this2.state.dep.value)
+          href: "/".concat(value)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", {
           className: "nav-link"
         }, label, " ")));
@@ -2553,20 +2572,20 @@ function (_React$Component) {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
         className: "col-md-1 col-form-label"
-      }, "Areas"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+      }, "Regions"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-11"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17___default.a, {
-        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topAreas),
-        defaultValue: this.state.info.topAreas,
+        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topRegions),
+        defaultValue: this.state.info.topRegions,
         isMulti: true,
         isClearable: true,
         isSearchable: true,
         name: "regions",
         closeMenuOnSelect: false,
-        options: this.state.info.topAreas,
+        options: this.state.info.topRegions,
         className: "basic-multi-select",
         classNamePrefix: "select",
-        onChange: this.handleAreasChange
+        onChange: this.handleRegionsChange
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
@@ -2576,22 +2595,22 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17___default.a, {
         key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topAges),
         defaultValue: [this.state.info.topAges[0]],
-        isClearable: true,
         name: "ages",
         options: this.state.info.topAges,
         className: "basic-multi-select",
-        classNamePrefix: "select"
+        classNamePrefix: "select",
+        onChange: this.handleAgesRange
       })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-auto"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("button", {
         type: "submit",
         className: "btn btn-outline-primary"
       }, "Update"))))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        title: "Grouping"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "Grouping"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        title: "National"
+      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["groupingSelectedColors"]
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
@@ -2608,14 +2627,14 @@ function (_React$Component) {
         height: "200",
         evolution: this.state.data['Monthly'],
         var: "Ingoing",
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["groupingSelectedColors"]
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
         height: "200",
         evolution: this.state.data['Monthly'],
         var: "Outgoing",
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["groupingSelectedColors"]
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       }))));
     }
   }], [{
@@ -2623,43 +2642,39 @@ function (_React$Component) {
     value: function () {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref6) {
-        var req, year, name, dep, response, info;
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref7) {
+        var req, year, response, info;
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                req = _ref6.req;
+                req = _ref7.req;
                 year = Number(req.params.year) || 2016;
-                name = req.params.name || 2;
-                dep = req.params.dep || 'Gironde';
-                _context5.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/grouping/".concat(year, "/").concat(name, "/").concat(dep, "/?countries=Belgium,France"));
+                _context6.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/?countries=Belgium,France"));
 
-              case 6:
-                response = _context5.sent;
-                _context5.next = 9;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/grouping/".concat(year, "/").concat(name, "/").concat(dep, "/info/?limit=10"));
+              case 4:
+                response = _context6.sent;
+                _context6.next = 7;
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/info/?limit=10"));
 
-              case 9:
-                info = _context5.sent;
-                return _context5.abrupt("return", {
+              case 7:
+                info = _context6.sent;
+                return _context6.abrupt("return", {
                   data: response.data,
                   info: info.data,
-                  year: year,
-                  name: name,
-                  dep: dep
+                  year: year
                 });
 
-              case 11:
+              case 9:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5);
+        }, _callee6);
       }));
 
-      function getInitialProps(_x7) {
+      function getInitialProps(_x9) {
         return _getInitialProps.apply(this, arguments);
       }
 
@@ -2667,7 +2682,7 @@ function (_React$Component) {
     }()
   }]);
 
-  return Grouping;
+  return National;
 }(react__WEBPACK_IMPORTED_MODULE_10___default.a.Component);
 
 
@@ -2721,14 +2736,14 @@ exports.groupingSelectedColors = {
 
 /***/ }),
 
-/***/ 6:
+/***/ 3:
 /*!*********************************!*\
-  !*** multi ./pages/grouping.js ***!
+  !*** multi ./pages/national.js ***!
   \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/qunnamed/S8-stage/tourism-dashboard/pages/grouping.js */"./pages/grouping.js");
+module.exports = __webpack_require__(/*! /Users/qunnamed/S8-stage/tourism-dashboard/pages/national.js */"./pages/national.js");
 
 
 /***/ }),
@@ -2976,4 +2991,4 @@ module.exports = require("url");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=grouping.js.map
+//# sourceMappingURL=national.js.map
