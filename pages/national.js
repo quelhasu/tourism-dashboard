@@ -9,6 +9,7 @@ import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
 import { nationalSelectedColors } from '../utils/colors'
+import { national, nationalInfo } from '../test/database.js'
 
 export default class National extends React.Component {
   topYear = [
@@ -16,7 +17,7 @@ export default class National extends React.Component {
     { value: 2015, label: '2015' },
     { value: 2016, label: '2016' }
   ]
-  
+
   state = {
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
@@ -41,12 +42,12 @@ export default class National extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
-    const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
+    // const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
+    // const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
 
     return {
-      data: response.data,
-      info: info.data,
+      data: national,
+      info: nationalInfo,
       year: year
     }
   }
@@ -91,8 +92,7 @@ export default class National extends React.Component {
   }
 
   handleAgesRange = async (newValue, actionMeta) => {
-    this.selected.topAges = newValue || { value: "-", label: '-' }
-    console.log(this.selected.topAges);
+    this.selected.topAges = newValue
   }
 
   handleSubmit = async (event) => {
@@ -101,8 +101,8 @@ export default class National extends React.Component {
       (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?\
       countries=${this.selected.topCountries.map(el => el.value).join()}&\
       regions=${this.selected.topRegions.map(el => el.value).join()}&\
-      ages=${this.selected.topAges.value}`)
-      .replace(/ /g,"")
+      ages=${this.selected.topAges.value || "-"}`)
+        .replace(/ /g, "")
     )
     this.setState({ data: res.data });
     NProgress.done();
@@ -117,7 +117,7 @@ export default class National extends React.Component {
             <Nav className="justify-content-center">
               {this.topYear.map(({ value, label }) => (
                 <NavItem key={`nav-navitem-${label}`}>
-                  <Link key={`nav-navitem-link${label}`} href={`/${value}`}><a className="nav-link">{label} </a></Link>
+                  <Link key={`nav-navitem-link${label}`} href={`${value}`}><a className="nav-link">{label} </a></Link>
                 </NavItem>
               ))}
             </Nav>
@@ -185,16 +185,33 @@ export default class National extends React.Component {
 
         <Head title="National" />
         <h1>National</h1>
-        <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors}/>
-
-        <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
-        <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
 
         <div className="row">
-          <div className="col-md-6">
-            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors}/>
+          <div className="col dataViz">
+            <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
           </div>
-          <div className="col-md-6">
+        </div>
+        <div className="row">
+          <div className="col dataViz">
+            <h5><i class="fas fa-plane-arrival"></i> Ingoing evolution</h5>
+            <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
+          </div>
+          <div className="col dataViz">
+            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
+          </div>  
+        </div>
+        <div className="row">
+          <div className="col dataViz">
+          <h5><i class="fas fa-plane-departure"></i> Outgoing evolution</h5>
+            <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col dataViz">
+            <MonthChart height='200' evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
+          </div>
+          <div className="col dataViz">
             <MonthChart height='200' evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
           </div>
         </div>

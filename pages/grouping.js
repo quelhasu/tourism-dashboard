@@ -97,7 +97,7 @@ export default class Grouping extends React.Component {
   }
 
   handleAgesRange = async (newValue, actionMeta) => {
-    this.selected.topAges = newValue || { value: "-", label: '-' }
+    this.selected.topAges = newValue
   }
 
   handleSubmit = async (event) => {
@@ -106,7 +106,7 @@ export default class Grouping extends React.Component {
       (`http://localhost:3000/BM/grouping/${this.state.selectedYear.value}/${this.state.name.value}/${this.state.dep.value}/?\
       countries=${this.selected.topCountries.map(el => el.value).join()}&\
       areas=${this.selected.topAreas.map(el => el.value).join()}&\
-      ages=${this.selected.topAges.value}`)
+      ages=${this.selected.topAges.value || "-"}`)
       .replace(/ /g,"")
     )
     this.setState({ data: res.data });

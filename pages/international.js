@@ -84,12 +84,16 @@ export default class International extends React.Component {
     this.selected.topRegions = newValue
   }
 
+  handleAgesRange = async (newValue, actionMeta) => {
+    this.selected.topAges = newValue
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
     const res = await this.axiosProgress(
       (`http://localhost:3000/BM/international/${this.state.selectedYear.value}/?\
       countries=${this.selected.topCountries.map(el => el.value).join()}&\
-      ages=${this.selected.topAges.value}`)
+      ages=${this.selected.topAges.value || "-"}`)
       .replace(/ /g,"")
     )
     this.setState({ data: res.data });

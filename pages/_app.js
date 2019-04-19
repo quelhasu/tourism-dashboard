@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import Router from 'next/router'
 import Navi from '../components/nav'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "../static/style.scss";
 
 const linkStyle = {
   margin: '0 10px 0 0'
@@ -35,12 +36,13 @@ export default class MyApp extends App {
         <style jsx>{`
             :global(body) {
                 margin: 0;
+                background: #f7f7f7;
                 // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
                 //   Helvetica, sans-serif;
                 font-family: "Montserrat", sans-serif;
-                padding: 35px;
+                padding: 10px;
                 padding-top: 70px;
-              }   
+              }
           `}</style>
         {/* <div style={{ marginBottom: 20 }}>
           <Link href='/'>

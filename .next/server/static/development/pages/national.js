@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -136,14 +136,17 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h3", null, this.props.var, " evolution"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("table", {
+      var length = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).length;
+
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("table", {
         style: {
           fontSize: 'small'
         },
         className: "table"
       }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
         scope: "col"
-      }), _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).map(function (value) {
+      }), _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).map(function (value, i) {
+        console.log('lenght: ', Math.ceil(length - 1 / 2));
         return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
           key: "head-".concat(value)
         }, value);
@@ -157,13 +160,13 @@ function (_React$Component) {
           var value = _this.props.evolution[year][rowVar][_this.props.var];
 
           if (rowVar == 'diff') {
-            value = value > 0 ? "+".concat(value, "%") : "".concat(value, "%");
             return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", {
               key: "body-td-".concat(value, "-").concat(year),
               style: {
-                fontWeight: "bold"
+                fontWeight: "bold",
+                color: value > 0 ? 'LimeGreen	' : 'red'
               }
-            }, value);
+            }, value > 0 ? "+".concat(value, "%") : "".concat(value, "%"));
           } else return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", {
             key: "body-td-".concat(value, "-").concat(year)
           }, value);
@@ -224,7 +227,8 @@ var options = {
       },
       ticks: {
         stepSize: 50
-      }
+      },
+      stacked: true
     }],
     yAxes: [{
       ticks: {
@@ -232,8 +236,9 @@ var options = {
         callback: function callback(value, index, values) {
           return value + "%";
         },
-        stepSize: 2
-      }
+        stepSize: 5
+      },
+      stacked: true
     }]
   }
 };
@@ -2253,6 +2258,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
 /* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _test_database_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../test/database.js */ "./test/database.js");
+/* harmony import */ var _test_database_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_test_database_js__WEBPACK_IMPORTED_MODULE_22__);
+
 
 
 
@@ -2459,13 +2467,9 @@ function (_React$Component) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _this.selected.topAges = newValue || {
-                  value: "-",
-                  label: '-'
-                };
-                console.log(_this.selected.topAges);
+                _this.selected.topAges = newValue;
 
-              case 2:
+              case 1:
               case "end":
                 return _context4.stop();
             }
@@ -2495,7 +2499,7 @@ function (_React$Component) {
                   return el.value;
                 }).join(), "&      regions=").concat(_this.selected.topRegions.map(function (el) {
                   return el.value;
-                }).join(), "&      ages=").concat(_this.selected.topAges.value).replace(/ /g, ""));
+                }).join(), "&      ages=").concat(_this.selected.topAges.value || "-").replace(/ /g, ""));
 
               case 3:
                 res = _context5.sent;
@@ -2543,7 +2547,7 @@ function (_React$Component) {
           key: "nav-navitem-".concat(label)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_20___default.a, {
           key: "nav-navitem-link".concat(label),
-          href: "/".concat(value)
+          href: "".concat(value)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", {
           className: "nav-link"
         }, label, " ")));
@@ -2607,29 +2611,52 @@ function (_React$Component) {
         className: "btn btn-outline-primary"
       }, "Update"))))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_11__["default"], {
         title: "National"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col dataViz"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
         colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col dataViz"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("i", {
+        class: "fas fa-plane-arrival"
+      }), " Ingoing evolution"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
         var: "Ingoing"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col dataViz"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        height: "200",
+        evolution: this.state.data['Monthly'],
+        var: "Ingoing",
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
+      }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col dataViz"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("i", {
+        class: "fas fa-plane-departure"
+      }), " Outgoing evolution"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
         var: "Outgoing"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+      }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md-6"
+        className: "col dataViz"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
         height: "200",
         evolution: this.state.data['Monthly'],
         var: "Ingoing",
         colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md-6"
+        className: "col dataViz"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
         height: "200",
         evolution: this.state.data['Monthly'],
@@ -2643,30 +2670,22 @@ function (_React$Component) {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
       _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref7) {
-        var req, year, response, info;
+        var req, year;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 req = _ref7.req;
-                year = Number(req.params.year) || 2016;
-                _context6.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/?countries=Belgium,France"));
+                year = Number(req.params.year) || 2016; // const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
+                // const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
 
-              case 4:
-                response = _context6.sent;
-                _context6.next = 7;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(year, "/info/?limit=10"));
-
-              case 7:
-                info = _context6.sent;
                 return _context6.abrupt("return", {
-                  data: response.data,
-                  info: info.data,
+                  data: _test_database_js__WEBPACK_IMPORTED_MODULE_22__["national"],
+                  info: _test_database_js__WEBPACK_IMPORTED_MODULE_22__["nationalInfo"],
                   year: year
                 });
 
-              case 9:
+              case 3:
               case "end":
                 return _context6.stop();
             }
@@ -2686,6 +2705,934 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_10___default.a.Component);
 
 
+
+/***/ }),
+
+/***/ "./test/database.js":
+/*!**************************!*\
+  !*** ./test/database.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.national = {
+  "Evolution": {
+    "Midi-Pyrénées": {
+      "2015": {
+        "Ingoing": 10.17,
+        "Outgoing": 10.29
+      },
+      "2016": {
+        "Ingoing": 9.78,
+        "Outgoing": 9.7
+      },
+      "diff": {
+        "Ingoing": -0.39,
+        "Outgoing": -0.59
+      }
+    },
+    "Poitou-Charentes": {
+      "2015": {
+        "Ingoing": 8.11,
+        "Outgoing": 8.34
+      },
+      "2016": {
+        "Ingoing": 9.49,
+        "Outgoing": 8.84
+      },
+      "diff": {
+        "Ingoing": 1.38,
+        "Outgoing": 0.5
+      }
+    },
+    "Île-de-France": {
+      "2015": {
+        "Ingoing": 6.41,
+        "Outgoing": 7.03
+      },
+      "2016": {
+        "Ingoing": 6.65,
+        "Outgoing": 6.8
+      },
+      "diff": {
+        "Ingoing": 0.24,
+        "Outgoing": -0.23
+      }
+    },
+    "Languedoc-Roussillon": {
+      "2015": {
+        "Ingoing": 4.59,
+        "Outgoing": 4.04
+      },
+      "2016": {
+        "Ingoing": 4.07,
+        "Outgoing": 4.06
+      },
+      "diff": {
+        "Ingoing": -0.52,
+        "Outgoing": 0.02
+      }
+    },
+    "Provence-Alpes-Côte d'Azur": {
+      "2015": {
+        "Ingoing": 3.76,
+        "Outgoing": 3.73
+      },
+      "2016": {
+        "Ingoing": 3.56,
+        "Outgoing": 3.64
+      },
+      "diff": {
+        "Ingoing": -0.2,
+        "Outgoing": -0.09
+      }
+    },
+    "Pays de la Loire": {
+      "2015": {
+        "Ingoing": 3.26,
+        "Outgoing": 3.35
+      },
+      "2016": {
+        "Ingoing": 3.59,
+        "Outgoing": 3.51
+      },
+      "diff": {
+        "Ingoing": 0.33,
+        "Outgoing": 0.16
+      }
+    },
+    "Centre": {
+      "2015": {
+        "Ingoing": 2.99,
+        "Outgoing": 2.92
+      },
+      "2016": {
+        "Ingoing": 2.67,
+        "Outgoing": 2.74
+      },
+      "diff": {
+        "Ingoing": -0.32,
+        "Outgoing": -0.18
+      }
+    },
+    "Rhône-Alpes": {
+      "2015": {
+        "Ingoing": 2.7,
+        "Outgoing": 2.91
+      },
+      "2016": {
+        "Ingoing": 2.57,
+        "Outgoing": 2.83
+      },
+      "diff": {
+        "Ingoing": -0.13,
+        "Outgoing": -0.08
+      }
+    },
+    "Bretagne": {
+      "2015": {
+        "Ingoing": 2.65,
+        "Outgoing": 2.63
+      },
+      "2016": {
+        "Ingoing": 2.4,
+        "Outgoing": 2.4
+      },
+      "diff": {
+        "Ingoing": -0.25,
+        "Outgoing": -0.23
+      }
+    },
+    "Limousin": {
+      "2015": {
+        "Ingoing": 2.18,
+        "Outgoing": 2.26
+      },
+      "2016": {
+        "Ingoing": 2.15,
+        "Outgoing": 2.33
+      },
+      "diff": {
+        "Ingoing": -0.03,
+        "Outgoing": 0.07
+      }
+    }
+  },
+  "Monthly": {
+    "Midi-Pyrénées": {
+      "Ingoing": {
+        "months": [{
+          "low": 76,
+          "high": 0
+        }, {
+          "low": 108,
+          "high": 0
+        }, {
+          "low": 137,
+          "high": 0
+        }, {
+          "low": 136,
+          "high": 0
+        }, {
+          "low": 156,
+          "high": 0
+        }, {
+          "low": 120,
+          "high": 0
+        }, {
+          "low": 204,
+          "high": 0
+        }, {
+          "low": 371,
+          "high": 0
+        }, {
+          "low": 175,
+          "high": 0
+        }, {
+          "low": 130,
+          "high": 0
+        }, {
+          "low": 89,
+          "high": 0
+        }, {
+          "low": 1,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 85,
+          "high": 0
+        }, {
+          "low": 105,
+          "high": 0
+        }, {
+          "low": 138,
+          "high": 0
+        }, {
+          "low": 128,
+          "high": 0
+        }, {
+          "low": 142,
+          "high": 0
+        }, {
+          "low": 107,
+          "high": 0
+        }, {
+          "low": 204,
+          "high": 0
+        }, {
+          "low": 398,
+          "high": 0
+        }, {
+          "low": 188,
+          "high": 0
+        }, {
+          "low": 105,
+          "high": 0
+        }, {
+          "low": 88,
+          "high": 0
+        }, {
+          "low": 1,
+          "high": 0
+        }]
+      }
+    },
+    "Poitou-Charentes": {
+      "Ingoing": {
+        "months": [{
+          "low": 62,
+          "high": 0
+        }, {
+          "low": 90,
+          "high": 0
+        }, {
+          "low": 113,
+          "high": 0
+        }, {
+          "low": 142,
+          "high": 0
+        }, {
+          "low": 171,
+          "high": 0
+        }, {
+          "low": 119,
+          "high": 0
+        }, {
+          "low": 220,
+          "high": 0
+        }, {
+          "low": 358,
+          "high": 0
+        }, {
+          "low": 210,
+          "high": 0
+        }, {
+          "low": 103,
+          "high": 0
+        }, {
+          "low": 60,
+          "high": 0
+        }, {
+          "low": 3,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 63,
+          "high": 0
+        }, {
+          "low": 85,
+          "high": 0
+        }, {
+          "low": 86,
+          "high": 0
+        }, {
+          "low": 133,
+          "high": 0
+        }, {
+          "low": 163,
+          "high": 0
+        }, {
+          "low": 90,
+          "high": 0
+        }, {
+          "low": 206,
+          "high": 0
+        }, {
+          "low": 358,
+          "high": 0
+        }, {
+          "low": 183,
+          "high": 0
+        }, {
+          "low": 99,
+          "high": 0
+        }, {
+          "low": 71,
+          "high": 0
+        }, {
+          "low": 1,
+          "high": 0
+        }]
+      }
+    },
+    "Languedoc-Roussillon": {
+      "Ingoing": {
+        "months": [{
+          "low": 20,
+          "high": 0
+        }, {
+          "low": 33,
+          "high": 0
+        }, {
+          "low": 34,
+          "high": 0
+        }, {
+          "low": 47,
+          "high": 0
+        }, {
+          "low": 61,
+          "high": 0
+        }, {
+          "low": 52,
+          "high": 0
+        }, {
+          "low": 108,
+          "high": 0
+        }, {
+          "low": 190,
+          "high": 0
+        }, {
+          "low": 81,
+          "high": 0
+        }, {
+          "low": 48,
+          "high": 0
+        }, {
+          "low": 34,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 31,
+          "high": 0
+        }, {
+          "low": 29,
+          "high": 0
+        }, {
+          "low": 40,
+          "high": 0
+        }, {
+          "low": 46,
+          "high": 0
+        }, {
+          "low": 53,
+          "high": 0
+        }, {
+          "low": 53,
+          "high": 0
+        }, {
+          "low": 101,
+          "high": 0
+        }, {
+          "low": 174,
+          "high": 0
+        }, {
+          "low": 85,
+          "high": 0
+        }, {
+          "low": 56,
+          "high": 0
+        }, {
+          "low": 37,
+          "high": 0
+        }, {
+          "low": 1,
+          "high": 0
+        }]
+      }
+    },
+    "Pays de la Loire": {
+      "Ingoing": {
+        "months": [{
+          "low": 23,
+          "high": 0
+        }, {
+          "low": 36,
+          "high": 0
+        }, {
+          "low": 41,
+          "high": 0
+        }, {
+          "low": 50,
+          "high": 0
+        }, {
+          "low": 71,
+          "high": 0
+        }, {
+          "low": 42,
+          "high": 0
+        }, {
+          "low": 72,
+          "high": 0
+        }, {
+          "low": 157,
+          "high": 0
+        }, {
+          "low": 56,
+          "high": 0
+        }, {
+          "low": 49,
+          "high": 0
+        }, {
+          "low": 27,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 34,
+          "high": 0
+        }, {
+          "low": 31,
+          "high": 0
+        }, {
+          "low": 32,
+          "high": 0
+        }, {
+          "low": 51,
+          "high": 0
+        }, {
+          "low": 68,
+          "high": 0
+        }, {
+          "low": 40,
+          "high": 0
+        }, {
+          "low": 75,
+          "high": 0
+        }, {
+          "low": 155,
+          "high": 0
+        }, {
+          "low": 53,
+          "high": 0
+        }, {
+          "low": 45,
+          "high": 0
+        }, {
+          "low": 27,
+          "high": 0
+        }]
+      }
+    },
+    "Provence-Alpes-Côte d'Azur": {
+      "Ingoing": {
+        "months": [{
+          "low": 34,
+          "high": 0
+        }, {
+          "low": 31,
+          "high": 0
+        }, {
+          "low": 38,
+          "high": 0
+        }, {
+          "low": 43,
+          "high": 0
+        }, {
+          "low": 47,
+          "high": 0
+        }, {
+          "low": 37,
+          "high": 0
+        }, {
+          "low": 88,
+          "high": 0
+        }, {
+          "low": 154,
+          "high": 0
+        }, {
+          "low": 58,
+          "high": 0
+        }, {
+          "low": 44,
+          "high": 0
+        }, {
+          "low": 45,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 31,
+          "high": 0
+        }, {
+          "low": 37,
+          "high": 0
+        }, {
+          "low": 42,
+          "high": 0
+        }, {
+          "low": 38,
+          "high": 0
+        }, {
+          "low": 54,
+          "high": 0
+        }, {
+          "low": 50,
+          "high": 0
+        }, {
+          "low": 98,
+          "high": 0
+        }, {
+          "low": 139,
+          "high": 0
+        }, {
+          "low": 65,
+          "high": 0
+        }, {
+          "low": 45,
+          "high": 0
+        }, {
+          "low": 35,
+          "high": 0
+        }]
+      }
+    },
+    "Île-de-France": {
+      "Ingoing": {
+        "months": [{
+          "low": 81,
+          "high": 0
+        }, {
+          "low": 97,
+          "high": 0
+        }, {
+          "low": 91,
+          "high": 0
+        }, {
+          "low": 117,
+          "high": 0
+        }, {
+          "low": 122,
+          "high": 0
+        }, {
+          "low": 88,
+          "high": 0
+        }, {
+          "low": 120,
+          "high": 0
+        }, {
+          "low": 152,
+          "high": 0
+        }, {
+          "low": 105,
+          "high": 0
+        }, {
+          "low": 86,
+          "high": 0
+        }, {
+          "low": 97,
+          "high": 0
+        }, {
+          "low": 2,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 82,
+          "high": 0
+        }, {
+          "low": 90,
+          "high": 0
+        }, {
+          "low": 79,
+          "high": 0
+        }, {
+          "low": 125,
+          "high": 0
+        }, {
+          "low": 111,
+          "high": 0
+        }, {
+          "low": 98,
+          "high": 0
+        }, {
+          "low": 112,
+          "high": 0
+        }, {
+          "low": 179,
+          "high": 0
+        }, {
+          "low": 121,
+          "high": 0
+        }, {
+          "low": 85,
+          "high": 0
+        }, {
+          "low": 97,
+          "high": 0
+        }, {
+          "low": 4,
+          "high": 0
+        }]
+      }
+    },
+    "Bretagne": {
+      "Ingoing": {
+        "months": [{
+          "low": 13,
+          "high": 0
+        }, {
+          "low": 23,
+          "high": 0
+        }, {
+          "low": 19,
+          "high": 0
+        }, {
+          "low": 35,
+          "high": 0
+        }, {
+          "low": 33,
+          "high": 0
+        }, {
+          "low": 24,
+          "high": 0
+        }, {
+          "low": 53,
+          "high": 0
+        }, {
+          "low": 112,
+          "high": 0
+        }, {
+          "low": 49,
+          "high": 0
+        }, {
+          "low": 30,
+          "high": 0
+        }, {
+          "low": 27,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 16,
+          "high": 0
+        }, {
+          "low": 18,
+          "high": 0
+        }, {
+          "low": 20,
+          "high": 0
+        }, {
+          "low": 44,
+          "high": 0
+        }, {
+          "low": 38,
+          "high": 0
+        }, {
+          "low": 29,
+          "high": 0
+        }, {
+          "low": 40,
+          "high": 0
+        }, {
+          "low": 114,
+          "high": 0
+        }, {
+          "low": 46,
+          "high": 0
+        }, {
+          "low": 31,
+          "high": 0
+        }, {
+          "low": 21,
+          "high": 0
+        }]
+      }
+    },
+    "Rhône-Alpes": {
+      "Ingoing": {
+        "months": [{
+          "low": 23,
+          "high": 0
+        }, {
+          "low": 25,
+          "high": 0
+        }, {
+          "low": 32,
+          "high": 0
+        }, {
+          "low": 36,
+          "high": 0
+        }, {
+          "low": 26,
+          "high": 0
+        }, {
+          "low": 30,
+          "high": 0
+        }, {
+          "low": 56,
+          "high": 0
+        }, {
+          "low": 110,
+          "high": 0
+        }, {
+          "low": 48,
+          "high": 0
+        }, {
+          "low": 37,
+          "high": 0
+        }, {
+          "low": 25,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 33,
+          "high": 0
+        }, {
+          "low": 34,
+          "high": 0
+        }, {
+          "low": 43,
+          "high": 0
+        }, {
+          "low": 34,
+          "high": 0
+        }, {
+          "low": 33,
+          "high": 0
+        }, {
+          "low": 40,
+          "high": 0
+        }, {
+          "low": 67,
+          "high": 0
+        }, {
+          "low": 109,
+          "high": 0
+        }, {
+          "low": 44,
+          "high": 0
+        }, {
+          "low": 36,
+          "high": 0
+        }, {
+          "low": 19,
+          "high": 0
+        }]
+      }
+    },
+    "Centre": {
+      "Ingoing": {
+        "months": [{
+          "low": 18,
+          "high": 0
+        }, {
+          "low": 33,
+          "high": 0
+        }, {
+          "low": 27,
+          "high": 0
+        }, {
+          "low": 39,
+          "high": 0
+        }, {
+          "low": 40,
+          "high": 0
+        }, {
+          "low": 35,
+          "high": 0
+        }, {
+          "low": 60,
+          "high": 0
+        }, {
+          "low": 103,
+          "high": 0
+        }, {
+          "low": 56,
+          "high": 0
+        }, {
+          "low": 29,
+          "high": 0
+        }, {
+          "low": 25,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 26,
+          "high": 0
+        }, {
+          "low": 42,
+          "high": 0
+        }, {
+          "low": 29,
+          "high": 0
+        }, {
+          "low": 36,
+          "high": 0
+        }, {
+          "low": 36,
+          "high": 0
+        }, {
+          "low": 38,
+          "high": 0
+        }, {
+          "low": 50,
+          "high": 0
+        }, {
+          "low": 93,
+          "high": 0
+        }, {
+          "low": 66,
+          "high": 0
+        }, {
+          "low": 25,
+          "high": 0
+        }, {
+          "low": 36,
+          "high": 0
+        }]
+      }
+    },
+    "Limousin": {
+      "Ingoing": {
+        "months": [{
+          "low": 16,
+          "high": 0
+        }, {
+          "low": 18,
+          "high": 0
+        }, {
+          "low": 30,
+          "high": 0
+        }, {
+          "low": 22,
+          "high": 0
+        }, {
+          "low": 48,
+          "high": 0
+        }, {
+          "low": 27,
+          "high": 0
+        }, {
+          "low": 40,
+          "high": 0
+        }, {
+          "low": 98,
+          "high": 0
+        }, {
+          "low": 34,
+          "high": 0
+        }, {
+          "low": 23,
+          "high": 0
+        }, {
+          "low": 17,
+          "high": 0
+        }, {
+          "low": 1,
+          "high": 0
+        }]
+      },
+      "Outgoing": {
+        "months": [{
+          "low": 16,
+          "high": 0
+        }, {
+          "low": 24,
+          "high": 0
+        }, {
+          "low": 20,
+          "high": 0
+        }, {
+          "low": 28,
+          "high": 0
+        }, {
+          "low": 48,
+          "high": 0
+        }, {
+          "low": 24,
+          "high": 0
+        }, {
+          "low": 49,
+          "high": 0
+        }, {
+          "low": 106,
+          "high": 0
+        }, {
+          "low": 31,
+          "high": 0
+        }, {
+          "low": 33,
+          "high": 0
+        }, {
+          "low": 25,
+          "high": 0
+        }, {
+          "low": 1,
+          "high": 0
+        }]
+      }
+    }
+  }
+};
+exports.nationalInfo = {
+  "topRegions": ["Midi-Pyrénées", "Poitou-Charentes", "Île-de-France", "Languedoc-Roussillon", "Provence-Alpes-Côte d'Azur", "Pays de la Loire", "Centre", "Rhône-Alpes", "Bretagne", "Limousin", "Auvergne", "Basse-Normandie", "Nord-Pas-de-Calais", "Picardie", "Franche-Comté", "Haute-Normandie", "Bourgogne", "Alsace", "Corse", "Champagne-Ardenne"],
+  "topCountries": ["France", "-", "United Kingdom", "United States", "Spain", "Belgium", "Italy", "Switzerland", "Australia", "Germany", "Canada", "Russia", "Brazil", "Netherlands", "Ireland", "Austria", "Norway", "Portugal", "Sweden", "Japan"],
+  "topAges": ["-", "13-17", "18-24", "25-34", "35-49", "50-64"]
+};
 
 /***/ }),
 
@@ -2736,7 +3683,7 @@ exports.groupingSelectedColors = {
 
 /***/ }),
 
-/***/ 3:
+/***/ 5:
 /*!*********************************!*\
   !*** multi ./pages/national.js ***!
   \*********************************/

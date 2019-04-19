@@ -8,9 +8,9 @@ module.exports = {
     config.node = {
       fs: 'empty'
     }
-    
+
     return config
   }
 }
 
-module.exports = withCSS();
+module.exports = withCSS(withSass());

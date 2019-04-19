@@ -3,17 +3,22 @@ export default class DiffTable extends React.Component {
 
   constructor(props) {
     super(props);
+
+    
   }
 
+
   render() {
+    var length = Object.keys(this.props.evolution).length;
     return (
       <div>
-        <h3>{this.props.var} evolution</h3>
+        {/* <h3>{this.props.var} evolution</h3> */}
         <table style={{fontSize: 'small'}} className="table">
           <thead>
             <tr>
               <th scope="col"></th>
-              {Object.keys(this.props.evolution).map((value) => {
+              {Object.keys(this.props.evolution).map((value, i) => {
+                console.log('lenght: ', Math.ceil(length-1/2))
                 return (<th key={`head-${value}`}>{value}</th>)
               })}
             </tr>
@@ -26,8 +31,12 @@ export default class DiffTable extends React.Component {
                   {Object.keys(this.props.evolution).map((year) => {
                     var value = this.props.evolution[year][rowVar][this.props.var];
                     if (rowVar == 'diff') {
-                      value = value > 0 ? `+${value}%` : `${value}%`
-                      return (<td key={`body-td-${value}-${year}`} style={{ fontWeight: "bold" }}>{value}</td>)
+                      return (
+                      <td 
+                        key={`body-td-${value}-${year}`} 
+                        style={{ fontWeight: "bold", color: (value > 0 ? 'LimeGreen	' : 'red') }}>
+                        {value > 0 ? `+${value}%` : `${value}%`}
+                      </td>)
                     }
                     else return (<td key={`body-td-${value}-${year}`}>{value}</td>)
                   })}

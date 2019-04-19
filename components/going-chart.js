@@ -12,15 +12,17 @@ const options = {
       },
       ticks: {
         stepSize: 50
-      }
+      },
+      stacked: true
     }],
     yAxes: [{
       ticks: {
         beginAtZero: true, callback: function (value, index, values) {
           return value + "%";
         },
-        stepSize: 2
+        stepSize: 5
       },
+      stacked: true
     }]
   }
 }
@@ -29,20 +31,20 @@ export default class GoingChart extends React.Component {
 
   chartData = (props) => {
     this.data.labels = Object.keys(props.evolution).map(key => { return key })
-  
+
     this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
       return props.evolution[key][props.year]['Ingoing']
     })
-  
+
     this.data.datasets[1].data = Object.keys(props.evolution).map(key => {
       return props.evolution[key][props.year]['Outgoing']
     })
-  
+
     const colors = orderColors(this.data.labels, this.selectedColors)
-  
+
     this.data.datasets[0].backgroundColor = colors.ingoing
     this.data.datasets[0].borderColor = colors.ingoing
-  
+
     this.data.datasets[1].backgroundColor = colors.outgoing
     this.data.datasets[1].borderColor = colors.outgoing
   }
