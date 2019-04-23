@@ -824,6 +824,8 @@ var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs
 
 var _assign = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js"));
 
+var _promise = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js"));
+
 var _now = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/date/now */ "./node_modules/@babel/runtime-corejs2/core-js/date/now.js"));
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
@@ -851,6 +853,12 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
 var __importStar = void 0 && (void 0).__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
@@ -861,20 +869,14 @@ var __importStar = void 0 && (void 0).__importStar || function (mod) {
   return result;
 };
 
-var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 /* eslint-disable */
 
-var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
-
 var prop_types_1 = __importDefault(__webpack_require__(/*! prop-types */ "prop-types"));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "react"));
 
 var utils_1 = __webpack_require__(/*! next-server/dist/server/utils */ "next-server/dist/server/utils");
 
@@ -883,6 +885,10 @@ var htmlescape_1 = __webpack_require__(/*! ../server/htmlescape */ "./node_modul
 var server_1 = __importDefault(__webpack_require__(/*! styled-jsx/server */ "./node_modules/styled-jsx/server.js"));
 
 var constants_1 = __webpack_require__(/*! next-server/constants */ "next-server/constants");
+
+function getAmpPath(ampPath, asPath) {
+  return ampPath ? ampPath : "".concat(asPath).concat(asPath.includes('?') ? '&' : '?', "amp=1");
+}
 
 var Document =
 /*#__PURE__*/
@@ -912,19 +918,25 @@ function (_react_1$Component) {
     }
   }], [{
     key: "getInitialProps",
-    value: function getInitialProps(_ref) {
+    value: function (_ref) {
       var renderPage = _ref.renderPage;
 
-      var _renderPage = renderPage(),
-          html = _renderPage.html,
-          head = _renderPage.head;
-
-      var styles = server_1.default();
-      return {
-        html: html,
-        head: head,
-        styles: styles
-      };
+      try {
+        return _promise.default.resolve(renderPage()).then(function (_ref2) {
+          var html = _ref2.html,
+              head = _ref2.head,
+              dataOnly = _ref2.dataOnly;
+          var styles = server_1.default();
+          return {
+            html: html,
+            head: head,
+            styles: styles,
+            dataOnly: dataOnly
+          };
+        });
+      } catch (e) {
+        return _promise.default.reject(e);
+      }
     }
   }]);
   return Document;
@@ -1063,16 +1075,18 @@ function (_react_1$Component3) {
     key: "render",
     value: function render() {
       var _this$context$_docume4 = this.context._documentProps,
-          ampEnabled = _this$context$_docume4.ampEnabled,
           styles = _this$context$_docume4.styles,
           amphtml = _this$context$_docume4.amphtml,
           hasAmp = _this$context$_docume4.hasAmp,
           ampPath = _this$context$_docume4.ampPath,
           assetPrefix = _this$context$_docume4.assetPrefix,
-          __NEXT_DATA__ = _this$context$_docume4.__NEXT_DATA__;
+          __NEXT_DATA__ = _this$context$_docume4.__NEXT_DATA__,
+          dangerousAsPath = _this$context$_docume4.dangerousAsPath;
       var _devOnlyInvalidateCacheQueryString = this.context._devOnlyInvalidateCacheQueryString;
       var page = __NEXT_DATA__.page,
-          buildId = __NEXT_DATA__.buildId;
+          buildId = __NEXT_DATA__.buildId,
+          dynamicBuildId = __NEXT_DATA__.dynamicBuildId;
+      var isDirtyAmp = amphtml && !__NEXT_DATA__.query.amp;
       var head = this.context._documentProps.head;
       var children = this.props.children; // show a warning if Head contains <title> (only in development)
 
@@ -1099,11 +1113,17 @@ function (_react_1$Component3) {
         } else if (type === 'link' && props.rel === 'canonical') {
           badProp = 'rel="canonical"';
         } else if (type === 'script') {
-          badProp = '<script';
-          (0, _keys.default)(props).forEach(function (prop) {
-            badProp += " ".concat(prop, "=\"").concat(props[prop], "\"");
-          });
-          badProp += '/>';
+          // only block if 
+          // 1. it has a src and isn't pointing to ampproject's CDN
+          // 2. it is using dangerouslySetInnerHTML without a type or
+          // a type of text/javascript
+          if (props.src && props.src.indexOf('ampproject') < -1 || props.dangerouslySetInnerHTML && (!props.type || props.type === 'text/javascript')) {
+            badProp = '<script';
+            (0, _keys.default)(props).forEach(function (prop) {
+              badProp += " ".concat(prop, "=\"").concat(props[prop], "\"");
+            });
+            badProp += '/>';
+          }
         }
 
         if (badProp) {
@@ -1118,7 +1138,10 @@ function (_react_1$Component3) {
         content: "width=device-width,minimum-scale=1,initial-scale=1"
       }), react_1.default.createElement("link", {
         rel: "canonical",
-        href: utils_1.cleanAmpPath(page)
+        href: utils_1.cleanAmpPath(dangerousAsPath)
+      }), isDirtyAmp && react_1.default.createElement("link", {
+        rel: "amphtml",
+        href: getAmpPath(ampPath, dangerousAsPath)
       }), react_1.default.createElement("link", {
         rel: "preload",
         as: "script",
@@ -1143,18 +1166,18 @@ function (_react_1$Component3) {
       })), react_1.default.createElement("script", {
         async: true,
         src: "https://cdn.ampproject.org/v0.js"
-      })), !amphtml && react_1.default.createElement(react_1.default.Fragment, null, ampEnabled && hasAmp && react_1.default.createElement("link", {
+      })), !amphtml && react_1.default.createElement(react_1.default.Fragment, null, hasAmp && react_1.default.createElement("link", {
         rel: "amphtml",
-        href: ampPath ? ampPath : "".concat(page, "?amp=1")
+        href: getAmpPath(ampPath, dangerousAsPath)
       }), page !== '/_error' && react_1.default.createElement("link", {
         rel: "preload",
-        href: "".concat(assetPrefix, "/_next/static/").concat(buildId, "/pages").concat(getPagePathname(page)).concat(_devOnlyInvalidateCacheQueryString),
+        href: assetPrefix + (dynamicBuildId ? "/_next/static/client/pages".concat(getPageFile(page, buildId)) : "/_next/static/".concat(buildId, "/pages").concat(getPageFile(page))) + _devOnlyInvalidateCacheQueryString,
         as: "script",
         nonce: this.props.nonce,
         crossOrigin: this.props.crossOrigin || undefined
       }), react_1.default.createElement("link", {
         rel: "preload",
-        href: "".concat(assetPrefix, "/_next/static/").concat(buildId, "/pages/_app.js").concat(_devOnlyInvalidateCacheQueryString),
+        href: assetPrefix + (dynamicBuildId ? "/_next/static/client/pages/_app.".concat(buildId, ".js") : "/_next/static/".concat(buildId, "/pages/_app.js")) + _devOnlyInvalidateCacheQueryString,
         as: "script",
         nonce: this.props.nonce,
         crossOrigin: this.props.crossOrigin || undefined
@@ -1301,7 +1324,8 @@ function (_react_1$Component5) {
       }
 
       var page = __NEXT_DATA__.page,
-          buildId = __NEXT_DATA__.buildId;
+          buildId = __NEXT_DATA__.buildId,
+          dynamicBuildId = __NEXT_DATA__.dynamicBuildId;
 
       if (true) {
         if (this.props.crossOrigin) console.warn('Warning: `NextScript` attribute `crossOrigin` is deprecated. https://err.sh/next.js/doc-crossorigin-deprecated');
@@ -1325,13 +1349,13 @@ function (_react_1$Component5) {
       }), page !== '/_error' && react_1.default.createElement("script", {
         async: true,
         id: "__NEXT_PAGE__".concat(page),
-        src: "".concat(assetPrefix, "/_next/static/").concat(buildId, "/pages").concat(getPagePathname(page)).concat(_devOnlyInvalidateCacheQueryString),
+        src: assetPrefix + (dynamicBuildId ? "/_next/static/client/pages".concat(getPageFile(page, buildId)) : "/_next/static/".concat(buildId, "/pages").concat(getPageFile(page))) + _devOnlyInvalidateCacheQueryString,
         nonce: this.props.nonce,
         crossOrigin: this.props.crossOrigin || undefined
       }), react_1.default.createElement("script", {
         async: true,
         id: "__NEXT_PAGE__/_app",
-        src: "".concat(assetPrefix, "/_next/static/").concat(buildId, "/pages/_app.js").concat(_devOnlyInvalidateCacheQueryString),
+        src: assetPrefix + (dynamicBuildId ? "/_next/static/client/pages/_app.".concat(buildId, ".js") : "/_next/static/".concat(buildId, "/pages/_app.js")) + _devOnlyInvalidateCacheQueryString,
         nonce: this.props.nonce,
         crossOrigin: this.props.crossOrigin || undefined
       }), staticMarkup ? null : this.getDynamicChunks(), staticMarkup ? null : this.getScripts());
@@ -1366,12 +1390,12 @@ NextScript.propTypes = {
 };
 exports.NextScript = NextScript;
 
-function getPagePathname(page) {
+function getPageFile(page, buildId) {
   if (page === '/') {
-    return '/index.js';
+    return buildId ? "/index.".concat(buildId, ".js") : '/index.js';
   }
 
-  return "".concat(page, ".js");
+  return buildId ? "".concat(page, ".").concat(buildId, ".js") : "".concat(page, ".js");
 }
 
 /***/ }),

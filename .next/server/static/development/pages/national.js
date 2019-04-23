@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -139,9 +139,6 @@ function (_React$Component) {
       var length = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(this.props.evolution).length;
 
       return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("table", {
-        style: {
-          fontSize: 'small'
-        },
         className: "table"
       }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", {
         scope: "col"
@@ -441,26 +438,100 @@ Head.propTypes = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "./node_modules/styled-jsx/style.js");
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Menu; });
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-jsx/style */ "./node_modules/styled-jsx/style.js");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! reactstrap */ "reactstrap");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(reactstrap__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
-var Menu = function Menu(props) {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "jsx-142388237"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "jsx-142388237"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
-    className: "jsx-142388237"
-  }, props.children)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    id: "142388237"
-  }, "\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9jb21wb25lbnRzL21lbnUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUWdCIiwiZmlsZSI6Ii9Vc2Vycy9xdW5uYW1lZC9TOC1zdGFnZS90b3VyaXNtLWRhc2hib2FyZC9jb21wb25lbnRzL21lbnUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJcbmNvbnN0IE1lbnUgPSBwcm9wcyA9PiAoXG4gIDxkaXY+XG4gICAgPGRpdj5cbiAgICAgIDxmb3JtPlxuICAgICAgICB7cHJvcHMuY2hpbGRyZW59XG4gICAgICA8L2Zvcm0+XG4gICAgPC9kaXY+XG4gICAgPHN0eWxlIGpzeD57YFxuICAgIFxuICBgfVxuICAgIDwvc3R5bGU+XG4gIDwvZGl2PlxuKTtcblxuZXhwb3J0IGRlZmF1bHQgTWVudTtcbiJdfQ== */\n/*@ sourceURL=/Users/qunnamed/S8-stage/tourism-dashboard/components/menu.js */"));
+
+
+
+
+
+
+var filterBtnStyle = {
+  marginBottom: '1rem',
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)'
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Menu);
+var Menu =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Menu, _React$Component);
+
+  function Menu(props) {
+    var _this;
+
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Menu);
+
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Menu).call(this, props));
+    _this.toggle = _this.toggle.bind(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this));
+    _this.state = {
+      collapse: false
+    };
+    return _this;
+  }
+
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Menu, [{
+    key: "toggle",
+    value: function toggle() {
+      this.setState(function (state) {
+        return {
+          collapse: !state.collapse
+        };
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368" + " " + "row"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368" + " " + "col-md-auto"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h1", {
+        className: "jsx-239843368"
+      }, this.props.title)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368" + " " + "col-md-auto"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
+        style: filterBtnStyle,
+        onClick: this.toggle,
+        className: "jsx-239843368" + " " + "btn btn-outline-dark"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("i", {
+        class: "fas fa-filter",
+        className: "jsx-239843368"
+      })))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368" + " " + "row"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368" + " " + "col"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_8__["Collapse"], {
+        isOpen: this.state.collapse
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "jsx-239843368"
+      }, this.props.children)))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_6___default.a, {
+        id: "239843368"
+      }, "\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2VzaWx2L3N0YWdlL3RvdXJpc20tZGFzaGJvYXJkL2NvbXBvbmVudHMvbWVudS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE4Q29CIiwiZmlsZSI6Ii9ob21lL2VzaWx2L3N0YWdlL3RvdXJpc20tZGFzaGJvYXJkL2NvbXBvbmVudHMvbWVudS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IENvbGxhcHNlLCBCdXR0b24sIENhcmRCb2R5LCBDYXJkIH0gZnJvbSAncmVhY3RzdHJhcCc7XG5cblxuY29uc3QgZmlsdGVyQnRuU3R5bGUgPSB7XG4gIG1hcmdpbkJvdHRvbTogJzFyZW0nLFxuICBwb3NpdGlvbjogJ2Fic29sdXRlJyxcbiAgdG9wOiAnNTAlJyxcbiAgdHJhbnNmb3JtOiAndHJhbnNsYXRlWSgtNTAlKSdcbn1cblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgTWVudSBleHRlbmRzIFJlYWN0LkNvbXBvbmVudCB7XG5cbiAgY29uc3RydWN0b3IocHJvcHMpIHtcbiAgICBzdXBlcihwcm9wcyk7XG4gICAgdGhpcy50b2dnbGUgPSB0aGlzLnRvZ2dsZS5iaW5kKHRoaXMpO1xuICAgIHRoaXMuc3RhdGUgPSB7IGNvbGxhcHNlOiBmYWxzZSB9O1xuICB9XG5cbiAgdG9nZ2xlKCkge1xuICAgIHRoaXMuc2V0U3RhdGUoc3RhdGUgPT4gKHsgY29sbGFwc2U6ICFzdGF0ZS5jb2xsYXBzZSB9KSk7XG4gIH1cblxuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxkaXYgPlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJvd1wiPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sLW1kLWF1dG9cIj5cbiAgICAgICAgICAgIDxoMT57dGhpcy5wcm9wcy50aXRsZX08L2gxPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sLW1kLWF1dG9cIj5cbiAgICAgICAgICAgIDxidXR0b24gY2xhc3NOYW1lPVwiYnRuIGJ0bi1vdXRsaW5lLWRhcmtcIiBzdHlsZT17ZmlsdGVyQnRuU3R5bGV9IG9uQ2xpY2s9e3RoaXMudG9nZ2xlfT5cbiAgICAgICAgICAgICAgPGkgY2xhc3M9XCJmYXMgZmEtZmlsdGVyXCI+PC9pPlxuICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJvd1wiPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sXCI+XG4gICAgICAgICAgICA8Q29sbGFwc2UgaXNPcGVuPXt0aGlzLnN0YXRlLmNvbGxhcHNlfT5cbiAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICB7dGhpcy5wcm9wcy5jaGlsZHJlbn1cbiAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgIDwvQ29sbGFwc2U+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgICA8c3R5bGUganN4PntgXG4gICAgICBcbiAgICBgfVxuICAgICAgICA8L3N0eWxlPlxuICAgICAgPC9kaXY+XG4gICAgKVxuICB9XG59Il19 */\n/*@ sourceURL=/home/esilv/stage/tourism-dashboard/components/menu.js */"));
+    }
+  }]);
+
+  return Menu;
+}(react__WEBPACK_IMPORTED_MODULE_7___default.a.Component);
+
+
 
 /***/ }),
 
@@ -2533,7 +2604,11 @@ function (_React$Component) {
     value: function render() {
       var selectedYear = this.state.selectedYear;
       return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col"
+        className: "col body-content"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "options-menu"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_menu__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        title: "National"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
@@ -2551,14 +2626,12 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", {
           className: "nav-link"
         }, label, " ")));
-      })))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_menu__WEBPACK_IMPORTED_MODULE_16__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
+      })))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
         onSubmit: this.handleSubmit.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
-        className: "col-md-1 col-form-label"
-      }, "Countries"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md-11"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col-md"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17___default.a, {
         key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topCountries),
         defaultValue: this.state.info.topCountries,
@@ -2574,10 +2647,8 @@ function (_React$Component) {
         onChange: this.handleCountriesChange
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
-        className: "col-md-1 col-form-label"
-      }, "Regions"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md-11"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col-md"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17___default.a, {
         key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topRegions),
         defaultValue: this.state.info.topRegions,
@@ -2609,9 +2680,13 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("button", {
         type: "submit",
         className: "btn btn-outline-primary"
-      }, "Update"))))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }, "Update")))))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col "
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "test"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_11__["default"], {
         title: "National"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "National"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col dataViz"
@@ -2629,13 +2704,6 @@ function (_React$Component) {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
         var: "Ingoing"
-      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col dataViz"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
-        height: "200",
-        evolution: this.state.data['Monthly'],
-        var: "Ingoing",
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
@@ -2651,18 +2719,18 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col dataViz"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
-        height: "200",
+        height: "150",
         evolution: this.state.data['Monthly'],
         var: "Ingoing",
         colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
       })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col dataViz"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
-        height: "200",
+        height: "150",
         evolution: this.state.data['Monthly'],
         var: "Outgoing",
         colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
-      }))));
+      }))))));
     }
   }], [{
     key: "getInitialProps",
@@ -3654,7 +3722,17 @@ exports.nationalSelectedColors = {
   "Centre": 'rgb(210, 210, 210)',
   "Rhône-Alpes": 'rgb(59, 52, 96)',
   "Bretagne": 'rgb(13, 32, 98)',
-  "Limousin": 'rgb(61, 138, 63)'
+  "Limousin": 'rgb(61, 138, 63)',
+  "Auvergne": 'rgb(101, 61, 138)',
+  "Basse-Normandie": 'rgb(138, 101, 61)',
+  "Nord-Pas-de-Calais": 'rgb(191,154,202)',
+  "Picardie": 'rgb(223, 102, 99)',
+  "Franche-Comté": 'rgb(61, 138, 63)',
+  "Haute-Normandie": 'rgb(128, 138, 61) ',
+  "Bourgogne": 'rgb(99, 220, 223) ',
+  "Alsace": 'rgb(8,76,97)',
+  "Corse": 'rgb(99,55,44)',
+  "Champagne-Ardenne": 'rgb(251,176,45)'
 };
 exports.internationalSelectedColors = {
   "France": 'rgb(54, 162, 235)',
@@ -3683,14 +3761,14 @@ exports.groupingSelectedColors = {
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /*!*********************************!*\
   !*** multi ./pages/national.js ***!
   \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/qunnamed/S8-stage/tourism-dashboard/pages/national.js */"./pages/national.js");
+module.exports = __webpack_require__(/*! /home/esilv/stage/tourism-dashboard/pages/national.js */"./pages/national.js");
 
 
 /***/ }),

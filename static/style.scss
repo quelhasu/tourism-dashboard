@@ -1,10 +1,35 @@
+$primary-color: #c8014e;
+
 $font-size: 50px;
+$responsive-font-size: 0.7vw;
+
+* {
+  // font-size: $responsive-font-size;
+}
 
 .dataViz {
-  background: red;
   padding: 20px;
   margin: 6px 3px;
   background: white;
   border-bottom-color: rgb(209, 209, 209);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px 0px;
+  border-radius: 5px;
+
+  table {
+    font-size: $responsive-font-size;
+  }
 }
+
+.body-content{
+  padding: 0 25px;
+}
+
+.basic-multi-select {
+  height: 100%;
+  .select__control {
+    height: 100%;
+  }
+}
+
+
+

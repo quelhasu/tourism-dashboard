@@ -1,18 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import {Navbar, Nav, NavItem} from "reactstrap";
+import Sidebar from "react-sidebar";
 
 const navbarLogoStyle = {
   height: 35,
@@ -40,7 +29,7 @@ const links = [
 })
 
 const menu = [
-  { href: '/stats', label: 'Stats', icon:''},
+  { href: '/stats', label: 'Stats', icon: '' },
   { href: '/national/2016', label: 'National', icon: '' },
   { href: '/international/2016', label: 'International', icon: '' },
   { href: '/grouping/2016/2/gironde', label: 'Grouping', icon: '' }
@@ -49,9 +38,15 @@ const menu = [
   return link
 })
 
-const Navi = () => (
-  <div style={headerStyle}>
-    <Navbar style={navbarStyle} fixed="top" color="light" light expand="md">
+class Navi extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div style={headerStyle}>
+        <Navbar style={navbarStyle} bg="light" sticky="top" light expand="md">
       <Link href="/">
         <a className="navbar-brand">
           <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
@@ -66,13 +61,14 @@ const Navi = () => (
         ))}
       </Nav>
     </Navbar>
-
-    <style jsx>{`
+        
+        <style jsx>{`
       :global(body) {
         margin: 0;
         // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
         //   Helvetica, sans-serif;
         font-family: "Montserrat", sans-serif;
+        padding: 0;
       }
       nav {
         text-align: center;
@@ -97,7 +93,9 @@ const Navi = () => (
       }
     `}</style>
 
-  </div>
-)
+      </div>
+    )
+  }
+}
 
 export default Navi

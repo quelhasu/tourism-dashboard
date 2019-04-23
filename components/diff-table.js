@@ -12,8 +12,7 @@ export default class DiffTable extends React.Component {
     var length = Object.keys(this.props.evolution).length;
     return (
       <div>
-        {/* <h3>{this.props.var} evolution</h3> */}
-        <table style={{fontSize: 'small'}} className="table">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col"></th>

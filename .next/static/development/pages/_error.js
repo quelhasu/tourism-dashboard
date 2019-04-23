@@ -1,4 +1,4 @@
-((window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/_error.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/_error.js"],{
 
 /***/ "./node_modules/@babel/runtime-corejs2/core-js/array/from.js":
 /*!*******************************************************************!*\
@@ -3327,6 +3327,74 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 /***/ }),
 
+/***/ "./node_modules/next-server/dist/lib/amp.js":
+/*!**************************************************!*\
+  !*** ./node_modules/next-server/dist/lib/amp.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var amphtml_context_1 = __webpack_require__(/*! ./amphtml-context */ "./node_modules/next-server/dist/lib/amphtml-context.js");
+
+function isAmp() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref$enabled = _ref.enabled,
+      enabled = _ref$enabled === void 0 ? false : _ref$enabled,
+      _ref$hybrid = _ref.hybrid,
+      hybrid = _ref$hybrid === void 0 ? false : _ref$hybrid,
+      _ref$hasQuery = _ref.hasQuery,
+      hasQuery = _ref$hasQuery === void 0 ? false : _ref$hasQuery;
+
+  return enabled && (!hybrid || hybrid && hasQuery);
+}
+
+exports.isAmp = isAmp;
+
+function useAmp() {
+  var ampMode = react_1.default.useContext(amphtml_context_1.AmpModeContext); // un-comment below to not be considered AMP in dirty mode
+
+  return isAmp(ampMode); // && ampMode.hasQuery
+}
+
+exports.useAmp = useAmp;
+
+function withAmp(Component) {
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref2$hybrid = _ref2.hybrid,
+      hybrid = _ref2$hybrid === void 0 ? false : _ref2$hybrid;
+
+  function WithAmpWrapper() {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var ampMode = react_1.default.useContext(amphtml_context_1.AmpModeContext);
+    ampMode.enabled = true;
+    ampMode.hybrid = hybrid;
+    return react_1.default.createElement(Component, props);
+  }
+
+  WithAmpWrapper.__nextAmpOnly = !hybrid;
+  WithAmpWrapper.getInitialProps = Component.getInitialProps;
+  return WithAmpWrapper;
+}
+
+exports.withAmp = withAmp;
+
+/***/ }),
+
 /***/ "./node_modules/next-server/dist/lib/amphtml-context.js":
 /*!**************************************************************!*\
   !*** ./node_modules/next-server/dist/lib/amphtml-context.js ***!
@@ -3353,7 +3421,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-exports.IsAmpContext = React.createContext(false);
+exports.AmpModeContext = React.createContext({});
 
 /***/ }),
 
@@ -3418,6 +3486,8 @@ var side_effect_1 = __importDefault(__webpack_require__(/*! ./side-effect */ "./
 var amphtml_context_1 = __webpack_require__(/*! ./amphtml-context */ "./node_modules/next-server/dist/lib/amphtml-context.js");
 
 var head_manager_context_1 = __webpack_require__(/*! ./head-manager-context */ "./node_modules/next-server/dist/lib/head-manager-context.js");
+
+var amp_1 = __webpack_require__(/*! ./amp */ "./node_modules/next-server/dist/lib/amp.js");
 
 function defaultHead() {
   var className = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'next-head';
@@ -3535,12 +3605,12 @@ var Effect = side_effect_1.default();
 
 function Head(_ref) {
   var children = _ref.children;
-  return react_1.default.createElement(amphtml_context_1.IsAmpContext.Consumer, null, function (isAmp) {
+  return react_1.default.createElement(amphtml_context_1.AmpModeContext.Consumer, null, function (ampMode) {
     return react_1.default.createElement(head_manager_context_1.HeadManagerContext.Consumer, null, function (updateHead) {
       return react_1.default.createElement(Effect, {
         reduceComponentsToState: reduceComponents,
         handleStateChange: updateHead,
-        isAmp: isAmp
+        isAmp: amp_1.isAmp(ampMode)
       }, children);
     });
   });
@@ -3846,5 +3916,5 @@ module.exports = dll_6dc2816e14fab51b8269;
 
 /***/ })
 
-},[["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error!./","static/runtime/webpack.js"]]]));;
+},[["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=next%2Fdist%2Fpages%2F_error!./","static/runtime/webpack.js"]]]);
 //# sourceMappingURL=_error.js.map

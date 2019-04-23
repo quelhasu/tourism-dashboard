@@ -9,7 +9,17 @@ exports.nationalSelectedColors = {
 	"Centre":'rgb(210, 210, 210)',
 	"Rhône-Alpes":'rgb(59, 52, 96)',
 	"Bretagne":'rgb(13, 32, 98)',
-	"Limousin":'rgb(61, 138, 63)'
+	"Limousin":'rgb(61, 138, 63)',
+	"Auvergne": 'rgb(101, 61, 138)',
+	"Basse-Normandie": 'rgb(138, 101, 61)',
+	"Nord-Pas-de-Calais": 'rgb(191,154,202)',
+	"Picardie": 'rgb(223, 102, 99)',
+	"Franche-Comté": 'rgb(61, 138, 63)',
+	"Haute-Normandie":'rgb(128, 138, 61) ',
+	"Bourgogne":'rgb(99, 220, 223) ',
+	"Alsace":'rgb(8,76,97)',
+	"Corse":'rgb(99,55,44)',
+	"Champagne-Ardenne":'rgb(251,176,45)'
 };
 
 exports.internationalSelectedColors = {
