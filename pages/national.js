@@ -208,10 +208,10 @@ export default class National extends React.Component {
 
             <div className="row">
               <div className="col dataViz">
-                <MonthChart height='150' evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
+                <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
               </div>
               <div className="col dataViz">
-                <MonthChart height='150' evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
+                <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
               </div>
             </div>
           </div>

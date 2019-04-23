@@ -38,7 +38,7 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/international/${year}/?countries=Belgium,France`);
+    const response = await axios.get(`http://localhost:3000/BM/international/${year}/`);
     const info = await axios.get(`http://localhost:3000/BM/international/${year}/info/?limit=10`)
 
     return {
@@ -94,7 +94,7 @@ export default class International extends React.Component {
       (`http://localhost:3000/BM/international/${this.state.selectedYear.value}/?\
       countries=${this.selected.topCountries.map(el => el.value).join()}&\
       ages=${this.selected.topAges.value || "-"}`)
-      .replace(/ /g,"")
+        .replace(/ /g, "")
     )
     this.setState({ data: res.data });
     NProgress.done();
@@ -103,70 +103,87 @@ export default class International extends React.Component {
   render() {
     const { selectedYear } = this.state;
     return (
-      <div className="col">
-        <div className="row">
-          <div className="col-md-11">
-            <Nav className="justify-content-center">
-              {this.topYear.map(({ value, label }) => (
-                <NavItem key={`nav-navitem-${label}`}>
-                  <Link key={`nav-navitem-link${label}`} href={`/${value}`}><a className="nav-link">{label} </a></Link>
-                </NavItem>
-              ))}
-            </Nav>
-          </div>
-        </div>
-        <Menu>
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <div className="form-group row">
-              <label className="col-md-1 col-form-label">Countries</label>
+      <div className="col body-content">
+        <div className="options-menu">
+          <Menu title="International">
+            <div className="row">
               <div className="col-md-11">
-                <Select
-                  key={JSON.stringify(this.state.info.topCountries)}
-                  defaultValue={this.state.info.topCountries}
-                  isSearchable isClearable isMulti
-                  name="countries"
-                  closeMenuOnSelect={false}
-                  options={this.state.info.topCountries}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  placeholder="Select.."
-                  onChange={this.handleCountriesChange}
-                />
+                <Nav className="justify-content-center">
+                  {this.topYear.map(({ value, label }) => (
+                    <NavItem key={`nav-navitem-${label}`}>
+                      <Link key={`nav-navitem-link${label}`} href={`/${value}`}><a className="nav-link">{label} </a></Link>
+                    </NavItem>
+                  ))}
+                </Nav>
               </div>
             </div>
-            <div className="form-group row">
-              {/* <label className="col-md-1 col-form-label ml-auto">Year</label>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <div className="form-group row">
+                <label className="col-md-1 col-form-label">Countries</label>
+                <div className="col-md-11">
+                  <Select
+                    key={JSON.stringify(this.state.info.topCountries)}
+                    defaultValue={this.state.info.topCountries}
+                    isSearchable isClearable isMulti
+                    name="countries"
+                    closeMenuOnSelect={false}
+                    options={this.state.info.topCountries}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    placeholder="Select.."
+                    onChange={this.handleCountriesChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group row">
+                {/* <label className="col-md-1 col-form-label ml-auto">Year</label>
               <div className="col-md-2 ">
                 <Select value={selectedYear} onChange={this.handleYearChange} options={this.topYear} />
               </div> */}
-              <label className="col-md-1 col-form-label  ml-auto">Ages</label>
-              <div className="col-md-2">
-                <Select
-                  key={JSON.stringify(this.state.info.topAges)}
-                  defaultValue={[this.state.info.topAges[0]]}
-                  name="ages"
-                  options={this.state.info.topAges}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  onChange={this.handleAgesRange}
-                />
+                <label className="col-md-1 col-form-label  ml-auto">Ages</label>
+                <div className="col-md-2">
+                  <Select
+                    key={JSON.stringify(this.state.info.topAges)}
+                    defaultValue={[this.state.info.topAges[0]]}
+                    name="ages"
+                    options={this.state.info.topAges}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={this.handleAgesRange}
+                  />
+                </div>
+                <div className="col-auto">
+                  <button type="submit" className="btn btn-outline-primary">Update</button>
+                </div>
               </div>
-              <div className="col-auto">
-                <button type="submit" className="btn btn-outline-primary">Update</button>
+
+            </form>
+
+          </Menu>
+
+        </div>
+        <div className="col">
+          <div className="test">
+            <Head title="International" />
+
+            <div className="row">
+              <div className="col dataViz">
+                <ReviewChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
             </div>
 
-          </form>
-        </Menu>
-
-        <Head title="International" />
-        <h1>International</h1>
-        <ReviewChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
-
-        <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
-
-        <MonthChart height={80} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-
+            <div className="row">
+              <div className="col dataViz">
+                <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col dataViz">
+                <MonthChart height={80} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

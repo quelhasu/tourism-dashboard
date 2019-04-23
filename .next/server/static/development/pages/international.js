@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -176,160 +176,6 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
 
 
-
-/***/ }),
-
-/***/ "./components/going-chart.js":
-/*!***********************************!*\
-  !*** ./components/going-chart.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GoingChart; });
-/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__);
-
-
-
-
-
-
-
-
-
-
-var options = {
-  datasetFill: true,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [{
-      gridLines: {
-        color: "rgba(0, 0, 0, 0)"
-      },
-      ticks: {
-        stepSize: 50
-      },
-      stacked: true
-    }],
-    yAxes: [{
-      ticks: {
-        beginAtZero: true,
-        callback: function callback(value, index, values) {
-          return value + "%";
-        },
-        stepSize: 5
-      },
-      stacked: true
-    }]
-  }
-};
-
-var GoingChart =
-/*#__PURE__*/
-function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(GoingChart, _React$Component);
-
-  function GoingChart(_props) {
-    var _this;
-
-    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, GoingChart);
-
-    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(GoingChart).call(this, _props));
-
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "chartData", function (props) {
-      _this.data.labels = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
-        return key;
-      });
-      _this.data.datasets[0].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
-        return props.evolution[key][props.year]['Ingoing'];
-      });
-      _this.data.datasets[1].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
-        return props.evolution[key][props.year]['Outgoing'];
-      });
-      var colors = orderColors(_this.data.labels, _this.selectedColors);
-      _this.data.datasets[0].backgroundColor = colors.ingoing;
-      _this.data.datasets[0].borderColor = colors.ingoing;
-      _this.data.datasets[1].backgroundColor = colors.outgoing;
-      _this.data.datasets[1].borderColor = colors.outgoing;
-    });
-
-    _this.data = {
-      labels: '',
-      datasets: [{
-        label: 'Ingoing',
-        borderWidth: 1
-      }, {
-        label: 'Outgoing',
-        borderWidth: 1
-      }]
-    };
-    _this.selectedColors = _props.colors;
-
-    _this.chartData(_props);
-
-    return _this;
-  }
-
-  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(GoingChart, [{
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      this.chartData(nextProps);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      // this
-      // Object.keys(this.props.evolution).forEach((key, i) => {
-      //   // console.log(this.props.evolution[key][this.props.year])
-      //   // console.log(i, this.props.evolution[key])
-      //   // if(i == 1) return props.evolution[year]['Ingoing']
-      // });
-      return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Bar"], {
-        data: this.data,
-        width: 100,
-        height: 20,
-        options: options
-      }));
-    }
-  }]);
-
-  return GoingChart;
-}(react__WEBPACK_IMPORTED_MODULE_8___default.a.Component);
-
-
-
-function orderColors(names, selectedColors) {
-  var alpha = "0.3";
-  var ingoing = [],
-      outgoing = [];
-
-  for (var i = 0; i < names.length; i++) {
-    ingoing.push(selectedColors[names[i]]);
-    outgoing.push(selectedColors[names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
-  }
-
-  ;
-  return {
-    ingoing: ingoing,
-    outgoing: outgoing
-  };
-}
 
 /***/ }),
 
@@ -657,6 +503,144 @@ function chartData(props) {
       fill: false
     };
   });
+}
+
+/***/ }),
+
+/***/ "./components/review-chart.js":
+/*!************************************!*\
+  !*** ./components/review-chart.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReviewChart; });
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__);
+
+
+
+
+
+
+
+
+
+
+var options = {
+  datasetFill: true,
+  legend: {
+    display: false
+  },
+  scales: {
+    xAxes: [{
+      gridLines: {
+        color: "rgba(0, 0, 0, 0)"
+      },
+      ticks: {
+        stepSize: 50
+      }
+    }],
+    yAxes: [{
+      ticks: {
+        beginAtZero: true,
+        callback: function callback(value, index, values) {
+          return value + "%";
+        },
+        stepSize: 10
+      }
+    }]
+  }
+};
+
+var ReviewChart =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ReviewChart, _React$Component);
+
+  function ReviewChart(_props) {
+    var _this;
+
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ReviewChart);
+
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ReviewChart).call(this, _props));
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "chartData", function (props) {
+      _this.data.labels = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+        return key;
+      });
+      _this.data.datasets[0].data = _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(props.evolution).map(function (key) {
+        return props.evolution[key][props.year]['value'];
+      });
+      var colors = orderColors(_this.data.labels, _this.selectedColors);
+      _this.data.datasets[0].backgroundColor = colors;
+      _this.data.datasets[0].borderColor = colors;
+    });
+
+    _this.data = {
+      labels: '',
+      datasets: [{
+        label: 'Reviews',
+        borderWidth: 1
+      }]
+    };
+    _this.selectedColors = _props.colors;
+
+    _this.chartData(_props);
+
+    return _this;
+  }
+
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ReviewChart, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.chartData(nextProps);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // this
+      // Object.keys(this.props.evolution).forEach((key, i) => {
+      //   // console.log(this.props.evolution[key][this.props.year])
+      //   // console.log(i, this.props.evolution[key])
+      //   // if(i == 1) return props.evolution[year]['Ingoing']
+      // });
+      return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_9__["Bar"], {
+        data: this.data,
+        width: 100,
+        height: 20,
+        options: options
+      }));
+    }
+  }]);
+
+  return ReviewChart;
+}(react__WEBPACK_IMPORTED_MODULE_8___default.a.Component);
+
+
+
+function orderColors(names, selectedColors) {
+  var array = [];
+
+  for (var i = 0; i < names.length; i++) {
+    array.push(selectedColors[names[i]]);
+  }
+
+  ;
+  return array;
 }
 
 /***/ }),
@@ -2288,16 +2272,16 @@ module.exports = __webpack_require__(/*! ./dist/style */ "./node_modules/styled-
 
 /***/ }),
 
-/***/ "./pages/national.js":
-/*!***************************!*\
-  !*** ./pages/national.js ***!
-  \***************************/
+/***/ "./pages/international.js":
+/*!********************************!*\
+  !*** ./pages/international.js ***!
+  \********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return National; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return International; });
 /* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/regenerator */ "./node_modules/@babel/runtime-corejs2/regenerator/index.js");
 /* harmony import */ var _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
@@ -2315,7 +2299,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_head__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/head */ "./components/head.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_going_chart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/going-chart */ "./components/going-chart.js");
+/* harmony import */ var _components_review_chart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/review-chart */ "./components/review-chart.js");
 /* harmony import */ var _components_diff_table__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/diff-table */ "./components/diff-table.js");
 /* harmony import */ var _components_month_chart__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/month-chart */ "./components/month-chart.js");
 /* harmony import */ var _components_menu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/menu */ "./components/menu.js");
@@ -2329,8 +2313,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../utils/colors */ "./utils/colors.js");
 /* harmony import */ var _utils_colors__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_utils_colors__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _test_database_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../test/database.js */ "./test/database.js");
-/* harmony import */ var _test_database_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_test_database_js__WEBPACK_IMPORTED_MODULE_22__);
 
 
 
@@ -2354,18 +2336,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var National =
+var International =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__["default"])(National, _React$Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__["default"])(International, _React$Component);
 
-  function National(props) {
+  function International(props) {
     var _this;
 
-    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, National);
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, International);
 
-    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(National).call(this, props));
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__["default"])(International).call(this, props));
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__["default"])(_this), "topYear", [{
       value: 2014,
@@ -2386,12 +2367,6 @@ function (_React$Component) {
       data: _this.props.data,
       info: {
         topCountries: _this.props.info.topCountries.map(function (el) {
-          return {
-            value: el,
-            label: el
-          };
-        }),
-        topRegions: _this.props.info.topRegions.map(function (el) {
           return {
             value: el,
             label: el
@@ -2427,12 +2402,12 @@ function (_React$Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(selectedYear.value, "/"));
+                return _this.axiosProgress("http://localhost:3000/BM/international/".concat(selectedYear.value, "/"));
 
               case 2:
                 res = _context.sent;
                 _context.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/national/".concat(selectedYear.value, "/info"));
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/international/".concat(selectedYear.value, "/info"));
 
               case 5:
                 info = _context.sent;
@@ -2442,12 +2417,6 @@ function (_React$Component) {
                   selectedYear: selectedYear,
                   info: {
                     topCountries: info.data.topCountries.map(function (el) {
-                      return {
-                        value: el,
-                        label: el
-                      };
-                    }),
-                    topRegions: info.data.topRegions.map(function (el) {
                       return {
                         value: el,
                         label: el
@@ -2566,9 +2535,7 @@ function (_React$Component) {
               case 0:
                 event.preventDefault();
                 _context5.next = 3;
-                return _this.axiosProgress("http://localhost:3000/BM/national/".concat(_this.state.selectedYear.value, "/?      countries=").concat(_this.selected.topCountries.map(function (el) {
-                  return el.value;
-                }).join(), "&      regions=").concat(_this.selected.topRegions.map(function (el) {
+                return _this.axiosProgress("http://localhost:3000/BM/international/".concat(_this.state.selectedYear.value, "/?      countries=").concat(_this.selected.topCountries.map(function (el) {
                   return el.value;
                 }).join(), "&      ages=").concat(_this.selected.topAges.value || "-").replace(/ /g, ""));
 
@@ -2599,7 +2566,7 @@ function (_React$Component) {
     return _this;
   }
 
-  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(National, [{
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(International, [{
     key: "render",
     value: function render() {
       var selectedYear = this.state.selectedYear;
@@ -2608,7 +2575,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "options-menu"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_menu__WEBPACK_IMPORTED_MODULE_16__["default"], {
-        title: "National"
+        title: "International"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
@@ -2622,7 +2589,7 @@ function (_React$Component) {
           key: "nav-navitem-".concat(label)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_20___default.a, {
           key: "nav-navitem-link".concat(label),
-          href: "".concat(value)
+          href: "/".concat(value)
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", {
           className: "nav-link"
         }, label, " ")));
@@ -2630,8 +2597,10 @@ function (_React$Component) {
         onSubmit: this.handleSubmit.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md"
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
+        className: "col-md-1 col-form-label"
+      }, "Countries"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
+        className: "col-md-11"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17___default.a, {
         key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topCountries),
         defaultValue: this.state.info.topCountries,
@@ -2645,22 +2614,6 @@ function (_React$Component) {
         classNamePrefix: "select",
         placeholder: "Select..",
         onChange: this.handleCountriesChange
-      }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "form-group row"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col-md"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_17___default.a, {
-        key: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()(this.state.info.topRegions),
-        defaultValue: this.state.info.topRegions,
-        isMulti: true,
-        isClearable: true,
-        isSearchable: true,
-        name: "regions",
-        closeMenuOnSelect: false,
-        options: this.state.info.topRegions,
-        className: "basic-multi-select",
-        classNamePrefix: "select",
-        onChange: this.handleRegionsChange
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("label", {
@@ -2681,55 +2634,36 @@ function (_React$Component) {
         type: "submit",
         className: "btn btn-outline-primary"
       }, "Update")))))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col "
+        className: "col"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "test"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_head__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        title: "National"
+        title: "International"
       }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col dataViz"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_going_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_review_chart__WEBPACK_IMPORTED_MODULE_13__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["internationalSelectedColors"]
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col dataViz"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("i", {
-        class: "fas fa-plane-arrival"
-      }), " Ingoing evolution"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
         evolution: this.state.data['Evolution'],
         year: this.state.selectedYear['value'],
-        var: "Ingoing"
-      }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col dataViz"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("i", {
-        class: "fas fa-plane-departure"
-      }), " Outgoing evolution"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_diff_table__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        evolution: this.state.data['Evolution'],
-        year: this.state.selectedYear['value'],
-        var: "Outgoing"
+        var: "value"
       }))), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
         className: "col dataViz"
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
-        height: 150,
+        height: 80,
         evolution: this.state.data['Monthly'],
-        var: "Ingoing",
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
-      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
-        className: "col dataViz"
-      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_month_chart__WEBPACK_IMPORTED_MODULE_15__["default"], {
-        height: 150,
-        evolution: this.state.data['Monthly'],
-        var: "Outgoing",
-        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["nationalSelectedColors"]
+        var: "Reviews",
+        colors: _utils_colors__WEBPACK_IMPORTED_MODULE_21__["internationalSelectedColors"]
       }))))));
     }
   }], [{
@@ -2738,22 +2672,30 @@ function (_React$Component) {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(
       /*#__PURE__*/
       _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref7) {
-        var req, year;
+        var req, year, response, info;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 req = _ref7.req;
-                year = Number(req.params.year) || 2016; // const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
-                // const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
+                year = Number(req.params.year) || 2016;
+                _context6.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/international/".concat(year, "/"));
 
+              case 4:
+                response = _context6.sent;
+                _context6.next = 7;
+                return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("http://localhost:3000/BM/international/".concat(year, "/info/?limit=10"));
+
+              case 7:
+                info = _context6.sent;
                 return _context6.abrupt("return", {
-                  data: _test_database_js__WEBPACK_IMPORTED_MODULE_22__["national"],
-                  info: _test_database_js__WEBPACK_IMPORTED_MODULE_22__["nationalInfo"],
+                  data: response.data,
+                  info: info.data,
                   year: year
                 });
 
-              case 3:
+              case 9:
               case "end":
                 return _context6.stop();
             }
@@ -2769,938 +2711,10 @@ function (_React$Component) {
     }()
   }]);
 
-  return National;
+  return International;
 }(react__WEBPACK_IMPORTED_MODULE_10___default.a.Component);
 
 
-
-/***/ }),
-
-/***/ "./test/database.js":
-/*!**************************!*\
-  !*** ./test/database.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-exports.national = {
-  "Evolution": {
-    "Midi-Pyrénées": {
-      "2015": {
-        "Ingoing": 10.17,
-        "Outgoing": 10.29
-      },
-      "2016": {
-        "Ingoing": 9.78,
-        "Outgoing": 9.7
-      },
-      "diff": {
-        "Ingoing": -0.39,
-        "Outgoing": -0.59
-      }
-    },
-    "Poitou-Charentes": {
-      "2015": {
-        "Ingoing": 8.11,
-        "Outgoing": 8.34
-      },
-      "2016": {
-        "Ingoing": 9.49,
-        "Outgoing": 8.84
-      },
-      "diff": {
-        "Ingoing": 1.38,
-        "Outgoing": 0.5
-      }
-    },
-    "Île-de-France": {
-      "2015": {
-        "Ingoing": 6.41,
-        "Outgoing": 7.03
-      },
-      "2016": {
-        "Ingoing": 6.65,
-        "Outgoing": 6.8
-      },
-      "diff": {
-        "Ingoing": 0.24,
-        "Outgoing": -0.23
-      }
-    },
-    "Languedoc-Roussillon": {
-      "2015": {
-        "Ingoing": 4.59,
-        "Outgoing": 4.04
-      },
-      "2016": {
-        "Ingoing": 4.07,
-        "Outgoing": 4.06
-      },
-      "diff": {
-        "Ingoing": -0.52,
-        "Outgoing": 0.02
-      }
-    },
-    "Provence-Alpes-Côte d'Azur": {
-      "2015": {
-        "Ingoing": 3.76,
-        "Outgoing": 3.73
-      },
-      "2016": {
-        "Ingoing": 3.56,
-        "Outgoing": 3.64
-      },
-      "diff": {
-        "Ingoing": -0.2,
-        "Outgoing": -0.09
-      }
-    },
-    "Pays de la Loire": {
-      "2015": {
-        "Ingoing": 3.26,
-        "Outgoing": 3.35
-      },
-      "2016": {
-        "Ingoing": 3.59,
-        "Outgoing": 3.51
-      },
-      "diff": {
-        "Ingoing": 0.33,
-        "Outgoing": 0.16
-      }
-    },
-    "Centre": {
-      "2015": {
-        "Ingoing": 2.99,
-        "Outgoing": 2.92
-      },
-      "2016": {
-        "Ingoing": 2.67,
-        "Outgoing": 2.74
-      },
-      "diff": {
-        "Ingoing": -0.32,
-        "Outgoing": -0.18
-      }
-    },
-    "Rhône-Alpes": {
-      "2015": {
-        "Ingoing": 2.7,
-        "Outgoing": 2.91
-      },
-      "2016": {
-        "Ingoing": 2.57,
-        "Outgoing": 2.83
-      },
-      "diff": {
-        "Ingoing": -0.13,
-        "Outgoing": -0.08
-      }
-    },
-    "Bretagne": {
-      "2015": {
-        "Ingoing": 2.65,
-        "Outgoing": 2.63
-      },
-      "2016": {
-        "Ingoing": 2.4,
-        "Outgoing": 2.4
-      },
-      "diff": {
-        "Ingoing": -0.25,
-        "Outgoing": -0.23
-      }
-    },
-    "Limousin": {
-      "2015": {
-        "Ingoing": 2.18,
-        "Outgoing": 2.26
-      },
-      "2016": {
-        "Ingoing": 2.15,
-        "Outgoing": 2.33
-      },
-      "diff": {
-        "Ingoing": -0.03,
-        "Outgoing": 0.07
-      }
-    }
-  },
-  "Monthly": {
-    "Midi-Pyrénées": {
-      "Ingoing": {
-        "months": [{
-          "low": 76,
-          "high": 0
-        }, {
-          "low": 108,
-          "high": 0
-        }, {
-          "low": 137,
-          "high": 0
-        }, {
-          "low": 136,
-          "high": 0
-        }, {
-          "low": 156,
-          "high": 0
-        }, {
-          "low": 120,
-          "high": 0
-        }, {
-          "low": 204,
-          "high": 0
-        }, {
-          "low": 371,
-          "high": 0
-        }, {
-          "low": 175,
-          "high": 0
-        }, {
-          "low": 130,
-          "high": 0
-        }, {
-          "low": 89,
-          "high": 0
-        }, {
-          "low": 1,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 85,
-          "high": 0
-        }, {
-          "low": 105,
-          "high": 0
-        }, {
-          "low": 138,
-          "high": 0
-        }, {
-          "low": 128,
-          "high": 0
-        }, {
-          "low": 142,
-          "high": 0
-        }, {
-          "low": 107,
-          "high": 0
-        }, {
-          "low": 204,
-          "high": 0
-        }, {
-          "low": 398,
-          "high": 0
-        }, {
-          "low": 188,
-          "high": 0
-        }, {
-          "low": 105,
-          "high": 0
-        }, {
-          "low": 88,
-          "high": 0
-        }, {
-          "low": 1,
-          "high": 0
-        }]
-      }
-    },
-    "Poitou-Charentes": {
-      "Ingoing": {
-        "months": [{
-          "low": 62,
-          "high": 0
-        }, {
-          "low": 90,
-          "high": 0
-        }, {
-          "low": 113,
-          "high": 0
-        }, {
-          "low": 142,
-          "high": 0
-        }, {
-          "low": 171,
-          "high": 0
-        }, {
-          "low": 119,
-          "high": 0
-        }, {
-          "low": 220,
-          "high": 0
-        }, {
-          "low": 358,
-          "high": 0
-        }, {
-          "low": 210,
-          "high": 0
-        }, {
-          "low": 103,
-          "high": 0
-        }, {
-          "low": 60,
-          "high": 0
-        }, {
-          "low": 3,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 63,
-          "high": 0
-        }, {
-          "low": 85,
-          "high": 0
-        }, {
-          "low": 86,
-          "high": 0
-        }, {
-          "low": 133,
-          "high": 0
-        }, {
-          "low": 163,
-          "high": 0
-        }, {
-          "low": 90,
-          "high": 0
-        }, {
-          "low": 206,
-          "high": 0
-        }, {
-          "low": 358,
-          "high": 0
-        }, {
-          "low": 183,
-          "high": 0
-        }, {
-          "low": 99,
-          "high": 0
-        }, {
-          "low": 71,
-          "high": 0
-        }, {
-          "low": 1,
-          "high": 0
-        }]
-      }
-    },
-    "Languedoc-Roussillon": {
-      "Ingoing": {
-        "months": [{
-          "low": 20,
-          "high": 0
-        }, {
-          "low": 33,
-          "high": 0
-        }, {
-          "low": 34,
-          "high": 0
-        }, {
-          "low": 47,
-          "high": 0
-        }, {
-          "low": 61,
-          "high": 0
-        }, {
-          "low": 52,
-          "high": 0
-        }, {
-          "low": 108,
-          "high": 0
-        }, {
-          "low": 190,
-          "high": 0
-        }, {
-          "low": 81,
-          "high": 0
-        }, {
-          "low": 48,
-          "high": 0
-        }, {
-          "low": 34,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 31,
-          "high": 0
-        }, {
-          "low": 29,
-          "high": 0
-        }, {
-          "low": 40,
-          "high": 0
-        }, {
-          "low": 46,
-          "high": 0
-        }, {
-          "low": 53,
-          "high": 0
-        }, {
-          "low": 53,
-          "high": 0
-        }, {
-          "low": 101,
-          "high": 0
-        }, {
-          "low": 174,
-          "high": 0
-        }, {
-          "low": 85,
-          "high": 0
-        }, {
-          "low": 56,
-          "high": 0
-        }, {
-          "low": 37,
-          "high": 0
-        }, {
-          "low": 1,
-          "high": 0
-        }]
-      }
-    },
-    "Pays de la Loire": {
-      "Ingoing": {
-        "months": [{
-          "low": 23,
-          "high": 0
-        }, {
-          "low": 36,
-          "high": 0
-        }, {
-          "low": 41,
-          "high": 0
-        }, {
-          "low": 50,
-          "high": 0
-        }, {
-          "low": 71,
-          "high": 0
-        }, {
-          "low": 42,
-          "high": 0
-        }, {
-          "low": 72,
-          "high": 0
-        }, {
-          "low": 157,
-          "high": 0
-        }, {
-          "low": 56,
-          "high": 0
-        }, {
-          "low": 49,
-          "high": 0
-        }, {
-          "low": 27,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 34,
-          "high": 0
-        }, {
-          "low": 31,
-          "high": 0
-        }, {
-          "low": 32,
-          "high": 0
-        }, {
-          "low": 51,
-          "high": 0
-        }, {
-          "low": 68,
-          "high": 0
-        }, {
-          "low": 40,
-          "high": 0
-        }, {
-          "low": 75,
-          "high": 0
-        }, {
-          "low": 155,
-          "high": 0
-        }, {
-          "low": 53,
-          "high": 0
-        }, {
-          "low": 45,
-          "high": 0
-        }, {
-          "low": 27,
-          "high": 0
-        }]
-      }
-    },
-    "Provence-Alpes-Côte d'Azur": {
-      "Ingoing": {
-        "months": [{
-          "low": 34,
-          "high": 0
-        }, {
-          "low": 31,
-          "high": 0
-        }, {
-          "low": 38,
-          "high": 0
-        }, {
-          "low": 43,
-          "high": 0
-        }, {
-          "low": 47,
-          "high": 0
-        }, {
-          "low": 37,
-          "high": 0
-        }, {
-          "low": 88,
-          "high": 0
-        }, {
-          "low": 154,
-          "high": 0
-        }, {
-          "low": 58,
-          "high": 0
-        }, {
-          "low": 44,
-          "high": 0
-        }, {
-          "low": 45,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 31,
-          "high": 0
-        }, {
-          "low": 37,
-          "high": 0
-        }, {
-          "low": 42,
-          "high": 0
-        }, {
-          "low": 38,
-          "high": 0
-        }, {
-          "low": 54,
-          "high": 0
-        }, {
-          "low": 50,
-          "high": 0
-        }, {
-          "low": 98,
-          "high": 0
-        }, {
-          "low": 139,
-          "high": 0
-        }, {
-          "low": 65,
-          "high": 0
-        }, {
-          "low": 45,
-          "high": 0
-        }, {
-          "low": 35,
-          "high": 0
-        }]
-      }
-    },
-    "Île-de-France": {
-      "Ingoing": {
-        "months": [{
-          "low": 81,
-          "high": 0
-        }, {
-          "low": 97,
-          "high": 0
-        }, {
-          "low": 91,
-          "high": 0
-        }, {
-          "low": 117,
-          "high": 0
-        }, {
-          "low": 122,
-          "high": 0
-        }, {
-          "low": 88,
-          "high": 0
-        }, {
-          "low": 120,
-          "high": 0
-        }, {
-          "low": 152,
-          "high": 0
-        }, {
-          "low": 105,
-          "high": 0
-        }, {
-          "low": 86,
-          "high": 0
-        }, {
-          "low": 97,
-          "high": 0
-        }, {
-          "low": 2,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 82,
-          "high": 0
-        }, {
-          "low": 90,
-          "high": 0
-        }, {
-          "low": 79,
-          "high": 0
-        }, {
-          "low": 125,
-          "high": 0
-        }, {
-          "low": 111,
-          "high": 0
-        }, {
-          "low": 98,
-          "high": 0
-        }, {
-          "low": 112,
-          "high": 0
-        }, {
-          "low": 179,
-          "high": 0
-        }, {
-          "low": 121,
-          "high": 0
-        }, {
-          "low": 85,
-          "high": 0
-        }, {
-          "low": 97,
-          "high": 0
-        }, {
-          "low": 4,
-          "high": 0
-        }]
-      }
-    },
-    "Bretagne": {
-      "Ingoing": {
-        "months": [{
-          "low": 13,
-          "high": 0
-        }, {
-          "low": 23,
-          "high": 0
-        }, {
-          "low": 19,
-          "high": 0
-        }, {
-          "low": 35,
-          "high": 0
-        }, {
-          "low": 33,
-          "high": 0
-        }, {
-          "low": 24,
-          "high": 0
-        }, {
-          "low": 53,
-          "high": 0
-        }, {
-          "low": 112,
-          "high": 0
-        }, {
-          "low": 49,
-          "high": 0
-        }, {
-          "low": 30,
-          "high": 0
-        }, {
-          "low": 27,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 16,
-          "high": 0
-        }, {
-          "low": 18,
-          "high": 0
-        }, {
-          "low": 20,
-          "high": 0
-        }, {
-          "low": 44,
-          "high": 0
-        }, {
-          "low": 38,
-          "high": 0
-        }, {
-          "low": 29,
-          "high": 0
-        }, {
-          "low": 40,
-          "high": 0
-        }, {
-          "low": 114,
-          "high": 0
-        }, {
-          "low": 46,
-          "high": 0
-        }, {
-          "low": 31,
-          "high": 0
-        }, {
-          "low": 21,
-          "high": 0
-        }]
-      }
-    },
-    "Rhône-Alpes": {
-      "Ingoing": {
-        "months": [{
-          "low": 23,
-          "high": 0
-        }, {
-          "low": 25,
-          "high": 0
-        }, {
-          "low": 32,
-          "high": 0
-        }, {
-          "low": 36,
-          "high": 0
-        }, {
-          "low": 26,
-          "high": 0
-        }, {
-          "low": 30,
-          "high": 0
-        }, {
-          "low": 56,
-          "high": 0
-        }, {
-          "low": 110,
-          "high": 0
-        }, {
-          "low": 48,
-          "high": 0
-        }, {
-          "low": 37,
-          "high": 0
-        }, {
-          "low": 25,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 33,
-          "high": 0
-        }, {
-          "low": 34,
-          "high": 0
-        }, {
-          "low": 43,
-          "high": 0
-        }, {
-          "low": 34,
-          "high": 0
-        }, {
-          "low": 33,
-          "high": 0
-        }, {
-          "low": 40,
-          "high": 0
-        }, {
-          "low": 67,
-          "high": 0
-        }, {
-          "low": 109,
-          "high": 0
-        }, {
-          "low": 44,
-          "high": 0
-        }, {
-          "low": 36,
-          "high": 0
-        }, {
-          "low": 19,
-          "high": 0
-        }]
-      }
-    },
-    "Centre": {
-      "Ingoing": {
-        "months": [{
-          "low": 18,
-          "high": 0
-        }, {
-          "low": 33,
-          "high": 0
-        }, {
-          "low": 27,
-          "high": 0
-        }, {
-          "low": 39,
-          "high": 0
-        }, {
-          "low": 40,
-          "high": 0
-        }, {
-          "low": 35,
-          "high": 0
-        }, {
-          "low": 60,
-          "high": 0
-        }, {
-          "low": 103,
-          "high": 0
-        }, {
-          "low": 56,
-          "high": 0
-        }, {
-          "low": 29,
-          "high": 0
-        }, {
-          "low": 25,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 26,
-          "high": 0
-        }, {
-          "low": 42,
-          "high": 0
-        }, {
-          "low": 29,
-          "high": 0
-        }, {
-          "low": 36,
-          "high": 0
-        }, {
-          "low": 36,
-          "high": 0
-        }, {
-          "low": 38,
-          "high": 0
-        }, {
-          "low": 50,
-          "high": 0
-        }, {
-          "low": 93,
-          "high": 0
-        }, {
-          "low": 66,
-          "high": 0
-        }, {
-          "low": 25,
-          "high": 0
-        }, {
-          "low": 36,
-          "high": 0
-        }]
-      }
-    },
-    "Limousin": {
-      "Ingoing": {
-        "months": [{
-          "low": 16,
-          "high": 0
-        }, {
-          "low": 18,
-          "high": 0
-        }, {
-          "low": 30,
-          "high": 0
-        }, {
-          "low": 22,
-          "high": 0
-        }, {
-          "low": 48,
-          "high": 0
-        }, {
-          "low": 27,
-          "high": 0
-        }, {
-          "low": 40,
-          "high": 0
-        }, {
-          "low": 98,
-          "high": 0
-        }, {
-          "low": 34,
-          "high": 0
-        }, {
-          "low": 23,
-          "high": 0
-        }, {
-          "low": 17,
-          "high": 0
-        }, {
-          "low": 1,
-          "high": 0
-        }]
-      },
-      "Outgoing": {
-        "months": [{
-          "low": 16,
-          "high": 0
-        }, {
-          "low": 24,
-          "high": 0
-        }, {
-          "low": 20,
-          "high": 0
-        }, {
-          "low": 28,
-          "high": 0
-        }, {
-          "low": 48,
-          "high": 0
-        }, {
-          "low": 24,
-          "high": 0
-        }, {
-          "low": 49,
-          "high": 0
-        }, {
-          "low": 106,
-          "high": 0
-        }, {
-          "low": 31,
-          "high": 0
-        }, {
-          "low": 33,
-          "high": 0
-        }, {
-          "low": 25,
-          "high": 0
-        }, {
-          "low": 1,
-          "high": 0
-        }]
-      }
-    }
-  }
-};
-exports.nationalInfo = {
-  "topRegions": ["Midi-Pyrénées", "Poitou-Charentes", "Île-de-France", "Languedoc-Roussillon", "Provence-Alpes-Côte d'Azur", "Pays de la Loire", "Centre", "Rhône-Alpes", "Bretagne", "Limousin", "Auvergne", "Basse-Normandie", "Nord-Pas-de-Calais", "Picardie", "Franche-Comté", "Haute-Normandie", "Bourgogne", "Alsace", "Corse", "Champagne-Ardenne"],
-  "topCountries": ["France", "-", "United Kingdom", "United States", "Spain", "Belgium", "Italy", "Switzerland", "Australia", "Germany", "Canada", "Russia", "Brazil", "Netherlands", "Ireland", "Austria", "Norway", "Portugal", "Sweden", "Japan"],
-  "topAges": ["-", "13-17", "18-24", "25-34", "35-49", "50-64"]
-};
 
 /***/ }),
 
@@ -3761,14 +2775,14 @@ exports.groupingSelectedColors = {
 
 /***/ }),
 
-/***/ 6:
-/*!*********************************!*\
-  !*** multi ./pages/national.js ***!
-  \*********************************/
+/***/ 3:
+/*!**************************************!*\
+  !*** multi ./pages/international.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/esilv/stage/tourism-dashboard/pages/national.js */"./pages/national.js");
+module.exports = __webpack_require__(/*! /home/esilv/stage/tourism-dashboard/pages/international.js */"./pages/international.js");
 
 
 /***/ }),
@@ -4016,4 +3030,4 @@ module.exports = require("url");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=national.js.map
+//# sourceMappingURL=international.js.map

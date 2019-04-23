@@ -13,6 +13,10 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
+    "/international": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/national": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
