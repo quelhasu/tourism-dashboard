@@ -40,6 +40,14 @@ const menu = [
 class Navi extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { selected: '' };
+    console.log(props.current);
+  }
+
+  selectLink = (e) => {
+    this.setState({
+      selected: e
+    })
   }
 
   render() {
@@ -50,12 +58,17 @@ class Navi extends React.Component {
             <a className="navbar-brand">
               <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
               Tourism
-        </a>
+            </a>
           </Link>
           <Nav className="mr-auto" navbar>
             {menu.map(({ key, href, label, icon }) => (
               <NavItem key={key}>
-                <Link key={`link-${key}`} href={href}><a className="nav-link">{label} <i className={icon}></i></a></Link>
+                <Link prefetch key={`link-${key}`} href={href}>
+                  <a className={`nav-link ${this.props.current.asPath == href ? 'active' : ''}`}
+                    onClick={this.selectLink.bind(this, label)} >
+                    {label} <i className={icon}></i>
+                  </a>
+                </Link>
               </NavItem>
             ))}
           </Nav>

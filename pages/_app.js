@@ -20,7 +20,9 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 export default class MyApp extends App {
   static async getInitialProps ({ Component, router, ctx }) {
-    let pageProps = {}
+    let pageProps = {
+      router: router
+    }
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
@@ -30,7 +32,7 @@ export default class MyApp extends App {
   }
 
   render () {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, router } = this.props
     return (
       <Container>
         <style jsx>{`
@@ -58,7 +60,7 @@ export default class MyApp extends App {
             <a style={linkStyle}>Non Existing Page</a>
           </Link>
         </div> */}
-        <Navi/>
+        <Navi current={router}/>
         <Component {...pageProps} />
       </Container>
     )
