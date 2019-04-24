@@ -7,6 +7,13 @@ $responsive-font-size: 0.7vw;
   // font-size: $responsive-font-size;
 }
 
+.center-item{
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .dataViz {
   padding: 20px;
   margin: 6px 3px;
@@ -17,6 +24,18 @@ $responsive-font-size: 0.7vw;
 
   table {
     font-size: $responsive-font-size;
+  }
+
+  div{
+    text-align: center;
+  }
+
+  .far, .fas {
+    font-size: 35px;
+  }
+
+  .stat{
+    font-size: 30px;
   }
 }
 

@@ -10,6 +10,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
 import { nationalSelectedColors } from '../utils/colors'
 import { national, nationalInfo } from '../test/database.js'
+import Stat from '../components/stat'
 
 export default class National extends React.Component {
   topYear = [
@@ -184,10 +185,14 @@ export default class National extends React.Component {
             </form>
           </Menu>
         </div>
-        <div className="col ">
-          <div className="test">
+        <div className="col">
+          <div className="">
             <Head title="National" />
-
+            <div className="row stats">
+              <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+              <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
+              <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
+            </div>
             <div className="row">
               <div className="col dataViz">
                 <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
@@ -195,17 +200,16 @@ export default class National extends React.Component {
             </div>
             <div className="row">
               <div className="col dataViz">
-                <h5><i class="fas fa-plane-arrival"></i> Ingoing evolution</h5>
+                <h5>Ingoing evolution</h5>
                 <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
               </div>
             </div>
             <div className="row">
               <div className="col dataViz">
-                <h5><i class="fas fa-plane-departure"></i> Outgoing evolution</h5>
+                <h5>Outgoing evolution</h5>
                 <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
               </div>
             </div>
-
             <div className="row">
               <div className="col dataViz">
                 <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
