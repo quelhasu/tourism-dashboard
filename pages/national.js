@@ -44,7 +44,7 @@ export default class National extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
+    const response = await axios.get(`http://localhost:3000/BM/national/${year}/`);
     const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
     return {
       data: response.data,
@@ -128,19 +128,21 @@ export default class National extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
+              <label className="col-md-1 col-form-label text-muted">Countries</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries} name="countries"
                   options={this.state.info.topCountries} />
               </div>
               <div className="form-group row">
+              <label className="col-md-1 col-form-label text-muted">Regions</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleRegionsChange}
                   default={this.state.info.topRegions} name="regions"
                   options={this.state.info.topRegions} />
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label  ml-auto">Ages</label>
+                <label className="col-md-1 col-form-label  ml-auto text-muted">Ages</label>
                 <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
                   onChange={this.handleAgesRange}
                   default={this.state.info.topAges[0]} name="ages"

@@ -121,10 +121,14 @@ export default class International extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
-              <MultiSelect class="col-md" isMulti={true} isClearable={true}
+              <label className="col-md-1 col-form-label text-muted">Countries</label>
+                <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries}
                   options={this.state.info.topCountries} />
+                </div>
+                <div className="form-group row">
+                   <label className="col-md-1 col-form-label text-muted  ml-auto">Ages</label>
                 <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
                   onChange={this.handleAgesRange}
                   default={this.state.info.topAges[0]} name="ages"
@@ -140,23 +144,23 @@ export default class International extends React.Component {
           <div className="test">
             <Head title="International" />
             <div className="row stats">
-            <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
-            <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Number of reviews" fa="fas fa-star"></Stat>
-          </div>
+              <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+              <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Number of reviews" fa="fas fa-star"></Stat>
+            </div>
             <div className="row">
               <div className="col data-viz">
-              <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
+                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
                 <ReviewChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
             </div>
 
             <div className="row">
               <div className="col data-viz">
-              <h6 className="text-uppercase font-weight-bold mb-4">Reviews evolution</h6>
+                <h6 className="text-uppercase font-weight-bold mb-4">Reviews evolution</h6>
                 <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
               </div>
               <div className="col data-viz">
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
+                <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
                 <MonthChart height='100' evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
               </div>
             </div>

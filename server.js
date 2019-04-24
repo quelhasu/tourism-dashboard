@@ -14,8 +14,8 @@ app.prepare()
     app.render(req, res, actualPage, queryParams);
   });
 
-  server.get('/grouping/:year/:name/:dep', (req, res )=> {
-    const actualPage = '/grouping'
+  server.get('/clustering/:year/:name/:dep', (req, res )=> {
+    const actualPage = '/clustering'
     const queryParams = { year: req.params.year, name: req.params.name, dep: req.params.dep }
     app.render(req, res, actualPage, queryParams);
   })

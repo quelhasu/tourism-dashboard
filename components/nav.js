@@ -29,9 +29,9 @@ const links = [
 
 const menu = [
   { href: '/stats', label: 'Stats', icon: '' },
-  { href: '/national/2016', label: 'National', icon: '' },
   { href: '/international/2016', label: 'International', icon: '' },
-  { href: '/grouping/2016/2/gironde', label: 'Grouping', icon: '' }
+  { href: '/national/2016', label: 'National', icon: '' },
+  { href: '/clustering/2016/2/gironde', label: 'Clustering', icon: '' }
 ].map(link => {
   link.key = `menu-link-${link.href}-${link.label}`
   return link
@@ -41,7 +41,6 @@ class Navi extends React.Component {
   constructor(props) {
     super(props);
     this.state = { selected: '' };
-    console.log(props.current);
   }
 
   selectLink = (e) => {

@@ -17,8 +17,10 @@ export default class Stats extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="col body-content">
         <Head title="Stats" />
+        <div className="col data-viz">
+        <h6 className="text-uppercase font-weight-bold mb-4">Global statistics</h6>
         <table className="table">
           <thead>
             <tr>
@@ -45,6 +47,7 @@ export default class Stats extends React.Component {
             }
           </tbody>
         </table>
+        </div>
 
         <style jsx>{`
      
