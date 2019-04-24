@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { nationalSelectedColors } from '../utils/colors'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
+import MultiSelect from '../components/multi-select'
 
 export default class National extends React.Component {
   topYear = [
@@ -128,55 +129,23 @@ export default class National extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
-                {/* <label className="col-md-1 col-form-label">Countries</label> */}
-                <div className="col-md">
-                  <Select
-                    key={JSON.stringify(this.state.info.topCountries)}
-                    defaultValue={this.state.info.topCountries}
-                    isSearchable isClearable isMulti
-                    name="countries"
-                    closeMenuOnSelect={false}
-                    options={this.state.info.topCountries}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    placeholder="Select.."
-                    onChange={this.handleCountriesChange}
-                  />
-                </div>
+                <MultiSelect class="col-md" isMulti={true} isClearable={true}
+                  onChange={this.handleCountriesChange}
+                  default={this.state.info.topCountries} name="countries"
+                  options={this.state.info.topCountries} />
               </div>
               <div className="form-group row">
-                {/* <label className="col-md-1 col-form-label">Regions</label> */}
-                <div className="col-md">
-                  <Select
-                    key={JSON.stringify(this.state.info.topRegions)}
-                    defaultValue={this.state.info.topRegions}
-                    isMulti isClearable isSearchable
-                    name="regions"
-                    closeMenuOnSelect={false}
-                    options={this.state.info.topRegions}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={this.handleRegionsChange}
-                  />
-                </div>
+                <MultiSelect class="col-md" isMulti={true} isClearable={true}
+                  onChange={this.handleRegionsChange}
+                  default={this.state.info.topRegions} name="regions"
+                  options={this.state.info.topRegions} />
               </div>
               <div className="form-group row">
-                {/* <label className="col-md-1 col-form-label ml-auto">Year</label>
-              <div className="col-md-2 ">
-                <Select value={selectedYear} onChange={this.handleYearChange} options={this.topYear} />
-              </div> */}
                 <label className="col-md-1 col-form-label  ml-auto">Ages</label>
-                <div className="col-md-2">
-                  <Select
-                    key={JSON.stringify(this.state.info.topAges)}
-                    defaultValue={[this.state.info.topAges[0]]}
-                    name="ages"
-                    options={this.state.info.topAges}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={this.handleAgesRange}
-                  />
-                </div>
+                <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
+                  onChange={this.handleAgesRange}
+                  default={this.state.info.topAges[0]} name="ages"
+                  options={this.state.info.topAges} />
                 <div className="col-auto">
                   <button type="submit" className="btn btn-outline-primary">Update</button>
                 </div>
@@ -186,37 +155,35 @@ export default class National extends React.Component {
           </Menu>
         </div>
         <div className="col">
-          <div className="">
-            <Head title="National" />
-            <div className="row stats">
-              <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
-              <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
-              <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
+          <Head title="National" />
+          <div className="row stats">
+            <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
+            <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
+          </div>
+          <div className="row">
+            <div className="col dataViz">
+              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
             </div>
-            <div className="row">
-              <div className="col dataViz">
-                <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
-              </div>
+          </div>
+          <div className="row">
+            <div className="col dataViz">
+              <h5>Ingoing evolution</h5>
+              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
             </div>
-            <div className="row">
-              <div className="col dataViz">
-                <h5>Ingoing evolution</h5>
-                <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
-              </div>
+          </div>
+          <div className="row">
+            <div className="col dataViz">
+              <h5>Outgoing evolution</h5>
+              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
             </div>
-            <div className="row">
-              <div className="col dataViz">
-                <h5>Outgoing evolution</h5>
-                <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
-              </div>
+          </div>
+          <div className="row">
+            <div className="col dataViz">
+              <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
             </div>
-            <div className="row">
-              <div className="col dataViz">
-                <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
-              </div>
-              <div className="col dataViz">
-                <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
-              </div>
+            <div className="col dataViz">
+              <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
             </div>
           </div>
         </div>
