@@ -17,7 +17,6 @@ export default class DiffTable extends React.Component {
             <tr>
               <th scope="col"></th>
               {Object.keys(this.props.evolution).map((value, i) => {
-                console.log('lenght: ', Math.ceil(length-1/2))
                 return (<th key={`head-${value}`}>{value}</th>)
               })}
             </tr>

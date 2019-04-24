@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import {Navbar, Nav, NavItem} from "reactstrap";
+import { Navbar, Nav, NavItem } from "reactstrap";
 import Sidebar from "react-sidebar";
 
 const navbarLogoStyle = {
@@ -47,21 +47,21 @@ class Navi extends React.Component {
     return (
       <div style={headerStyle}>
         <Navbar style={navbarStyle} bg="light" sticky="top" light expand="md">
-      <Link href="/">
-        <a className="navbar-brand">
-          <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
-          Tourism
+          <Link href="/">
+            <a className="navbar-brand">
+              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
+              Tourism
         </a>
-      </Link>
-      <Nav className="mr-auto" navbar>
-        {menu.map(({ key, href, label, icon }) => (
-          <NavItem key={key}>
-            <Link key={`link-${key}`} href={href}><a className="nav-link">{label} <i className={icon}></i></a></Link>
-          </NavItem>
-        ))}
-      </Nav>
-    </Navbar>
-        
+          </Link>
+          <Nav className="mr-auto" navbar>
+            {menu.map(({ key, href, label, icon }) => (
+              <NavItem key={key}>
+                <Link key={`link-${key}`} href={href}><a className="nav-link">{label} <i className={icon}></i></a></Link>
+              </NavItem>
+            ))}
+          </Nav>
+        </Navbar>
+
         <style jsx>{`
       :global(body) {
         margin: 0;
