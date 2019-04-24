@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { Navbar, Nav, NavItem } from "reactstrap";
-import Sidebar from "react-sidebar";
 
 const navbarLogoStyle = {
   height: 35,

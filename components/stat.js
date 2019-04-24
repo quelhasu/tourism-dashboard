@@ -8,7 +8,7 @@ export default class Stat extends React.Component {
 
   render() {
     return (
-      <div className="col-md  dataViz">
+      <div className="col-md  data-viz">
         <div className="row">
           <div className="col text-left">
             <i className={`${this.props.fa} center-item`}></i>

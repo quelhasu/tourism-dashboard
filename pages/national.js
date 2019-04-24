@@ -4,14 +4,14 @@ import GoingChart from '../components/going-chart'
 import DiffTable from '../components/diff-table';
 import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
-import Select from 'react-select';
 import NProgress from 'nprogress'
-import { Navbar, Nav, NavItem } from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
 import { nationalSelectedColors } from '../utils/colors'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
+
 
 export default class National extends React.Component {
   topYear = [
@@ -44,12 +44,11 @@ export default class National extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    // const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
-    // const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
-
+    const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=Belgium,France`);
+    const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
     return {
-      data: national,
-      info: nationalInfo,
+      data: response.data,
+      info: info.data,
       year: year
     }
   }
@@ -162,31 +161,35 @@ export default class National extends React.Component {
             <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>
           <div className="row">
-            <div className="col dataViz">
+            <div className="col data-viz">
+            <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per regions</h6>
               <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
             </div>
           </div>
           <div className="row">
-            <div className="col dataViz">
-              <h5>Ingoing evolution</h5>
+            <div className="col data-viz">
+            <h6 className="text-uppercase font-weight-bold mb-4">Ingoing evolution</h6>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
             </div>
           </div>
-          <div className="row">
-            <div className="col dataViz">
-              <h5>Outgoing evolution</h5>
-              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col dataViz">
-              <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
-            </div>
-            <div className="col dataViz">
-              <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
-            </div>
+        
+        <div className="row">
+          <div className="col data-viz">
+            <h6 className="text-uppercase font-weight-bold mb-4">Outgoing evolution</h6>
+            <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
           </div>
         </div>
+        <div className="row">
+          <div className="col data-viz">
+            <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
+            <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
+          </div>
+          <div className="col data-viz">
+          <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of outgoing</h6>
+            <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
+          </div>
+        </div>
+      </div>
       </div>
     )
   }

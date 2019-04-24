@@ -6,8 +6,8 @@ export default class MonthChart extends React.Component {
     options= {
       responsive: true,
       title: {
-        display: true,
-        text: 'Monthly evolution per region'
+        display: false,
+        text: 'Monthly evolution per region '
       },
       tooltips: {
         mode: 'index',
@@ -42,7 +42,7 @@ export default class MonthChart extends React.Component {
   constructor(props) {
     super(props);
     this.data.datasets = chartData(props);
-    this.options.title.text = props.var
+    this.options.title.text += props.var
   }
 
   componentWillReceiveProps(nextProps) {

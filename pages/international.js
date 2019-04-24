@@ -9,6 +9,8 @@ import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
 import { internationalSelectedColors } from '../utils/colors'
+import Stat from '../components/stat'
+import MultiSelect from '../components/multi-select'
 
 export default class International extends React.Component {
   topYear = [
@@ -111,7 +113,7 @@ export default class International extends React.Component {
                 <Nav className="justify-content-center">
                   {this.topYear.map(({ value, label }) => (
                     <NavItem key={`nav-navitem-${label}`}>
-                      <Link key={`nav-navitem-link${label}`} href={`/${value}`}><a className="nav-link">{label} </a></Link>
+                      <Link key={`nav-navitem-link${label}`} href={`${value}`}><a className="nav-link">{label} </a></Link>
                     </NavItem>
                   ))}
                 </Nav>
@@ -119,67 +121,43 @@ export default class International extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label">Countries</label>
-                <div className="col-md-11">
-                  <Select
-                    key={JSON.stringify(this.state.info.topCountries)}
-                    defaultValue={this.state.info.topCountries}
-                    isSearchable isClearable isMulti
-                    name="countries"
-                    closeMenuOnSelect={false}
-                    options={this.state.info.topCountries}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    placeholder="Select.."
-                    onChange={this.handleCountriesChange}
-                  />
-                </div>
-              </div>
-              <div className="form-group row">
-                {/* <label className="col-md-1 col-form-label ml-auto">Year</label>
-              <div className="col-md-2 ">
-                <Select value={selectedYear} onChange={this.handleYearChange} options={this.topYear} />
-              </div> */}
-                <label className="col-md-1 col-form-label  ml-auto">Ages</label>
-                <div className="col-md-2">
-                  <Select
-                    key={JSON.stringify(this.state.info.topAges)}
-                    defaultValue={[this.state.info.topAges[0]]}
-                    name="ages"
-                    options={this.state.info.topAges}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={this.handleAgesRange}
-                  />
-                </div>
+              <MultiSelect class="col-md" isMulti={true} isClearable={true}
+                  onChange={this.handleCountriesChange}
+                  default={this.state.info.topCountries}
+                  options={this.state.info.topCountries} />
+                <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
+                  onChange={this.handleAgesRange}
+                  default={this.state.info.topAges[0]} name="ages"
+                  options={this.state.info.topAges} />
                 <div className="col-auto">
                   <button type="submit" className="btn btn-outline-primary">Update</button>
                 </div>
               </div>
-
             </form>
-
           </Menu>
-
         </div>
         <div className="col">
           <div className="test">
             <Head title="International" />
-
+            <div className="row stats">
+            <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Number of reviews" fa="fas fa-star"></Stat>
+          </div>
             <div className="row">
-              <div className="col dataViz">
+              <div className="col data-viz">
+              <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
                 <ReviewChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
             </div>
 
             <div className="row">
-              <div className="col dataViz">
+              <div className="col data-viz">
+              <h6 className="text-uppercase font-weight-bold mb-4">Reviews evolution</h6>
                 <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
               </div>
-            </div>
-            <div className="row">
-              <div className="col dataViz">
-                <MonthChart height={80} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+              <div className="col data-viz">
+              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
+                <MonthChart height='100' evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
               </div>
             </div>
           </div>
