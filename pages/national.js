@@ -11,6 +11,7 @@ import { nationalSelectedColors } from '../utils/colors'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
+import BarChart from '../components/bar-chart'
 
 
 export default class National extends React.Component {
@@ -20,7 +21,13 @@ export default class National extends React.Component {
     { value: 2016, label: '2016' }
   ]
 
+  // let arr = this.props.data['Centrality'];
+  //   let year = this.state.selectedYear['value'];
+
+  //   var mostCentral = Object.keys(arr).reduce((max, region) => arr[max][year].value > arr[region][year].value ? max : region);
+
   state = {
+    mostCentral: Object.keys(this.props.data['Centrality']).reduce((max, region) => this.props.data['Centrality'][max][this.props.year].value > this.props.data['Centrality'][region][this.props.year].value ? max : region),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     info: {
@@ -67,6 +74,7 @@ export default class National extends React.Component {
     const info = await axios.get(`http://localhost:3000/BM/national/${selectedYear.value}/info`)
     this.setState({
       data: res.data,
+      mostCentral: Object.keys(this.props.data['Centrality']).reduce((max, region) => this.props.data['Centrality'][max][this.props.year].value > this.props.data['Centrality'][region][this.props.year].value ? max : region),
       selectedYear,
       info: {
         topCountries: info.data.topCountries.map(el => {
@@ -99,13 +107,14 @@ export default class National extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?\
-      countries=${this.selected.topCountries.map(el => el.value).join()}&\
-      regions=${this.selected.topRegions.map(el => el.value).join()}&\
-      ages=${this.selected.topAges.value || "-"}`)
-        .replace(/ /g, "")
+      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&regions=${this.selected.topRegions.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+        .replace(/\s\s+/g, ' ')
     )
-    this.setState({ data: res.data });
+    this.setState({ 
+      data: res.data,
+      mostCentral: Object.keys(res.data['Centrality']).reduce((max, region) => res.data['Centrality'][max][this.state.selectedYear.value].value > res.data['Centrality'][region][this.state.selectedYear.value].value ? max : region),
+    });
+    console.log(this.state.mostCentral);
     NProgress.done();
   }
 
@@ -159,6 +168,7 @@ export default class National extends React.Component {
           <Head title="National" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.mostCentral} type="Most central region" fa="fas fa-award"></Stat>
             <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
             <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>
@@ -191,6 +201,20 @@ export default class National extends React.Component {
             <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
           </div>
         </div>
+        <div className="row">
+              <div className="col data-viz">
+                <h6 className="text-uppercase font-weight-bold">National centrality</h6>
+                <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
+                <BarChart evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
+              </div>
+            </div>
+            <div className="row">
+            <div className="col data-viz">
+                <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>
+                <p className="text-uppercase mb-4 text-muted text-small">(PageRank Y / Y-1)</p>
+                <DiffTable evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} var='value' />
+              </div>
+            </div>
       </div>
       </div>
     )

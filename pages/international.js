@@ -1,6 +1,6 @@
 import Head from '../components/head'
 import axios from 'axios'
-import ReviewChart from '../components/review-chart'
+import BarChart from '../components/bar-chart'
 import DiffTable from '../components/diff-table';
 import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
@@ -150,7 +150,7 @@ export default class International extends React.Component {
             <div className="row">
               <div className="col data-viz">
                 <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
-                <ReviewChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
+                <BarChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
               </div>
             </div>
 
@@ -161,7 +161,7 @@ export default class International extends React.Component {
               </div>
               <div className="col data-viz">
                 <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
-                <MonthChart height='100' evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+                <MonthChart height={100} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
               </div>
             </div>
           </div>

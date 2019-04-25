@@ -32,11 +32,11 @@ export default class DiffTable extends React.Component {
                       return (
                       <td 
                         key={`body-td-${value}-${year}`} 
-                        style={{ fontWeight: "bold", color: (value > 0 ? 'LimeGreen	' : 'red') }}>
+                        style={{ fontWeight: "bold", color: (value >= 0 ? 'LimeGreen	' : 'red') }}>
                         {value > 0 ? `+${value}%` : `${value}%`}
                       </td>)
                     }
-                    else return (<td key={`body-td-${value}-${year}`}>{value}</td>)
+                    else return (<td key={`body-td-${value}-${year}`}>{value + "%"}</td>)
                   })}
                 </tr>
               )

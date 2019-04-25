@@ -16,7 +16,7 @@ export default class Stat extends React.Component {
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
-                <h3>{this.props.value}</h3>
+                <h5>{this.props.value}</h5>
               </div>
             </div>
             <div className="row">
