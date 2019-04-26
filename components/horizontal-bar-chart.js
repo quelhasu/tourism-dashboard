@@ -1,32 +1,7 @@
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
-export default class BarChart extends React.Component {
-  options = {
-    datasetFill: true,
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        },
-        ticks: {
-          stepSize: 50
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true, callback: function (value, index, values) {
-            return value + "%";
-          },
-          stepSize: 10
-        },
-      }]
-    }
-  }
+export default class HorizontalBarChart extends React.Component {
 
-  
   chartData = (props) => {
     this.data.labels = Object.keys(props.evolution).map(key => { return key })
   
@@ -47,13 +22,20 @@ export default class BarChart extends React.Component {
       datasets: [
         {
           label: props.type,
-          borderWidth: 1,
+          borderWidth: 2,
         }
       ]
     }
     this.options = {
+      legend: {
+        display: false,
+      },
       scales: {
+        xAxes: [{
+          position: 'bottom',
+        }],
         yAxes:[{
+          position: 'right',
           ticks:{
             stepSize: props.step || 10,
             beginAtZero: true, callback: function (value, index, values) {
@@ -72,18 +54,12 @@ export default class BarChart extends React.Component {
   }
 
   render() {
-    // this
-    // Object.keys(this.props.evolution).forEach((key, i) => {
-    //   // console.log(this.props.evolution[key][this.props.year])
-    //   // console.log(i, this.props.evolution[key])
-    //   // if(i == 1) return props.evolution[year]['Ingoing']
-    // });
     return (
       <div>
-        <Bar
+        <HorizontalBar
           data={this.data}
           width={100}
-          height={20}
+          height={45}
           options={this.options}
         />
       </div>

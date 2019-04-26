@@ -11,7 +11,7 @@ import { nationalSelectedColors } from '../utils/colors'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
-import BarChart from '../components/bar-chart'
+import HorizontalBarChart from '../components/horizontal-bar-chart'
 import { MostCentral } from "../utils/helpers"
 
 
@@ -200,10 +200,8 @@ export default class National extends React.Component {
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold">National centrality</h6>
               <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
-              <BarChart evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
+              <HorizontalBarChart evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
             </div>
-          </div>
-          <div className="row">
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>
               <p className="text-uppercase mb-4 text-muted text-small">(PageRank Y / Y-1)</p>
