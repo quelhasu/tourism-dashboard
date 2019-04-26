@@ -2,23 +2,25 @@ import { HorizontalBar } from 'react-chartjs-2';
 
 export default class HorizontalBarChart extends React.Component {
 
+
   chartData = (props) => {
     this.data.labels = Object.keys(props.evolution).map(key => { return key })
-  
+
     this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
       return props.evolution[key][props.year]['value']
     })
-  
+
     const colors = orderColors(this.data.labels, this.selectedColors)
-  
+
     this.data.datasets[0].backgroundColor = colors
     this.data.datasets[0].borderColor = colors
   }
 
   constructor(props) {
     super(props);
+    
     this.data = {
-      labels:'',
+      labels: '',
       datasets: [
         {
           label: props.type,
@@ -27,21 +29,25 @@ export default class HorizontalBarChart extends React.Component {
       ]
     }
     this.options = {
+      responsive: true,
+      maintainAspectRatio: false,
       legend: {
         display: false,
       },
       scales: {
         xAxes: [{
+          barThickness: 5,
           position: 'bottom',
-        }],
-        yAxes:[{
-          position: 'right',
-          ticks:{
+          ticks: {
             stepSize: props.step || 10,
             beginAtZero: true, callback: function (value, index, values) {
               return `${value} ${props.valueType ? props.valueType : '%'}`;
             },
           }
+        }],
+        yAxes: [{
+          position: 'right',
+          
         }]
       }
     }
@@ -55,11 +61,9 @@ export default class HorizontalBarChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{height: `${3.090909091 * this.props.nbItems}vh`, maxWidth: '35vw', minHeight: '25vh'}}>
         <HorizontalBar
           data={this.data}
-          width={100}
-          height={45}
           options={this.options}
         />
       </div>

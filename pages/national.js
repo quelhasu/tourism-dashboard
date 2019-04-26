@@ -167,6 +167,7 @@ export default class National extends React.Component {
             <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
             <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>
+          
           <div className="row">
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per regions</h6>
@@ -200,7 +201,7 @@ export default class National extends React.Component {
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold">National centrality</h6>
               <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
-              <HorizontalBarChart evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
+              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
             </div>
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>
@@ -208,6 +209,7 @@ export default class National extends React.Component {
               <DiffTable evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} var='value' />
             </div>
           </div>
+          
         </div>
       </div>
     )
