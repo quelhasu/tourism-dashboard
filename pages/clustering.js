@@ -13,6 +13,7 @@ import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import { PascalCase } from '../utils/helpers'
 import HorizontalBarChart from '../components/horizontal-bar-chart'
+import { MostCentral } from '../utils/helpers'
 
 export default class Clustering extends React.Component {
   topYear = [
@@ -22,6 +23,7 @@ export default class Clustering extends React.Component {
   ]
 
   state = {
+    mostCentral: MostCentral(this.props.data['Centrality'], this.props.year),
     selectedYear: { value: this.props.year, label: this.props.year },
     name: { value: this.props.name, label: this.props.name },
     dep: { value: this.props.dep, label: PascalCase(this.props.dep) },
@@ -113,7 +115,11 @@ export default class Clustering extends React.Component {
       ages=${this.selected.topAges.value || "-"}`)
         .replace(/ /g, "")
     )
-    this.setState({ data: res.data });
+    this.setState({ 
+      data: res.data,
+      mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
+    });
+    
     NProgress.done();
   }
 
@@ -198,6 +204,7 @@ export default class Clustering extends React.Component {
           <Head title="Grouping" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.mostCentral} type="Most central area" fa="fas fa-award"></Stat>
             <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
             <Stat value={this.state.data['TotalReviews'].NB2.toLocaleString()} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>
