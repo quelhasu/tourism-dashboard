@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { internationalSelectedColors } from '../utils/colors'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
+import { MaxEvolution } from '../utils/helpers'
 
 export default class International extends React.Component {
   topYear = [
@@ -20,6 +21,7 @@ export default class International extends React.Component {
   ]
 
   state = {
+    maxEvolution:  MaxEvolution(this.props.data['Evolution']),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     info: {
@@ -98,7 +100,10 @@ export default class International extends React.Component {
       ages=${this.selected.topAges.value || "-"}`)
         .replace(/ /g, "")
     )
-    this.setState({ data: res.data });
+    this.setState({ 
+      data: res.data,
+      maxEvolution:  MaxEvolution(res.data['Evolution']), 
+    });
     NProgress.done();
   }
 
@@ -145,6 +150,7 @@ export default class International extends React.Component {
             <Head title="International" />
             <div className="row stats">
               <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
+              <Stat value={this.state.maxEvolution} type="most present country (Y/Y-1). " fa="fas fa-map-pin"></Stat>
               <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
             <div className="row">
