@@ -7,6 +7,7 @@ export default class Stat extends React.Component {
   }
 
   render() {
+    let addValue = this.props.addValue;
     return (
       <div className="col-md  data-viz">
         <div className="row">
@@ -16,7 +17,7 @@ export default class Stat extends React.Component {
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
-                <h5>{this.props.value}</h5>
+                <h5>{this.props.value} {addValue ? (<xsmall>({(addValue >= 0 ? "+" : "-")+addValue+'%'})</xsmall>) : '' }</h5>
               </div>
             </div>
             <div className="row">
