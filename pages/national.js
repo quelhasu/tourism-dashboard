@@ -190,11 +190,11 @@ export default class National extends React.Component {
           <div className="row">
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
-              <MonthChart height={150} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
             </div>
             <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of outgoing</h6>
-              <MonthChart height={150} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
             </div>
           </div>
           <div className="row">

@@ -5,6 +5,7 @@ var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 export default class MonthChart extends React.Component {
     options= {
       responsive: true,
+      maintainAspectRatio: false,
       title: {
         display: false,
         text: 'Monthly evolution per region '
@@ -52,7 +53,7 @@ export default class MonthChart extends React.Component {
   render() {
     return (
       <div>
-        <Line height={this.props.height} data={this.data} options={this.options} />
+        <Line height={this.props.height} width={this.props.width} data={this.data} options={this.options} />
       </div>
     )
   }

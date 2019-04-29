@@ -1,6 +1,8 @@
 import { Bar } from 'react-chartjs-2';
 
 const options = {
+  responsive: true,
+  maintainAspectRatio: false,
   datasetFill: true,
   legend: {
     display: false
@@ -80,11 +82,11 @@ export default class GoingChart extends React.Component {
     //   // if(i == 1) return props.evolution[year]['Ingoing']
     // });
     return (
-      <div>
+      <div className="going-chart">
         <Bar
           data={this.data}
           width={100}
-          height={20}
+          // height={20}
           options={options}
         />
       </div>

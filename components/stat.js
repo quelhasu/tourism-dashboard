@@ -24,7 +24,7 @@ export default class Stat extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="col text-sm-right text-muted text-uppercase small">{this.props.type}</div>
+              <div className="col text-sm-right text-muted text-uppercase text-small">{this.props.type}</div>
             </div>
           </div>
         </div>

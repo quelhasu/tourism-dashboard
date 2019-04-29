@@ -61,7 +61,7 @@ export default class HorizontalBarChart extends React.Component {
 
   render() {
     return (
-      <div style={{height: `${3.090909091 * this.props.nbItems}vh`, maxWidth: '35vw', minHeight: '25vh'}}>
+      <div className="horizontal-bar" style={{height: `${3.090909091 * this.props.nbItems}vh`}}>
         <HorizontalBar
           data={this.data}
           options={this.options}
