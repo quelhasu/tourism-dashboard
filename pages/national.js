@@ -7,7 +7,7 @@ import Menu from '../components/menu';
 import NProgress from 'nprogress'
 import { Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
-import { nationalSelectedColors } from '../utils/colors'
+import { nationalSelectedColors, statsColors } from '../utils/colors'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
@@ -162,10 +162,10 @@ export default class National extends React.Component {
         <div className="col">
           <Head title="National" />
           <div className="row stats">
-            <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
-            <Stat value={this.state.mostCentral} type="Most central region" fa="fas fa-award"></Stat>
-            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
-            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB2.toLocaleString()} addValue={this.state.data['TotalReviews']['diff'].NB2} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
+            <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.mostCentral} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
+            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['ingoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
+            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB2.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB2} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>
           
           <div className="row">

@@ -151,7 +151,7 @@ export default class International extends React.Component {
             <div className="row stats">
               <Stat value={this.state.selectedYear['value']} type="Selected Year" fa="fas fa-calendar-day"></Stat>
               <Stat value={this.state.maxEvolution} type="most present country (Y/Y-1). " fa="fas fa-map-pin"></Stat>
-              <Stat value={this.state.data['TotalReviews'].NB1.toLocaleString()} type="Number of reviews" fa="fas fa-star"></Stat>
+              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
             <div className="row">
               <div className="col data-viz">

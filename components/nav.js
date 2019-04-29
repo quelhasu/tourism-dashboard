@@ -52,7 +52,7 @@ class Navi extends React.Component {
   render() {
     return (
       <div style={headerStyle}>
-        <Navbar style={navbarStyle} bg="light" sticky="top" light expand="md">
+        <Navbar className="navbar" bg="light" sticky="top" light expand="md">
           <Link href="/">
             <a className="navbar-brand">
               <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
@@ -78,7 +78,7 @@ class Navi extends React.Component {
         margin: 0;
         // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
         //   Helvetica, sans-serif;
-        font-family: "Montserrat", sans-serif;
+        // font-family: "Montserrat", sans-serif;
         padding: 0;
       }
       nav {

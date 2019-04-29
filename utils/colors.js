@@ -47,3 +47,10 @@ exports.groupingSelectedColors = {
 	"Sarlat-la-Canéda":'rgb(240, 140, 60)',
 	"Dax":'rgb(206, 61, 107)'
 };
+
+exports.statsColors = {
+	"selected-year": 'linear-gradient(to right, #1A91B6, #A2E3B5)',
+	"central": 'linear-gradient(to right, #5B1BB7, #F09BF4)',
+	"ingoing": 'linear-gradient(to left, #FCD9A6, #64C352)',
+	"outgoing": 'linear-gradient(to left, #FBC863, #F24948)'
+}

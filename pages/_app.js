@@ -19,7 +19,7 @@ Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
 export default class MyApp extends App {
-  static async getInitialProps ({ Component, router, ctx }) {
+  static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {
       router: router
     }
@@ -31,17 +31,17 @@ export default class MyApp extends App {
     return { pageProps }
   }
 
-  render () {
+  render() {
     const { Component, pageProps, router } = this.props
     return (
       <Container>
         <style jsx>{`
             :global(body) {
                 margin: 0;
-                background: #f7f7f7;
-                // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
-                //   Helvetica, sans-serif;
-                font-family: "Montserrat", sans-serif;
+                background: #f7f7f7;              
+                // font-family: 'Lato', sans-serif;
+                font-family: 'Rubik', sans-serif;
+                // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
                 padding: 10px;
                 padding-top: 70px;
               }
@@ -60,7 +60,7 @@ export default class MyApp extends App {
             <a style={linkStyle}>Non Existing Page</a>
           </Link>
         </div> */}
-        <Navi current={router}/>
+        <Navi current={router} />
         <Component {...pageProps} />
       </Container>
     )

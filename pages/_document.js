@@ -13,6 +13,8 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/> 
+          <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet"/> 
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
           
           {/* Import CSS for nprogress */}
