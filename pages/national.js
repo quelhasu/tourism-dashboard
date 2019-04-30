@@ -44,6 +44,7 @@ export default class National extends React.Component {
     this.selected = JSON.parse(JSON.stringify(this.state.info));
   }
 
+
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
     const response = await axios.get(`http://localhost:3000/BM/national/${year}/`);

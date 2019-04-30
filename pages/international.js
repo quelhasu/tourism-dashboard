@@ -12,6 +12,7 @@ import { internationalSelectedColors, statsColors } from '../utils/colors'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import { MaxEvolution } from '../utils/helpers'
+import DoughnutChart from '../components/doughnut-chart'
 
 export default class International extends React.Component {
   topYear = [
@@ -21,7 +22,7 @@ export default class International extends React.Component {
   ]
 
   state = {
-    maxEvolution:  MaxEvolution(this.props.data['Evolution']),
+    maxEvolution: MaxEvolution(this.props.data['Evolution']),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     info: {
@@ -100,9 +101,9 @@ export default class International extends React.Component {
       ages=${this.selected.topAges.value || "-"}`)
         .replace(/ /g, "")
     )
-    this.setState({ 
+    this.setState({
       data: res.data,
-      maxEvolution:  MaxEvolution(res.data['Evolution']), 
+      maxEvolution: MaxEvolution(res.data['Evolution']),
     });
     NProgress.done();
   }
@@ -126,14 +127,14 @@ export default class International extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
-              <label className="col-md-1 col-form-label text-muted">Countries</label>
+                <label className="col-md-1 col-form-label text-muted">Countries</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries}
                   options={this.state.info.topCountries} />
-                </div>
-                <div className="form-group row">
-                   <label className="col-md-1 col-form-label text-muted  ml-auto">Ages</label>
+              </div>
+              <div className="form-group row">
+                <label className="col-md-1 col-form-label text-muted  ml-auto">Ages</label>
                 <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
                   onChange={this.handleAgesRange}
                   default={this.state.info.topAges[0]} name="ages"
@@ -152,6 +153,16 @@ export default class International extends React.Component {
               <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
               <Stat value={this.state.maxEvolution} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin"></Stat>
               <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
+            </div>
+            <div className="row">
+              <div className="col data-viz">
+                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
+                <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
+              </div>
+              <div className="col data-viz">
+              <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
+              <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
+                </div>
             </div>
             <div className="row">
               <div className="col data-viz">
