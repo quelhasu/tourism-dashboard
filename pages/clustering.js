@@ -201,7 +201,7 @@ export default class Clustering extends React.Component {
           </Menu>
         </div>
         <div className="col">
-          <Head title="Grouping" />
+          <Head title="Clustering" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             <Stat value={this.state.mostCentral} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>

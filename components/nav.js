@@ -52,7 +52,7 @@ class Navi extends React.Component {
   render() {
     return (
       <div style={headerStyle}>
-        <Navbar className="navbar" bg="light" sticky="top" light expand="md">
+        <Navbar className="navbar" bg="light" fixed="top" light expand="md">
           <Link href="/">
             <a className="navbar-brand">
               <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />

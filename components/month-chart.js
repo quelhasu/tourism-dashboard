@@ -52,8 +52,8 @@ export default class MonthChart extends React.Component {
 
   render() {
     return (
-      <div>
-        <Line height={this.props.height} width={this.props.width} data={this.data} options={this.options} />
+      <div className="month-chart">
+        <Line width={this.props.width} data={this.data} options={this.options} />
       </div>
     )
   }

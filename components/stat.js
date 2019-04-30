@@ -6,17 +6,26 @@ export default class Stat extends React.Component {
     super(props);
   }
 
+
   render() {
     let addValue = this.props.addValue;
+    let addValueFa = addValue >= 0 ? <i class="fas fa-caret-up"></i> : <i class="fas fa-caret-down"></i>
+
     return (
-      <div className="col-md  data-viz " style={{background:this.props.background }}>
+      <div className="col-md  data-viz " style={{ background: this.props.background }}>
         <div className="row statistics">
           <div className="col-md-2 text-left">
             <i className={`${this.props.fa} center-item`}></i>
           </div>
-          <div className="col-md-2 additional-value">
-          {addValue ? ((addValue >= 0 ? "+" : "-")+addValue+'%') : '' }
-          </div>
+
+          {addValue ? (
+            <div className="additional-value ">
+              <span>
+                <i className={`fas fa-caret-${addValue >= 0 ? 'up' : 'down'} `} style={{fontSize:'1vw'}}/>
+              </span>
+              {addValue}%
+            </div>
+          ) : ''}
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
