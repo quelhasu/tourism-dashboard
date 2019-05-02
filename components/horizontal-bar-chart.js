@@ -1,4 +1,5 @@
 import { HorizontalBar } from 'react-chartjs-2';
+import { OrderColors } from '../utils/helpers'
 
 export default class HorizontalBarChart extends React.Component {
 
@@ -10,7 +11,7 @@ export default class HorizontalBarChart extends React.Component {
       return props.evolution[key][props.year]['value']
     })
 
-    const colors = orderColors(this.data.labels, this.selectedColors)
+    const colors = OrderColors(this.data.labels, this.selectedColors)
 
     this.data.datasets[0].backgroundColor = colors
     this.data.datasets[0].borderColor = colors
@@ -70,12 +71,4 @@ export default class HorizontalBarChart extends React.Component {
     )
   }
 
-}
-
-function orderColors(names, selectedColors) {
-  var array = [];
-  for (var i = 0; i < names.length; i++) {
-    array.push(selectedColors[names[i]]);
-  };
-  return array;
 }
