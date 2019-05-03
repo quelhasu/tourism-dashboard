@@ -11,15 +11,10 @@ $navbar-height: 60px;
   }
 }
 
-
 * {
   @include large-smartphone(){
     font-size: $responsive-font-size;
   }
-}
-
-:root {
-  // font-size: calc(0.5vw + 1vh + .5vmin);
 }
 
 h1{
@@ -35,6 +30,7 @@ h6{
 }
 
 .navbar{
+  border-top: 3.5px #D50B55 solid;
   border-bottom: 0.5px solid #d1d1d1;
   background-color: #FFF!important;
   padding: 1rem 2.5rem;
@@ -78,13 +74,9 @@ h6{
 
     .additional-value {
       color: #ffffff4d;
-      // font-size: 34px;
       font-size: 2.5vw;
       position: absolute;
       left: 5.5vw;
-      // @include large-smartphone(){
-      //   font-size: 2vw;
-      // }
     }
   }
 
@@ -154,11 +146,4 @@ xsmall{
 
 .month-chart{
   height: 30vh;
-}
-
-.doughnut-chart{
-  // height: 40vh;
-  // @include large-smartphone(){
-  //   height: 10vh;
-  // }
 }
