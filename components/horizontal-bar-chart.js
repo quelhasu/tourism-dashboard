@@ -47,6 +47,18 @@ export default class HorizontalBarChart extends React.Component {
       legend: {
         display: false,
       },
+      plugins: {
+        datalabels: {
+          color: '#fff',
+          font: function(context) {
+            var width = context.chart.width;
+            var size = Math.round(width / 60);
+            return {
+              size: size,
+            };
+          }
+        }
+      },
       scales: {
         xAxes: [{
           barThickness: 5,

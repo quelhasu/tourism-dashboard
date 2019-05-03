@@ -3,7 +3,7 @@ $primary-color: #c8014e;
 $font-size: 50px;
 $responsive-font-size: 1vw;
 
-$navbar-height: 60px;
+$navbar-height: 4vw;
 
 @mixin large-smartphone{
   @media(min-width: 730px) and (max-width: 1100px){
@@ -30,20 +30,26 @@ h6{
 }
 
 .navbar{
-  border-top: 3.5px #D50B55 solid;
+  border-top: 2px #D50B55 solid;
   border-bottom: 0.5px solid #d1d1d1;
   background-color: #FFF!important;
   padding: 1rem 2.5rem;
   box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2);
   height: $navbar-height;
 
-  .navbar-brand{
-    font-size: 1vw;
+  &-brand{
+    font-size: 1vw !important;
+  }
+
+  &-logo{
+    height: 2vw;
+    margin-right: 10px;
   }
 
   .nav-link{
     font-size: 0.8vw;
   }
+
 }
 
 .center-item{
@@ -51,10 +57,6 @@ h6{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.data-viz-block{
-  margin: 25px auto;
 }
 
 .data-viz {
@@ -91,7 +93,6 @@ h6{
   }
 
   .far, .fas {
-    // font-size: 35px;
     font-size: 2vw;
   }
 
@@ -101,7 +102,7 @@ h6{
 }
 
 .body-content{
-  top: $navbar-height;
+  top: $navbar-height + 2vw;
   padding: 0 25px;
 }
 
@@ -121,11 +122,12 @@ xsmall{
 }
 
 .btn{
-  @include large-smartphone(){
-    font-size: 1.5vw;
-    padding: 10px;
+  &-filter{
+    @include large-smartphone(){
+    padding: 5px;
     line-height: 0.5;
   }
+}
 }
 
 .horizontal-bar{
@@ -145,5 +147,5 @@ xsmall{
 }
 
 .month-chart{
-  height: 30vh;
+  height: 40vh;
 }

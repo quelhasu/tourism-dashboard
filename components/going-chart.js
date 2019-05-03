@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import { OrderColorsRGBA } from '../utils/helpers'
+import 'chartjs-plugin-datalabels';
 
 const options = {
   responsive: true,
@@ -8,18 +9,33 @@ const options = {
   legend: {
     display: false
   },
+  plugins: {
+    datalabels: {
+      color: '#fff',
+      font: function(context) {
+        var width = context.chart.width;
+        var size = Math.round(width / 95);
+        return {
+          size: size,
+          // weight: 200
+        };
+      }
+    }
+  },
   scales: {
     xAxes: [{
       gridLines: {
         color: "rgba(0, 0, 0, 0)",
       },
       ticks: {
+        fontSize: 10,
         stepSize: 50
       },
       stacked: true
     }],
     yAxes: [{
       ticks: {
+        fontSize: 10,
         beginAtZero: true, callback: function (value, index, values) {
           return value + "%";
         },

@@ -22,6 +22,11 @@ export default class MonthChart extends React.Component {
         display: false,
         text: 'Monthly evolution per region '
       },
+      legend:{
+        labels:{
+          fontSize: 10,
+        }
+      },
       tooltips: {
         mode: 'index',
         intersect: false,
@@ -30,8 +35,16 @@ export default class MonthChart extends React.Component {
         mode: 'nearest',
         intersect: true
       },
+      plugins: {
+        datalabels: {
+          display: false, 
+        }
+      },
       scales: {
         xAxes: [{
+          ticks:{
+            fontSize:10
+          },
           display: true,
           scaleLabel: {
             display: false,
@@ -39,6 +52,9 @@ export default class MonthChart extends React.Component {
           }
         }],
         yAxes: [{
+          ticks:{
+            fontSize:10
+          },
           display: true,
           scaleLabel: {
             display: true,

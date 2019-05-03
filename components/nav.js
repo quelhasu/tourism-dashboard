@@ -2,18 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { Navbar, Nav, NavItem } from "reactstrap";
 
-const navbarLogoStyle = {
-  height: 35,
-  marginRight: 10,
-  marginTop: -5
-}
-
-const navbarStyle = {
-  borderBottom: "0.5px solid #d1d1d1",
-  backgroundColor: "#FFF!important",
-  padding: "1rem 2.5rem",
-  boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2)"
-}
 
 const headerStyle = {
   marginBottom: 30
@@ -51,11 +39,11 @@ class Navi extends React.Component {
 
   render() {
     return (
-      <div style={headerStyle}>
+      <div>
         <Navbar className="navbar" bg="light" fixed="top" light expand="md">
           <Link href="/">
             <a className="navbar-brand">
-              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" style={navbarLogoStyle} />
+              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" className="navbar-logo" />
               Tourism
             </a>
           </Link>

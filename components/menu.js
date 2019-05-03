@@ -30,7 +30,7 @@ export default class Menu extends React.Component {
             <h1>{this.props.title}</h1>
           </div>
           <div className="col-md-auto">
-            <button className="btn btn-outline-dark center-item" onClick={this.toggle}>
+            <button className="btn btn-outline-dark center-item btn-filter" onClick={this.toggle}>
               <i className="fas fa-filter"></i>
             </button>
           </div>
