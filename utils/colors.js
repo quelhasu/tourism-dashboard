@@ -55,3 +55,10 @@ exports.statsColors = {
 	"outgoing": 'linear-gradient(to left, #FBC863, #F24948)',
 	"reviews": 'linear-gradient(to left, #F7C1DB, #F8944C)'
 }
+
+exports.statsBorderColors  = {
+	"going": 'rgba(221, 188, 124, 0.2) 7px solid' ,
+	"central": 'rgb(228, 145, 239, 0.2) 7px solid',
+	"ingoing": 'rgb(209, 211, 142, 0.2) 7px solid' ,
+	"outgoing": 'rgb(247, 140, 86, 0.2) 7px solid' 
+}
