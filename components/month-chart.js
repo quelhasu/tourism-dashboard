@@ -2,6 +2,18 @@ import { Line } from 'react-chartjs-2';
 
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+/**
+ * Create a month chart 
+ * @class MonthChart
+ * 
+ * @prop {String} height - Height of the Line chart
+ * @prop {String} width - Width of the Line chart
+ * @prop {Object[]} evolution - Monthly evolution values
+ * @prop {String[]} colors - Colors array associated with name
+ * 
+ * 
+ * @extends React.Component<Props>
+ */
 export default class MonthChart extends React.Component {
     options= {
       responsive: true,

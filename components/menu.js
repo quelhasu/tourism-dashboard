@@ -1,6 +1,15 @@
 import React from 'react'
 import { Collapse } from 'reactstrap';
 
+/**
+ * Create a menu with personalized content
+ * @class Menu
+ * 
+ * @prop {String} title - Title of the menu
+ * @prop {React.Component} children - Personalized content
+ * 
+ * @extends React.Component<Props>
+ */
 export default class Menu extends React.Component {
 
   constructor(props) {

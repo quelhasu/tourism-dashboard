@@ -1,5 +1,17 @@
 import React from 'react'
 
+/**
+ * Create a Stat object component
+ * @class Stat
+ * 
+ * @prop {string} background - Background color value
+ * @prop {string} value - The value to display
+ * @prop {string} [addValue=''] - Secondary value to display
+ * @prop {string} type - The type of statistic
+ * 
+ * @extends React.Component<Props>
+ */
+
 export default class Stat extends React.Component {
 
   constructor(props) {
@@ -21,7 +33,7 @@ export default class Stat extends React.Component {
           {addValue ? (
             <div className="additional-value ">
               <span>
-                <i className={`fas fa-caret-${addValue >= 0 ? 'up' : 'down'} `} style={{fontSize:'1vw'}}/>
+                <i className={`fas fa-caret-${addValue >= 0 ? 'up' : 'down'} `} style={{ fontSize: '1vw' }} />
               </span>
               {addValue}%
             </div>

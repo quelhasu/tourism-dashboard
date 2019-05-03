@@ -1,3 +1,14 @@
+
+/**
+ * Create a table component with 2 rows and 'differential' row
+ * @class DiffTable
+ * 
+ * @prop {Object[]} evolution - Evolution values to display
+ * @prop {String} year - Year evolution value
+ * @prop {String} var - Variable to reach in object
+ * 
+ * @extends React.Component<Props>
+ */
 export default class DiffTable extends React.Component {
 
 
@@ -6,10 +17,8 @@ export default class DiffTable extends React.Component {
 
     
   }
-
-
+  
   render() {
-    var length = Object.keys(this.props.evolution).length;
     return (
       <div>
         <table className="table">

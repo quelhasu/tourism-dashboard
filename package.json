@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint app",
+    "doc": "esdoc -c esdoc.json",
+    "postinstall": "npm run build && npm run doc"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -26,6 +29,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@zeit/next-sass": "^1.0.1"
+    "@zeit/next-sass": "^1.0.1",
+    "esdoc": "^1.1.0"
   }
 }

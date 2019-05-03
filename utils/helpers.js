@@ -2,15 +2,17 @@
  * Find the most central object 
  * @param {Object[]} data - Array of object to compare
  * @param {year} year - The year of compared values
+ * 
  * @return {Object} Most Central object
  */
 export function MostCentral(data, year){
   return Object.keys(data).reduce((max, obj) => data[max][year].value > data[obj][year].value ? max : obj);
 };
-
+      
 /**
  * Find the object with the highest evolution over a year
  * @param {Object[]} data - Array of object to compare
+ * 
  * @return {Object} Object with the highest 'diff' value 
  */
 export function MaxEvolution(data){
@@ -20,6 +22,7 @@ export function MaxEvolution(data){
 /**
  * Transform a string to PascalCase convention
  * @param {String} str - String to transform
+ * 
  * @return {String} Transformed string
  */
 export function PascalCase(str){
@@ -31,6 +34,7 @@ export function PascalCase(str){
  * Assigns a color to a name
  * @param {String[]} names - Array of names
  * @param {String[]} selectedColors - Array of corresponding colors
+ * 
  * @return {String[]} Array of strings with corresponding colors 
  */
 export function OrderColors(names, selectedColors){
@@ -46,6 +50,8 @@ export function OrderColors(names, selectedColors){
  * @param {String} name1 - Name of the first variable to return
  * @param {String} name2 - Name of the second variable to return
  * @param {String} alpha - Alpha value for the transparency of the RGBA color.
+ * 
+ * 
  * @return {String[]} Array of strings with corresponding colors 
  */
 export function OrderColorsRGBA(names, selectedColors, name1, name2, alpha="0.3") {
@@ -56,7 +62,7 @@ export function OrderColorsRGBA(names, selectedColors, name1, name2, alpha="0.3"
     arr2.push(selectedColors[names[i]].replace('rgb', 'rgba').replace(')', ',' + alpha + ')'));
   };
   return {
-    name1: arr1,
-    name2: arr2
+    [name1]: arr1,
+    [name2]: arr2
   };
 }

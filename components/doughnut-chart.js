@@ -1,7 +1,16 @@
 import {Doughnut} from 'react-chartjs-2';
 import { OrderColors } from '../utils/helpers'
 
-
+/**
+ * Create a dounghnut chart component
+ * @class DoughnutChart
+ * 
+ * @prop {Object[]} evolution - Evolution values to display
+ * @prop {String} year - Year evolution value
+ * @prop {String[]} colors - Colors array associated with name
+ * 
+ * @extends React.Component<Props>
+ */
 export default class DoughnutChart extends React.Component {
 
 

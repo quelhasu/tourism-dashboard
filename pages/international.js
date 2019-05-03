@@ -157,11 +157,11 @@ export default class International extends React.Component {
             <div className="row">
               <div className="col data-viz">
                 <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
-                <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
+                <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
               <div className="col data-viz">
               <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
-              <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
+              <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
                 </div>
             </div>
             <div className="row">

@@ -6,6 +6,14 @@ const defaultDescription = ''
 const defaultOGURL = ''
 const defaultOGImage = ''
 
+/**
+ * Header component present in each page
+ * @class Header
+ * 
+ * @prop {String} title - Title to display in the browser tab
+ * 
+ * @extends React.Component<Props>
+ */
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
