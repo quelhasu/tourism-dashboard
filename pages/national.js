@@ -8,6 +8,7 @@ import NProgress from 'nprogress'
 import { Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
 import { nationalSelectedColors, statsColors } from '../utils/colors'
+import { nationalFlags } from '../utils/flags'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'

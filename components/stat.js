@@ -18,9 +18,39 @@ export default class Stat extends React.Component {
     super(props);
   }
 
+  addValueProcess(val){
+    console.log(val);
+    return {'type': typeof val, 'value': val}
+  }
+
+  addValueRender(val){
+    console.log(val);
+    switch (val.type) {
+      case 'number':
+        return (
+          <div className="additional-value ">
+              <span>
+                <i className={`fas fa-caret-${val.value >= 0 ? 'up' : 'down'} `} style={{ fontSize: '1vw' }} />
+              </span>
+              {val.value}%
+            </div>
+        )
+        break;
+      case 'string':
+      if(!val.value.includes('rgb')){
+      return (
+        <div className="additional-value-image">
+          <img  src={val.value}/>
+        </div>
+      )}
+      break
+      default:
+        break;
+    }
+  }
 
   render() {
-    let addValue = this.props.addValue;
+    let addValue = this.addValueProcess(this.props.addValue);
     let addValueFa = addValue >= 0 ? <i class="fas fa-caret-up"></i> : <i class="fas fa-caret-down"></i>
 
     return (
@@ -29,15 +59,7 @@ export default class Stat extends React.Component {
           <div className="col-md-2 text-left">
             <i className={`${this.props.fa} center-item`}></i>
           </div>
-
-          {addValue ? (
-            <div className="additional-value ">
-              <span>
-                <i className={`fas fa-caret-${addValue >= 0 ? 'up' : 'down'} `} style={{ fontSize: '1vw' }} />
-              </span>
-              {addValue}%
-            </div>
-          ) : ''}
+          {this.addValueRender(addValue)}
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
