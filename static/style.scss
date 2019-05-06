@@ -3,7 +3,7 @@ $primary-color: #c8014e;
 $font-size: 50px;
 $responsive-font-size: 1vw;
 
-$navbar-height: 4vw;
+$navbar-height: 3vw;
 
 @mixin large-smartphone{
   @media(min-width: 730px) and (max-width: 1100px){
@@ -33,9 +33,13 @@ h6{
   // border-top: 2px #D50B55 solid;
   border-bottom: 0.5px solid #d1d1d1;
   background-color: #FFF!important;
-  padding: 1rem 2.5rem;
+  padding: 0 2.5rem;
   box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2);
   height: $navbar-height;
+
+  &-nav{
+    height: 100%;
+  }
 
   &-brand{
     font-size: 1vw !important;
@@ -46,7 +50,17 @@ h6{
     margin-right: 10px;
   }
 
+  .nav-item{
+    &.active{
+      // background-color: rgba(197, 0, 84, 0.1);
+      border-bottom: 2px solid rgba(197, 0, 84, 1);
+    }
+  }
+
   .nav-link{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
     font-size: 0.8vw;
   }
 
