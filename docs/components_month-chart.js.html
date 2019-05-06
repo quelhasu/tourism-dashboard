@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>components/month-chart.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BarChart.html">BarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DiffTable.html">DiffTable</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DoughnutChart.html">DoughnutChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="GoingChart.html">GoingChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Header.html">Header</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HorizontalBarChart.html">HorizontalBarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Menu.html">Menu</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MonthChart.html">MonthChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MultiSelect.html">MultiSelect</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Stat.html">Stat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleFunction">handleFunction</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MaxEvolution">MaxEvolution</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MostCentral">MostCentral</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColors">OrderColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColorsRGBA">OrderColorsRGBA</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#PascalCase">PascalCase</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/month-chart.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Line } from 'react-chartjs-2';
+
+var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+/**
+ * Create a month chart 
+ * @class MonthChart
+ * 
+ * @prop {String} height - Height of the Line chart
+ * @prop {String} width - Width of the Line chart
+ * @prop {Object[]} evolution - Monthly evolution values
+ * @prop {String[]} colors - Colors array associated with name
+ * 
+ * 
+ * @extends React.Component&lt;Props>
+ */
+export default class MonthChart extends React.Component {
+    options= {
+      responsive: true,
+      maintainAspectRatio: false,
+      title: {
+        display: false,
+        text: 'Monthly evolution per region '
+      },
+      legend:{
+        labels:{
+          fontSize: 10,
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      plugins: {
+        datalabels: {
+          display: false, 
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks:{
+            fontSize:10
+          },
+          display: true,
+          scaleLabel: {
+            display: false,
+            labelString: 'Month'
+          }
+        }],
+        yAxes: [{
+          ticks:{
+            fontSize:10
+          },
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      }
+    }
+    data = {
+      labels: MONTHS,
+      datasets: []
+    }
+
+  constructor(props) {
+    super(props);
+    this.data.datasets = chartData(props);
+    this.options.title.text += props.var
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.data.datasets = chartData(nextProps);
+  }
+
+  render() {
+    return (
+      &lt;div className="month-chart">
+        &lt;Line width={this.props.width} data={this.data} options={this.options} />
+      &lt;/div>
+    )
+  }
+}
+
+function chartData(props) {
+   return Object.keys(props.evolution).map(key => {
+    return {
+      label: key,
+      backgroundColor: props.colors[key],
+      borderColor: props.colors[key],
+      data: props.evolution[key][props.var].months.map(el => {return el != null ? el.low : 0}),
+      fill: false
+    }
+  })
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon May 06 2019 11:16:04 GMT+0200 (CEST) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

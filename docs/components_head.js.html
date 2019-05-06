@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>components/head.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BarChart.html">BarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DiffTable.html">DiffTable</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DoughnutChart.html">DoughnutChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="GoingChart.html">GoingChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Header.html">Header</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HorizontalBarChart.html">HorizontalBarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Menu.html">Menu</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MonthChart.html">MonthChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MultiSelect.html">MultiSelect</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Stat.html">Stat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleFunction">handleFunction</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MaxEvolution">MaxEvolution</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MostCentral">MostCentral</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColors">OrderColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColorsRGBA">OrderColorsRGBA</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#PascalCase">PascalCase</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/head.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import NextHead from 'next/head'
+import { string } from 'prop-types'
+
+const defaultDescription = ''
+const defaultOGURL = ''
+const defaultOGImage = ''
+
+/**
+ * Header component present in each page
+ * @class Header
+ * 
+ * @prop {String} title - Title to display in the browser tab
+ * 
+ * @extends React.Component&lt;Props>
+ */
+const Head = props => (
+  &lt;NextHead>
+    &lt;meta charSet="UTF-8" />
+    &lt;title>{props.title || 'Tourism'}&lt;/title>
+    &lt;meta
+      name="description"
+      content={props.description || defaultDescription}
+    />
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1" />
+    &lt;link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
+    &lt;link rel="apple-touch-icon" href="/static/touch-icon.png" />
+    &lt;link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
+    &lt;link rel="icon" href="/static/favicon.ico" />
+    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    &lt;link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+    &lt;link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
+    &lt;meta property="og:url" content={props.url || defaultOGURL} />
+    &lt;meta property="og:title" content={props.title || ''} />
+    &lt;meta
+      property="og:description"
+      content={props.description || defaultDescription}
+    />
+    &lt;meta name="twitter:site" content={props.url || defaultOGURL} />
+    &lt;meta name="twitter:card" content="summary_large_image" />
+    &lt;meta name="twitter:image" content={props.ogImage || defaultOGImage} />
+    &lt;meta property="og:image" content={props.ogImage || defaultOGImage} />
+    &lt;meta property="og:image:width" content="1200" />
+    &lt;meta property="og:image:height" content="630" />
+  &lt;/NextHead>
+)
+
+Head.propTypes = {
+  title: string,
+  description: string,
+  url: string,
+  ogImage: string
+}
+
+export default Head
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon May 06 2019 11:16:04 GMT+0200 (CEST) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

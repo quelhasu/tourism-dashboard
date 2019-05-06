@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>components/stat.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BarChart.html">BarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DiffTable.html">DiffTable</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DoughnutChart.html">DoughnutChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="GoingChart.html">GoingChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Header.html">Header</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HorizontalBarChart.html">HorizontalBarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Menu.html">Menu</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MonthChart.html">MonthChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MultiSelect.html">MultiSelect</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Stat.html">Stat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleFunction">handleFunction</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MaxEvolution">MaxEvolution</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MostCentral">MostCentral</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColors">OrderColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColorsRGBA">OrderColorsRGBA</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#PascalCase">PascalCase</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/stat.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+
+/**
+ * Create a Stat object component
+ * @class Stat
+ * 
+ * @prop {string} background - Background color value
+ * @prop {string} value - The value to display
+ * @prop {string} [addValue=''] - Secondary value to display
+ * @prop {string} type - The type of statistic
+ * 
+ * @extends React.Component&lt;Props>
+ */
+
+export default class Stat extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  addValueProcess(val){
+    return {'type': typeof val, 'value': val}
+  }
+
+  addValueRender(val){
+    switch (val.type) {
+      case 'number':
+        return (
+          &lt;div className="additional-value ">
+              &lt;span>
+                &lt;i className={`fas fa-caret-${val.value >= 0 ? 'up' : 'down'} `} style={{ fontSize: '1vw' }} />
+              &lt;/span>
+              {val.value}%
+            &lt;/div>
+        )
+        break;
+      case 'string':
+      if(!val.value.includes('rgb')){
+      return (
+        &lt;div className="additional-value-image">
+          &lt;img  src={val.value}/>
+        &lt;/div>
+      )}
+      break
+      default:
+        break;
+    }
+  }
+
+  render() {
+    let addValue = this.addValueProcess(this.props.addValue);
+    let addValueFa = addValue >= 0 ? &lt;i class="fas fa-caret-up">&lt;/i> : &lt;i class="fas fa-caret-down">&lt;/i>
+
+    return (
+      &lt;div className="col-md  data-viz " style={{ background: this.props.background }}>
+        &lt;div className="row statistics">
+          &lt;div className="col-md-2 text-left">
+            &lt;i className={`${this.props.fa} center-item`}>&lt;/i>
+          &lt;/div>
+          {this.addValueRender(addValue)}
+          &lt;div className="col">
+            &lt;div className="row">
+              &lt;div className="col text-right font-weight-bold">
+                &lt;h5>{this.props.value}&lt;/h5>
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="row">
+              &lt;div className="col text-sm-right text-muted text-uppercase text-small">{this.props.type}&lt;/div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    )
+  }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon May 06 2019 11:16:04 GMT+0200 (CEST) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

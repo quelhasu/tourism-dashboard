@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BarChart.html">BarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DiffTable.html">DiffTable</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="DoughnutChart.html">DoughnutChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="GoingChart.html">GoingChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Header.html">Header</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="HorizontalBarChart.html">HorizontalBarChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Menu.html">Menu</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MonthChart.html">MonthChart</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="MultiSelect.html">MultiSelect</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Stat.html">Stat</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleFunction">handleFunction</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MaxEvolution">MaxEvolution</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#MostCentral">MostCentral</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColors">OrderColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#OrderColorsRGBA">OrderColorsRGBA</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#PascalCase">PascalCase</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><p><a href="https://deploy.now.sh/?repo=https://github.com/zeit/next.js/tree/master/examples/with-loading"><img src="https://deploy.now.sh/static/button.svg" alt="Deploy to now"></a></p>
+<h1>Example app with page loading indicator</h1><h2>How to use</h2><h3>Using <code>create-next-app</code></h3><p>Execute <a href="https://github.com/segmentio/create-next-app"><code>create-next-app</code></a> with <a href="https://yarnpkg.com/lang/en/docs/cli/create/">Yarn</a> or <a href="https://github.com/zkat/npx#readme">npx</a> to bootstrap the example:</p>
+<pre class="prettyprint source lang-bash"><code>npx create-next-app --example with-loading with-loading-app
+# or
+yarn create next-app --example with-loading with-loading-app</code></pre><h3>Download manually</h3><p>Download the example:</p>
+<pre class="prettyprint source lang-bash"><code>curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-loading
+cd with-loading</code></pre><p>Install it and run:</p>
+<pre class="prettyprint source lang-bash"><code>npm install
+npm run dev
+# or
+yarn
+yarn dev</code></pre><p>Deploy it to the cloud with <a href="https://zeit.co/now">now</a> (<a href="https://zeit.co/download">download</a>)</p>
+<pre class="prettyprint source lang-bash"><code>now</code></pre><h2>The idea behind the example</h2><p>Sometimes when switching between pages, Next.js needs to download pages(chunks) from the server before rendering the page. And it may also need to wait for the data. So while doing these tasks, browser might be non responsive.</p>
+<p>We can simply fix this issue by showing a loading indicator. That's what this examples shows.</p>
+<p>It features:</p>
+<ul>
+<li>An app with two pages which uses a common <a href="./components/Header.js">Header</a> component for navigation links.</li>
+<li>Using <code>next/router</code> to identify different router events</li>
+<li>Uses <a href="https://github.com/rstacruz/nprogress">nprogress</a> as the loading indicator.</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon May 06 2019 11:16:04 GMT+0200 (CEST) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

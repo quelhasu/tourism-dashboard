@@ -19,12 +19,10 @@ export default class Stat extends React.Component {
   }
 
   addValueProcess(val){
-    console.log(val);
     return {'type': typeof val, 'value': val}
   }
 
   addValueRender(val){
-    console.log(val);
     switch (val.type) {
       case 'number':
         return (
