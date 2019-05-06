@@ -8,7 +8,7 @@ import Select from 'react-select';
 import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
-import { groupingSelectedColors, statsColors } from '../utils/colors'
+import { groupingSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import { PascalCase } from '../utils/helpers'
@@ -209,38 +209,38 @@ export default class Clustering extends React.Component {
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB2.toLocaleString()} addValue={this.state.data['TotalReviews']['diff'].NB2} type="Outgoing value" background={statsColors['outgoing']} fa="fas fa-plane-departure"></Stat>
           </div>
           <div className="row">
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per areas</h6>
               <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={groupingSelectedColors} />
             </div>
           </div>
           <div className="row">
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Ingoing evolution</h6>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
             </div>
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Ingoing evolution</h6>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
             </div>
           </div>
           <div className="row">
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
               <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={groupingSelectedColors} />
             </div>
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
               <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={groupingSelectedColors} />
             </div>
           </div>
           <div className="row">
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
               <h6 className="text-uppercase font-weight-bold">{this.state.dep.label} centrality</h6>
               <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
               <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={groupingSelectedColors} step={0.5} valueType=" " />
             </div>
-            <div className="col data-viz">
+            <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
               <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>
               <p className="text-uppercase mb-4 text-muted text-small">(PageRank Y / Y-1)</p>
               <DiffTable evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} var='value' />

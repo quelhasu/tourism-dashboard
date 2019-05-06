@@ -58,7 +58,8 @@ exports.statsColors = {
 
 exports.statsBorderColors  = {
 	"going": 'rgba(221, 188, 124, 0.2) 7px solid' ,
-	"central": 'rgb(228, 145, 239, 0.2) 7px solid',
-	"ingoing": 'rgb(209, 211, 142, 0.2) 7px solid' ,
-	"outgoing": 'rgb(247, 140, 86, 0.2) 7px solid' 
+	"central": 'rgba(228, 145, 239, 0.2) 7px solid',
+	"ingoing": 'rgba(209, 211, 142, 0.2) 7px solid' ,
+	"outgoing": 'rgba(247, 140, 86, 0.2) 7px solid' ,
+	"reviews": 'rgba(247, 173, 157, 0.2) 7px solid'
 }

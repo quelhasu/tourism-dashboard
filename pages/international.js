@@ -8,7 +8,7 @@ import Select from 'react-select';
 import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
-import { internationalSelectedColors, statsColors } from '../utils/colors'
+import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
 import { internationalFlags } from '../utils/flags'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
@@ -155,29 +155,29 @@ export default class International extends React.Component {
               <Stat value={this.state.maxEvolution} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={internationalFlags[this.state.maxEvolution]}></Stat>
               <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
-            <div className="row">
-              <div className="col data-viz">
+            <div className="row"> 
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
                 <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
                 <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
-              <div className="col data-viz">
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
               <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
                 </div>
             </div>
             <div className="row">
-              <div className="col data-viz">
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
                 <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
                 <BarChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
               </div>
             </div>
 
             <div className="row">
-              <div className="col data-viz">
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['reviews']}}>
                 <h6 className="text-uppercase font-weight-bold mb-4">Reviews evolution</h6>
                 <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
               </div>
-              <div className="col data-viz">
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['reviews']}}>
                 <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
                 <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
               </div>
@@ -185,6 +185,7 @@ export default class International extends React.Component {
           </div>
         </div>
       </div>
+
     )
   }
 
