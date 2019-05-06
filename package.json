@@ -1,15 +1,15 @@
 {
-  "name": "with-loading",
+  "name": "tourism-dashboard",
   "version": "1.0.0",
-  "description": "This example features:",
+  "description": "Modular tourism dashboard",
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint app",
-    "doc": "esdoc -c esdoc.json",
-    "postinstall": "npm run build && npm run doc"
+    "postinstall": "npm run build && npm run doc",
+    "docs": "jsdoc ./ --configure conf.json"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -30,6 +30,7 @@
   "license": "ISC",
   "devDependencies": {
     "@zeit/next-sass": "^1.0.1",
-    "esdoc": "^1.1.0"
+    "esdoc": "^1.1.0",
+    "minami": "^1.2.3"
   }
 }
