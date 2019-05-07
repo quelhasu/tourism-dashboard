@@ -204,7 +204,7 @@ export default class Clustering extends React.Component {
           <Head title="Clustering" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-            <Stat value={this.state.mostCentral} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>
+            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Ingoing value" background={statsColors['ingoing']} fa="fas fa-plane-arrival"></Stat>
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB2.toLocaleString()} addValue={this.state.data['TotalReviews']['diff'].NB2} type="Outgoing value" background={statsColors['outgoing']} fa="fas fa-plane-departure"></Stat>
           </div>

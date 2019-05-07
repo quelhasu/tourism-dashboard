@@ -159,7 +159,7 @@ export default class International extends React.Component {
             <Head title="International" />
             <div className="row stats">
               <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-              <Stat value={this.state.maxEvolution} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={internationalFlags[this.state.maxEvolution]}></Stat>
+              <Stat value={this.state.maxEvolution.label} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
               <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
             <div className="row"> 

@@ -123,6 +123,7 @@ export default class National extends React.Component {
   }
 
   render() {
+    console.log(this.state.mostCentral.value['diff'].value)
     const { selectedYear } = this.state;
     return (
       <div className="col body-content">
@@ -172,7 +173,7 @@ export default class National extends React.Component {
           <Head title="National" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-            <Stat value={this.state.mostCentral} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
+            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['ingoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB2.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB2} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>

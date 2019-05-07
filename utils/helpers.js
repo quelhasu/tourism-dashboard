@@ -6,7 +6,11 @@
  * @return {Object} Most Central object
  */
 export function MostCentral(data, year){
-  return Object.keys(data).reduce((max, obj) => data[max][year].value > data[obj][year].value ? max : obj);
+  let key =  Object.keys(data).reduce((max, obj) => data[max][year].value > data[obj][year].value ? max : obj);
+  return{
+    label: key,
+    value: data[key]
+  }
 };
       
 /**
@@ -16,7 +20,11 @@ export function MostCentral(data, year){
  * @return {Object} Object with the highest 'diff' value 
  */
 export function MaxEvolution(data){
-  return Object.keys(data).reduce((max, obj) => data[max]['diff'].value > data[obj]['diff'].value ? max : obj);
+  let key = Object.keys(data).reduce((max, obj) => data[max]['diff'].value > data[obj]['diff'].value ? max : obj);
+  return {
+    label: key,
+    value: data[key]
+  }
 };
 
 /**
