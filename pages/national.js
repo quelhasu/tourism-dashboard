@@ -14,7 +14,7 @@ import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import HorizontalBarChart from '../components/horizontal-bar-chart'
 import { MostCentral } from "../utils/helpers"
-
+import { toast } from 'react-toastify';
 
 export default class National extends React.Component {
   topYear = [
@@ -43,6 +43,7 @@ export default class National extends React.Component {
     super(props);
     // this.handleYearChange = this.handleYearChange.bind(this);
     this.selected = JSON.parse(JSON.stringify(this.state.info));
+    this.previous = JSON.parse(JSON.stringify(this.state.info));
   }
 
 
@@ -108,10 +109,16 @@ export default class National extends React.Component {
       (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&regions=${this.selected.topRegions.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
         .replace(/\s\s+/g, ' ')
     )
-    this.setState({
-      data: res.data,
-      mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
-    });
+    if(res.data['Evolution'] === null){
+      console.log("Not enough information with these parameters!");
+      toast.error("Not enough information with these parameters!");
+    } 
+    else{
+      this.setState({
+        data: res.data,
+        mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
+      });
+    }
     NProgress.done();
   }
 

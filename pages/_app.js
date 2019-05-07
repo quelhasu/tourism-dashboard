@@ -4,12 +4,12 @@ import Link from 'next/link'
 import NProgress from 'nprogress'
 import Router from 'next/router'
 import Navi from '../components/nav'
+import { ToastContainer, cssTransition, Flip } from 'react-toastify';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../static/style.scss";
+import 'react-toastify/dist/ReactToastify.css';
 
-const linkStyle = {
-  margin: '0 10px 0 0'
-}
 
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
@@ -34,7 +34,14 @@ export default class MyApp extends App {
   render() {
     const { Component, pageProps, router } = this.props
     return (
+
       <Container>
+        <ToastContainer
+          className='toast-container'
+          toastClassName="dark-toast"
+          position="top-right"
+          transition={Flip}
+        />
         <style jsx>{`
             :global(body) {
                 margin: 0;

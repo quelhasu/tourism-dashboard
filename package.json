@@ -25,6 +25,7 @@
     "react-dom": "^16.8.6",
     "react-select": "^2.4.3",
     "react-sidebar": "^3.0.2",
+    "react-toastify": "^5.1.0",
     "reactstrap": "^8.0.0"
   },
   "license": "ISC",

@@ -14,6 +14,7 @@ import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import { MaxEvolution } from '../utils/helpers'
 import DoughnutChart from '../components/doughnut-chart'
+import { toast } from 'react-toastify';
 
 export default class International extends React.Component {
   topYear = [
@@ -102,10 +103,16 @@ export default class International extends React.Component {
       ages=${this.selected.topAges.value || "-"}`)
         .replace(/ /g, "")
     )
-    this.setState({
-      data: res.data,
-      maxEvolution: MaxEvolution(res.data['Evolution']),
-    });
+    if(res.data['Evolution'] === null){
+      console.log("Not enough information with these parameters!");
+      toast.error("Not enough information with these parameters!");
+    } 
+    else{
+      this.setState({
+        data: res.data,
+        maxEvolution: MaxEvolution(res.data['Evolution']),
+      });
+    }
     NProgress.done();
   }
 
