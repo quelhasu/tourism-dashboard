@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Navbar, Nav, NavItem } from "reactstrap";
+import { PascalCase } from "../utils/helpers";
 
 
 const headerStyle = {
@@ -38,6 +39,7 @@ class Navi extends React.Component {
   }
 
   render() {
+    let browserUrl = this.props.current.asPath
     return (
       <div>
         <Navbar className="navbar" bg="light" fixed="top" light expand="md">
@@ -49,7 +51,7 @@ class Navi extends React.Component {
           </Link>
           <Nav className="mr-auto" navbar>
             {menu.map(({ key, href, label, icon }) => (
-              <NavItem key={key} className={`${this.props.current.asPath.includes(label.toLowerCase()) ? 'active' : ''}`}>
+              <NavItem key={key} className={`${PascalCase(browserUrl.match(/[a-zA-Z]+/g)[0]) == label ? 'active' : ''}`}>
                 <Link prefetch key={`link-${key}`} href={href}>
                   <a className={`nav-link`}
                     onClick={this.selectLink.bind(this, label)} >
