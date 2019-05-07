@@ -49,7 +49,7 @@ class Navi extends React.Component {
           </Link>
           <Nav className="mr-auto" navbar>
             {menu.map(({ key, href, label, icon }) => (
-              <NavItem key={key} className={`${this.props.current.asPath == href ? 'active' : ''}`}>
+              <NavItem key={key} className={`${this.props.current.asPath.includes(label.toLowerCase()) ? 'active' : ''}`}>
                 <Link prefetch key={`link-${key}`} href={href}>
                   <a className={`nav-link`}
                     onClick={this.selectLink.bind(this, label)} >
