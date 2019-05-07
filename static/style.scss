@@ -170,4 +170,7 @@ xsmall{
 
 .month-chart{
   height: 40vh;
+  @include large-smartphone(){
+    height: 25vh;
+  }
 }
