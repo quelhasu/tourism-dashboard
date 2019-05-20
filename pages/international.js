@@ -12,9 +12,10 @@ import { internationalSelectedColors, statsColors, statsBorderColors } from '../
 import { internationalFlags } from '../utils/flags'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
-import { MaxEvolution } from '../utils/helpers'
+import { MaxEvolution, Omit } from '../utils/helpers'
 import DoughnutChart from '../components/doughnut-chart'
 import { toast } from 'react-toastify';
+import YearChart from '../components/year-chart';
 
 export default class International extends React.Component {
   topYear = [
@@ -27,6 +28,8 @@ export default class International extends React.Component {
     maxEvolution: MaxEvolution(this.props.data['Evolution']),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
+    internationalData: {'Evolution': Omit(this.props.data['Evolution'], ['France', '-']), 
+                        'Monthly': Omit(this.props.data['Monthly'], ['France', '-'])}, 
     info: {
       topCountries: this.props.info.topCountries.map(el => {
         return { value: el, label: el }
@@ -69,6 +72,8 @@ export default class International extends React.Component {
     const info = await axios.get(`http://localhost:3000/BM/international/${selectedYear.value}/info`)
     this.setState({
       data: res.data,
+      internationalData: {'Evolution': Omit(res.data['Evolution'], ['France', '-']), 
+                        'Monthly': Omit(res.data['Monthly'], ['France', '-'])}, 
       selectedYear,
       info: {
         topCountries: info.data.topCountries.map(el => {
@@ -104,12 +109,13 @@ export default class International extends React.Component {
         .replace(/ /g, "")
     )
     if(res.data['Evolution'] === null){
-      console.log("Not enough information with these parameters!");
       toast.error("Not enough information with these parameters!");
     } 
     else{
       this.setState({
         data: res.data,
+        internationalData: {'Evolution': Omit(res.data['Evolution'], ['France', '-']), 
+                            'Monthly': Omit(res.data['Monthly'], ['France', '-'])}, 
         maxEvolution: MaxEvolution(res.data['Evolution']),
       });
     }
@@ -164,30 +170,35 @@ export default class International extends React.Component {
             </div>
             <div className="row"> 
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
-                <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
+                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country (w/o France & others)</h6>
+                <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
               <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
                 </div>
             </div>
-            <div className="row">
+
+            <div className="row"> 
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
-                <BarChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} type="Reviews" colors={internationalSelectedColors} />
+              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews (w/o France & others)</h6>
+                <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
               </div>
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
+              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+                </div>
             </div>
 
-            <div className="row">
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['reviews']}}>
-                <h6 className="text-uppercase font-weight-bold mb-4">Reviews evolution</h6>
-                <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='value' />
+            <div className="row"> 
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
+              <h6 className="text-uppercase font-weight-bold mb-4">Yearly evolution of reviews (w/o France & others)</h6>
+                <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
               </div>
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['reviews']}}>
-                <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
-                <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-              </div>
+              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
+              <h6 className="text-uppercase font-weight-bold mb-4">Yearly evolution of reviews</h6>
+              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
+                </div>
             </div>
           </div>
         </div>

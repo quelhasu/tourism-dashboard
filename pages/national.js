@@ -123,7 +123,6 @@ export default class National extends React.Component {
   }
 
   render() {
-    console.log(this.state.mostCentral.value['diff'].value)
     const { selectedYear } = this.state;
     return (
       <div className="col body-content">

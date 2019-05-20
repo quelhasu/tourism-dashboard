@@ -56,6 +56,10 @@ export default class DoughnutChart extends React.Component {
     this.data.datasets[0].hoverBackgroundColor = colors
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.chartData(nextProps);
+  }
+
   render() {
     return (
       <div className="doughnut-chart">

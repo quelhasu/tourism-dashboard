@@ -4,11 +4,6 @@ import { Navbar, Nav, NavItem } from "reactstrap";
 import { PascalCase } from "../utils/helpers";
 
 
-const headerStyle = {
-  marginBottom: 30
-};
-
-
 const links = [
   { href: 'https://github.com/segmentio/create-next-app', label: 'Github', icon: 'fab fa-github-alt' },
 ].map(link => {
@@ -39,7 +34,8 @@ class Navi extends React.Component {
   }
 
   render() {
-    let browserUrl = this.props.current.asPath
+    let browserUrl = this.props.current.asPath.match(/[a-zA-Z]+/g)
+    let browserUrlMatch = browserUrl ? browserUrl[0] : "Default"
     return (
       <div>
         <Navbar className="navbar" bg="light" fixed="top" light expand="md">
@@ -51,7 +47,7 @@ class Navi extends React.Component {
           </Link>
           <Nav className="mr-auto" navbar>
             {menu.map(({ key, href, label, icon }) => (
-              <NavItem key={key} className={`${PascalCase(browserUrl.match(/[a-zA-Z]+/g)[0]) == label ? 'active' : ''}`}>
+              <NavItem key={key} className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''}`}>
                 <Link prefetch key={`link-${key}`} href={href}>
                   <a className={`nav-link`}
                     onClick={this.selectLink.bind(this, label)} >

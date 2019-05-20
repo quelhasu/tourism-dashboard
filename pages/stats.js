@@ -9,7 +9,6 @@ export default class Stats extends React.Component {
 
   static async getInitialProps() {
     const response = await axios.get('http://localhost:3000/BM/stats/france/gironde');
-    console.log(response);
     return {
       data: response.data
     }
