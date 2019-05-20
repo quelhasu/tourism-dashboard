@@ -74,3 +74,12 @@ export function OrderColorsRGBA(names, selectedColors, name1, name2, alpha="0.3"
     [name2]: arr2
   };
 }
+
+export function Omit(obj, omitKey) {
+  return Object.keys(obj).reduce((result, key) => {
+    if(!(omitKey.includes(key))) {
+       result[key] = obj[key];
+    }
+    return result;
+  }, {});
+}
