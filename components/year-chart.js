@@ -89,9 +89,9 @@ export default class YearChart extends React.Component {
 }
 
 function chartData(props) {
+  let dataArr = null;
    return Object.keys(props.evolution).map(key => {
-    let dataArr = Object.keys(props.evolution[key]).map(elKey => props.evolution[key][elKey][props.var]);
-    dataArr.pop();
+    dataArr = Object.keys(props.evolution[key]).map(elKey => {return props.evolution[key][String(elKey)][props.var]});
     return {
       label: key,
       backgroundColor: props.colors[key],
