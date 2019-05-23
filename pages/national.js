@@ -7,7 +7,7 @@ import Menu from '../components/menu';
 import NProgress from 'nprogress'
 import { Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
-import { nationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
+import { nationalSelectedColors, statsColors, statsBorderColors,departmentsSelectedColors } from '../utils/colors'
 import { nationalFlags } from '../utils/flags'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
@@ -30,7 +30,7 @@ export default class National extends React.Component {
       topCountries: this.props.info.topCountries.map(el => {
         return { value: el, label: el }
       }),
-      topRegions: this.props.info.topRegions.map(el => {
+      topDepartments: this.props.info.topDepartments.map(el => {
         return { value: el, label: el }
       }),
       topAges: this.props.info.topAges.map(el => {
@@ -79,7 +79,7 @@ export default class National extends React.Component {
   //       topCountries: info.data.topCountries.map(el => {
   //         return { value: el, label: el }
   //       }),
-  //       topRegions: info.data.topRegions.map(el => {
+  //       topDepartments: info.data.topDepartments.map(el => {
   //         return { value: el, label: el }
   //       }),
   //       topAges: info.data.topAges.map(el => {
@@ -96,7 +96,7 @@ export default class National extends React.Component {
   }
 
   handleRegionsChange = async (newValue, actionMeta) => {
-    this.selected.topRegions = newValue
+    this.selected.topDepartments = newValue
   }
 
   handleAgesRange = async (newValue, actionMeta) => {
@@ -106,7 +106,7 @@ export default class National extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&regions=${this.selected.topRegions.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&departments=${this.selected.topDepartments.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
         .replace(/\s\s+/g, ' ')
     )
     if(res.data['Evolution'] === null){
@@ -148,11 +148,11 @@ export default class National extends React.Component {
                   options={this.state.info.topCountries} />
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Regions</label>
+                <label className="col-md-1 col-form-label text-muted">Departments</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleRegionsChange}
-                  default={this.state.info.topRegions} name="regions"
-                  options={this.state.info.topRegions} />
+                  default={this.state.info.topDepartments} name="departments"
+                  options={this.state.info.topDepartments} />
               </div>
               <div className="form-group row">
                 <label className="col-md-1 col-form-label  ml-auto text-muted">Ages</label>
@@ -179,8 +179,8 @@ export default class National extends React.Component {
           
           <div className="row">
             <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per regions</h6>
-              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
+              <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per departmens</h6>
+              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={departmentsSelectedColors} />
             </div>
           </div>
           <div className="row">
@@ -199,18 +199,18 @@ export default class National extends React.Component {
           <div className="row">
             <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
             </div>
             <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
               <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of outgoing</h6>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
             </div>
           </div>
           <div className="row">
             <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
               <h6 className="text-uppercase font-weight-bold">National centrality</h6>
               <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
-              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
+              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
             </div>
             <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
               <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>

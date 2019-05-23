@@ -22,6 +22,19 @@ exports.nationalSelectedColors = {
 	"Champagne-Ardenne":'rgb(251,176,45)'
 };
 
+exports.departmentsSelectedColors = {
+	"Lot": 'rgb(132, 66, 79)',
+	"Haute-Garonne": 'rgb(163, 57, 48)',
+	"Vendée": 'rgb(254, 130, 130)',
+	"Loire-Atlantique": 'rgb(57, 84, 81)',
+	"Landes": 'rgb(21, 46, 46)',
+	"Dordogne": 'RGB(244, 33, 33)',
+	"Paris": 'rgb(146, 125, 159)',
+	"Charente-Maritime": 'RGB(169, 226, 233)',
+	"Pyrénées-Atlantiques": 'RGB(156, 168, 181)',
+	"Gironde": 'RGB(181, 153, 155)'
+};
+
 exports.internationalSelectedColors = {
 	"France":'rgb(54, 162, 235)',
 	"-":'rgb(201, 203, 207)',
