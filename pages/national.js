@@ -140,12 +140,23 @@ export default class National extends React.Component {
               </div>
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
+              <div className="row">
+                <label className="col-md-1"><u>User:</u></label>
+              </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Countries</label>
+                <label className="col-md-1 col-form-label text-muted">Nationalities</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries} name="countries"
                   options={this.state.info.topCountries} />
+                <label className="col-md-1 col-form-label text-muted">Ages</label>
+                <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
+                  onChange={this.handleAgesRange}
+                  default={this.state.info.topAges[0]} name="ages"
+                  options={this.state.info.topAges} />
+              </div>
+              <div className="row">
+                <label className="col-md-1"><u>Area:</u></label>
               </div>
               <div className="form-group row">
                 <label className="col-md-1 col-form-label text-muted">Departments</label>
@@ -155,12 +166,7 @@ export default class National extends React.Component {
                   options={this.state.info.topDepartments} />
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label  ml-auto text-muted">Ages</label>
-                <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
-                  onChange={this.handleAgesRange}
-                  default={this.state.info.topAges[0]} name="ages"
-                  options={this.state.info.topAges} />
-                <div className="col-auto">
+                <div className="col-auto ml-auto">
                   <button type="submit" className="btn btn-outline-primary">Update</button>
                 </div>
               </div>
