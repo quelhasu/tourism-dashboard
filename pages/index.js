@@ -1,15 +1,7 @@
 import React from 'react'
 import Stat from '../components/stat'
-import { withNamespaces } from '../i18n'
 
 export default class Index extends React.Component {
-
-  static async getInitialProps() {
-    return {
-      namespacesRequired: ['international', 'national'],
-    }
-}
-
   constructor(props) {
     super(props);
   }

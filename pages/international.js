@@ -4,7 +4,6 @@ import BarChart from '../components/bar-chart'
 import DiffTable from '../components/diff-table';
 import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
-import PropTypes from 'prop-types'
 import Select from 'react-select';
 import NProgress from 'nprogress'
 import { Navbar, Nav, NavItem } from 'reactstrap';
@@ -18,9 +17,7 @@ import DoughnutChart from '../components/doughnut-chart'
 import { toast } from 'react-toastify';
 import YearChart from '../components/year-chart';
 
-import { withNamespaces } from '../i18n'
-
-class International extends React.Component {
+export default class International extends React.Component {
   topYear = [
     { value: 2014, label: '2014' },
     { value: 2015, label: '2015' },
@@ -60,8 +57,7 @@ class International extends React.Component {
     return {
       data: response.data,
       info: info.data,
-      year: year,
-      namespacesRequired: ['international'],
+      year: year
     }
   }
 
@@ -130,7 +126,6 @@ class International extends React.Component {
   }
 
   render() {
-    const { t } = this.props
     const { selectedYear } = this.state;
     return (
       <div className="col body-content">
@@ -172,39 +167,39 @@ class International extends React.Component {
           <div className="test">
             <Head title="International" />
             <div className="row stats">
-              <Stat value={this.state.selectedYear['value']} type={t('selected-year')} background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-              <Stat value={this.state.maxEvolution.label} type={t('most-present-country')} background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
-              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} type={t('number-reviews')} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} fa="fas fa-star"></Stat>
+              <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
+              <Stat value={this.state.maxEvolution.label} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
+              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
             <div className="row"> 
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-                <h6 className="text-uppercase font-weight-bold mb-4">{`${t('review-by-country')} ${t('without-fr')}`}</h6>
+                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country (w/o France & others)</h6>
                 <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </div>
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">{`${t('review-by-country')}`}</h6>
+              <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
               <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
                 </div>
             </div>
 
             <div className="row"> 
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">{`${t('monhtly-evolution')} ${t('without-fr')}`}</h6>
+              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews (w/o France & others)</h6>
                 <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
               </div>
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">{`${t('monhtly-evolution')}`}</h6>
+              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
               <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 </div>
             </div>
 
             <div className="row"> 
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">{`${t('yearly-evolution')} ${t('without-fr')}`}</h6>
+              <h6 className="text-uppercase font-weight-bold mb-4">Yearly evolution of reviews (w/o France & others)</h6>
                 <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
               </div>
               <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">{`${t('yearly-evolution')}`}</h6>
+              <h6 className="text-uppercase font-weight-bold mb-4">Yearly evolution of reviews</h6>
               <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
                 </div>
             </div>
@@ -214,10 +209,5 @@ class International extends React.Component {
 
     )
   }
-}
 
-International.propTypes = {
-  t: PropTypes.func.isRequired,
 }
-
-export default withNamespaces('international')(International)
