@@ -4,7 +4,8 @@ import Link from 'next/link'
 import NProgress from 'nprogress'
 import Router from 'next/router'
 import Navi from '../components/nav'
-import { ToastContainer, cssTransition, Flip } from 'react-toastify';
+import { ToastContainer, cssTransition, Flip } from 'react-toastify'
+import { appWithTranslation } from '../i18n';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../static/style.scss";
@@ -18,7 +19,7 @@ Router.events.on('routeChangeStart', url => {
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
-export default class MyApp extends App {
+class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {
       router: router
@@ -73,3 +74,5 @@ export default class MyApp extends App {
     )
   }
 }
+
+export default appWithTranslation(MyApp)

@@ -1,5 +1,6 @@
 import Head from '../components/head'
 import axios from 'axios'
+import { withNamespaces } from '../i18n'
 
 export default class Stats extends React.Component {
 
@@ -10,7 +11,8 @@ export default class Stats extends React.Component {
   static async getInitialProps() {
     const response = await axios.get('http://localhost:3000/BM/stats/france/gironde');
     return {
-      data: response.data
+      data: response.data,
+      namespacesRequired:['national']
     }
   }
 

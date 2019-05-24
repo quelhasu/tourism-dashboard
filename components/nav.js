@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Navbar, Nav, NavItem } from "reactstrap";
 import { PascalCase } from "../utils/helpers";
+import { i18n } from '../i18n'
 
 
 const links = [
@@ -34,8 +35,9 @@ class Navi extends React.Component {
   }
 
   render() {
-    let browserUrl = this.props.current.asPath.match(/[a-zA-Z]+/g)
-    let browserUrlMatch = browserUrl ? browserUrl[0] : "Default"
+    let browserUrl = this.props.current.asPath.match(/\/.*\/([a-zA-Z]+)/g)
+    // let browserUrlMatch = browserUrl ? browserUrl[0] : "Default"
+    let browserUrlMatch = "Default"
     return (
       <div>
         <Navbar className="navbar" bg="light" fixed="top" light expand="md">
@@ -57,6 +59,10 @@ class Navi extends React.Component {
               </NavItem>
             ))}
           </Nav>
+          <button
+            type='button'
+            onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
+          ></button>
         </Navbar>
 
         <style jsx>{`

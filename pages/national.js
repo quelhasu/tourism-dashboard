@@ -6,7 +6,6 @@ import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
 import NProgress from 'nprogress'
 import { Nav, NavItem } from 'reactstrap';
-import Link from 'next/link'
 import { nationalSelectedColors, statsColors, statsBorderColors,departmentsSelectedColors } from '../utils/colors'
 import { nationalFlags } from '../utils/flags'
 import { national, nationalInfo } from '../test/database.js'
@@ -15,8 +14,10 @@ import MultiSelect from '../components/multi-select'
 import HorizontalBarChart from '../components/horizontal-bar-chart'
 import { MostCentral } from "../utils/helpers"
 import { toast } from 'react-toastify';
+import { withNamespaces } from '../i18n'
+import Link from 'next/link'
 
-export default class National extends React.Component {
+class National extends React.Component {
   topYear = [
     { value: 2014, label: '2014' },
     { value: 2015, label: '2015' },
@@ -58,7 +59,8 @@ export default class National extends React.Component {
     return {
       data: response.data,
       info: info.data,
-      year: year
+      year: year,
+      namespacesRequired:['national']
     }
   }
 
@@ -233,5 +235,6 @@ export default class National extends React.Component {
       </div>
     )
   }
-
 }
+
+export default withNamespaces('national')(National)

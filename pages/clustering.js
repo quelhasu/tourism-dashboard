@@ -14,6 +14,7 @@ import MultiSelect from '../components/multi-select'
 import { PascalCase } from '../utils/helpers'
 import HorizontalBarChart from '../components/horizontal-bar-chart'
 import { MostCentral } from '../utils/helpers'
+import { withNamespaces } from '../i18n'
 
 export default class Clustering extends React.Component {
   topYear = [
