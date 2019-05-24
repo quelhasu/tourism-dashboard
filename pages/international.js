@@ -19,7 +19,6 @@ import YearChart from '../components/year-chart';
 
 export default class International extends React.Component {
   topYear = [
-    { value: 2013, label: '2013' },
     { value: 2014, label: '2014' },
     { value: 2015, label: '2015' },
     { value: 2016, label: '2016' },

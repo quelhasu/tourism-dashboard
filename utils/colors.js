@@ -23,16 +23,17 @@ exports.nationalSelectedColors = {
 };
 
 exports.departmentsSelectedColors = {
-	"Lot": 'rgb(132, 66, 79)',
-	"Haute-Garonne": 'rgb(163, 57, 48)',
-	"Vendée": 'rgb(254, 130, 130)',
-	"Loire-Atlantique": 'rgb(57, 84, 81)',
-	"Landes": 'rgb(21, 46, 46)',
-	"Dordogne": 'RGB(244, 33, 33)',
-	"Paris": 'rgb(146, 125, 159)',
-	"Charente-Maritime": 'RGB(169, 226, 233)',
-	"Pyrénées-Atlantiques": 'RGB(156, 168, 181)',
-	"Gironde": 'RGB(181, 153, 155)'
+	"Lot": 'rgb(239,118,122)',
+	"Haute-Garonne": 'rgb(33,137,126)',
+	"Vendée": 'rgb(152,114,132)',
+	"Loire-Atlantique": 'RGB(0, 129, 0)',
+	"Landes": 'rgb(226,109,90)',
+	"Dordogne": 'rgb(85,61,54)',
+	"Paris": 'rgb(177,116,15)',
+	"Charente-Maritime": 'rgb(149,175,186)',
+	"Pyrénées-Atlantiques": 'rgb(218,44,56)',
+	"Gironde": 'rgb(142,108,136)',
+	"Indre-et-Loire": 'rgb(204,88,3)'
 };
 
 exports.internationalSelectedColors = {
