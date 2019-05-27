@@ -52,8 +52,8 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/international/${year}/`);
     const info = await axios.get(`http://localhost:3000/BM/international/${year}/info/?limit=10`)
+    const response = await axios.get(`http://localhost:3000/BM/international/${year}/?countries=${info.data.topCountries}`);
 
     return {
       data: response.data,
