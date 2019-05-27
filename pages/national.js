@@ -13,8 +13,10 @@ import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import HorizontalBarChart from '../components/horizontal-bar-chart'
-import { MostCentral } from "../utils/helpers"
+import { MostCentral, SaveAs } from "../utils/helpers"
 import { toast } from 'react-toastify';
+import html2canvas from 'html2canvas';
+
 
 export default class National extends React.Component {
   topYear = [
@@ -122,6 +124,16 @@ export default class National extends React.Component {
     NProgress.done();
   }
 
+  screenshotDiv = (event) => {
+    let current = event.currentTarget
+    while (!current.className.includes('data-viz')) current = current.parentNode
+    let filename = `${current.id}.png`
+    html2canvas(current).then(function (canvas) {
+      console.log(canvas)
+      SaveAs(canvas.toDataURL(), filename);
+    });
+  }
+
   render() {
     const { selectedYear } = this.state;
     return (
@@ -184,43 +196,81 @@ export default class National extends React.Component {
           </div>
           
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per departmens</h6>
+            <div id="ingoing-outgoing-departments" className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Ingoing/Outgoing per departmens</h6>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={departmentsSelectedColors} />
             </div>
           </div>
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Ingoing evolution</h6>
+            <div id="ingoing-evolution" className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Ingoing evolution</h6>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
             </div>
           </div>
 
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Outgoing evolution</h6>
+            <div id="ingoing-evolution" className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Outgoing evolution</h6>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
             </div>
           </div>
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
+
+            <div id="monthly-evolution-ingoing" className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Monthly evolution of ingoing</h6>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
             </div>
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of outgoing</h6>
+
+            <div id="monthly-evolution-outgoing" className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Monthly evolution of outgoing</h6>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
             </div>
+
           </div>
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
-              <h6 className="text-uppercase font-weight-bold">National centrality</h6>
-              <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
+            <div id="national-centrality-pagerank" className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">National centrality</h6>
+                    <p className="text-uppercase mb-4 text-muted text-small text-left">(PageRank)</p>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
             </div>
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
-              <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>
-              <p className="text-uppercase mb-4 text-muted text-small">(PageRank Y / Y-1)</p>
+            <div id="ingoing-centrality-evolution" className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
+              <div className="row">
+                  <div className="col">
+                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Ingoing centrality evolution</h6>
+                    <p className="text-uppercase mb-4 text-muted text-small text-left">(PageRank Y / Y-1)</p>
+                  </div>
+                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+                </div>
               <DiffTable evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} var='value' />
             </div>
           </div>
