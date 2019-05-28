@@ -24,14 +24,15 @@ export default class Menu extends React.Component {
 
   render() {
     return (
-      <div >
+      <div  className="px-2">
         <div className="row">
           <div className="col-md-auto">
-            <h1>{this.props.title}</h1>
+            <h2>{this.props.title}</h2>
+            <p className="text-muted">{this.props.description}</p>
           </div>
-          <div className="col-md-auto">
-            <button className="btn btn-outline-dark center-item btn-filter" onClick={this.toggle}>
-              <i className="fas fa-filter"></i>
+          <div className="col-md-auto ml-auto">
+            <button className="btn btn-outline-dark btn-filter" onClick={this.toggle}>
+              <i className="fas fa-filter"></i><span className="ml-3">Filter</span>
             </button>
           </div>
         </div>

@@ -16,20 +16,27 @@ import { MaxEvolution, Omit } from '../utils/helpers'
 import DoughnutChart from '../components/doughnut-chart'
 import { toast } from 'react-toastify';
 import YearChart from '../components/year-chart';
+import DataViz from '../components/data-viz';
 
 export default class International extends React.Component {
   topYear = [
+    { value: 2013, label: '2013' },
     { value: 2014, label: '2014' },
     { value: 2015, label: '2015' },
-    { value: 2016, label: '2016' }
+    { value: 2016, label: '2016' },
+    { value: 2017, label: '2017' },
+    { value: 2018, label: '2018' },
+    { value: 2019, label: '2019' }
   ]
 
   state = {
     maxEvolution: MaxEvolution(this.props.data['Evolution']),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
-    internationalData: {'Evolution': Omit(this.props.data['Evolution'], ['France', '-']), 
-                        'Monthly': Omit(this.props.data['Monthly'], ['France', '-'])}, 
+    internationalData: {
+      'Evolution': Omit(this.props.data['Evolution'], ['France', '-']),
+      'Monthly': Omit(this.props.data['Monthly'], ['France', '-'])
+    },
     info: {
       topCountries: this.props.info.topCountries.map(el => {
         return { value: el, label: el }
@@ -48,8 +55,8 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/international/${year}/`);
     const info = await axios.get(`http://localhost:3000/BM/international/${year}/info/?limit=10`)
+    const response = await axios.get(`http://localhost:3000/BM/international/${year}/?countries=${info.data.topCountries}`);
 
     return {
       data: response.data,
@@ -72,8 +79,10 @@ export default class International extends React.Component {
     const info = await axios.get(`http://localhost:3000/BM/international/${selectedYear.value}/info`)
     this.setState({
       data: res.data,
-      internationalData: {'Evolution': Omit(res.data['Evolution'], ['France', '-']), 
-                        'Monthly': Omit(res.data['Monthly'], ['France', '-'])}, 
+      internationalData: {
+        'Evolution': Omit(res.data['Evolution'], ['France', '-']),
+        'Monthly': Omit(res.data['Monthly'], ['France', '-'])
+      },
       selectedYear,
       info: {
         topCountries: info.data.topCountries.map(el => {
@@ -108,14 +117,16 @@ export default class International extends React.Component {
       ages=${this.selected.topAges.value || "-"}`)
         .replace(/ /g, "")
     )
-    if(res.data['Evolution'] === null){
+    if (res.data['Evolution'] === null) {
       toast.error("Not enough information with these parameters!");
-    } 
-    else{
+    }
+    else {
       this.setState({
         data: res.data,
-        internationalData: {'Evolution': Omit(res.data['Evolution'], ['France', '-']), 
-                            'Monthly': Omit(res.data['Monthly'], ['France', '-'])}, 
+        internationalData: {
+          'Evolution': Omit(res.data['Evolution'], ['France', '-']),
+          'Monthly': Omit(res.data['Monthly'], ['France', '-'])
+        },
         maxEvolution: MaxEvolution(res.data['Evolution']),
       });
     }
@@ -127,7 +138,7 @@ export default class International extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="International">
+          <Menu title="International" description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
             <div className="row">
               <div className="col-md-11">
                 <Nav className="justify-content-center">
@@ -168,37 +179,34 @@ export default class International extends React.Component {
               <Stat value={this.state.maxEvolution.label} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
               <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
-            <div className="row"> 
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-                <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country (w/o France & others)</h6>
+            <div className="row">
+              <DataViz id="reviews-country-wo-france" title="Reviews per country (w/o France & others)" style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
-              </div>
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Reviews per country</h6>
-              <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
-                </div>
+              </DataViz>
+
+              <DataViz id="reviews-country" title="Reviews per country" style={{ borderLeft: statsBorderColors['reviews'] }}>
+                <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
+              </DataViz>
             </div>
 
-            <div className="row"> 
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews (w/o France & others)</h6>
+            <div className="row">
+              <DataViz id="monthly-evolution-reviews-wo-france" title="Monthly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['monthly'] }}>
                 <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-              </div>
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of reviews</h6>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-                </div>
+              </DataViz>
+
+              <DataViz id="monthly-evolution-reviews" title="Monthly evolution of reviews" style={{ borderLeft: statsBorderColors['monthly'] }}>
+                <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+              </DataViz>
             </div>
 
-            <div className="row"> 
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Yearly evolution of reviews (w/o France & others)</h6>
+            <div className="row">
+              <DataViz id="yearly-evolution-reviews-wo-france" title="Yearly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
-              </div>
-              <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Yearly evolution of reviews</h6>
-              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
-                </div>
+              </DataViz>
+
+              <DataViz id="yearly-evolution" title="Yearly evolution of reviews" style={{ borderLeft: statsBorderColors['yearly'] }}>
+                <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
+              </DataViz>
             </div>
           </div>
         </div>

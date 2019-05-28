@@ -22,6 +22,19 @@ exports.nationalSelectedColors = {
 	"Champagne-Ardenne":'rgb(251,176,45)'
 };
 
+exports.departmentsSelectedColors = {
+	"Lot": 'rgb(255, 99, 132)',
+	"Haute-Garonne": 'RGB(145, 166, 95)',
+	"Vendée": 'rgb(255, 159, 64)',
+	"Loire-Atlantique": 'rgb(206, 61, 107)',
+	"Landes": 'rgb(218, 52, 77)',
+	"Dordogne": 'rgb(42, 30, 92)',
+	"Paris": 'rgb(	113, 144, 137)',
+	"Charente-Maritime": 'RGB(0, 171, 218)',
+	"Pyrénées-Atlantiques": 'RGB(190, 150, 72)',
+	"Gironde": 'RGB(220, 135, 92)'
+};
+
 exports.internationalSelectedColors = {
 	"France":'rgb(54, 162, 235)',
 	"-":'rgb(201, 203, 207)',
@@ -61,5 +74,7 @@ exports.statsBorderColors  = {
 	"central": 'rgba(228, 145, 239, 0.2) 7px solid',
 	"ingoing": 'rgba(209, 211, 142, 0.2) 7px solid' ,
 	"outgoing": 'rgba(247, 140, 86, 0.2) 7px solid' ,
-	"reviews": 'rgba(247, 173, 157, 0.2) 7px solid'
+	"reviews": 'rgba(247, 173, 157, 0.2) 7px solid',
+	"monthly": 'rgba(139, 205, 167, 0.2) 7px solid',
+	"yearly": 'rgba(164, 191, 249, 0.2) 7px solid',
 }

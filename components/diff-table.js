@@ -13,9 +13,7 @@ export default class DiffTable extends React.Component {
 
 
   constructor(props) {
-    super(props);
-
-    
+    super(props);  
   }
   
   render() {

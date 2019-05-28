@@ -7,14 +7,16 @@ import Menu from '../components/menu';
 import NProgress from 'nprogress'
 import { Nav, NavItem } from 'reactstrap';
 import Link from 'next/link'
-import { nationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
+import { nationalSelectedColors, statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
 import { nationalFlags } from '../utils/flags'
 import { national, nationalInfo } from '../test/database.js'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
 import HorizontalBarChart from '../components/horizontal-bar-chart'
-import { MostCentral } from "../utils/helpers"
+import { MostCentral, SaveAs } from "../utils/helpers"
 import { toast } from 'react-toastify';
+import DataViz from '../components/data-viz';
+
 
 export default class National extends React.Component {
   topYear = [
@@ -30,7 +32,7 @@ export default class National extends React.Component {
       topCountries: this.props.info.topCountries.map(el => {
         return { value: el, label: el }
       }),
-      topRegions: this.props.info.topRegions.map(el => {
+      topDepartments: this.props.info.topDepartments.map(el => {
         return { value: el, label: el }
       }),
       topAges: this.props.info.topAges.map(el => {
@@ -49,8 +51,8 @@ export default class National extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/national/${year}/`);
     const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
+    const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=${info.data.topCountries}&departments=${info.data.topDepartments}`);
     return {
       data: response.data,
       info: info.data,
@@ -79,7 +81,7 @@ export default class National extends React.Component {
   //       topCountries: info.data.topCountries.map(el => {
   //         return { value: el, label: el }
   //       }),
-  //       topRegions: info.data.topRegions.map(el => {
+  //       topDepartments: info.data.topDepartments.map(el => {
   //         return { value: el, label: el }
   //       }),
   //       topAges: info.data.topAges.map(el => {
@@ -96,7 +98,7 @@ export default class National extends React.Component {
   }
 
   handleRegionsChange = async (newValue, actionMeta) => {
-    this.selected.topRegions = newValue
+    this.selected.topDepartments = newValue
   }
 
   handleAgesRange = async (newValue, actionMeta) => {
@@ -106,14 +108,14 @@ export default class National extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&regions=${this.selected.topRegions.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&departments=${this.selected.topDepartments.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
         .replace(/\s\s+/g, ' ')
     )
-    if(res.data['Evolution'] === null){
+    if (res.data['Evolution'] === null) {
       console.log("Not enough information with these parameters!");
       toast.error("Not enough information with these parameters!");
-    } 
-    else{
+    }
+    else {
       this.setState({
         data: res.data,
         mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
@@ -127,7 +129,7 @@ export default class National extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="National">
+          <Menu title="National" description="Statistics on the tourist influence of users (TripAdvisor) by country, in circulation between French departments, in Bordeaux Metropole.">
             <div className="row">
               <div className="col-md-11">
                 <Nav className="justify-content-center">
@@ -140,27 +142,33 @@ export default class National extends React.Component {
               </div>
             </div>
             <form onSubmit={this.handleSubmit.bind(this)}>
+              <div className="row">
+                <label className="col-md-1"><u>User:</u></label>
+              </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Countries</label>
+                <label className="col-md-1 col-form-label text-muted">Nationalities</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries} name="countries"
                   options={this.state.info.topCountries} />
-              </div>
-              <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Regions</label>
-                <MultiSelect class="col-md" isMulti={true} isClearable={true}
-                  onChange={this.handleRegionsChange}
-                  default={this.state.info.topRegions} name="regions"
-                  options={this.state.info.topRegions} />
-              </div>
-              <div className="form-group row">
-                <label className="col-md-1 col-form-label  ml-auto text-muted">Ages</label>
+                <label className="col-md-1 col-form-label text-muted">Ages</label>
                 <MultiSelect class="col-md-2" isMulti={false} isClearable={false}
                   onChange={this.handleAgesRange}
                   default={this.state.info.topAges[0]} name="ages"
                   options={this.state.info.topAges} />
-                <div className="col-auto">
+              </div>
+              <div className="row">
+                <label className="col-md-1"><u>Area:</u></label>
+              </div>
+              <div className="form-group row">
+                <label className="col-md-1 col-form-label text-muted">Departments</label>
+                <MultiSelect class="col-md" isMulti={true} isClearable={true}
+                  onChange={this.handleRegionsChange}
+                  default={this.state.info.topDepartments} name="departments"
+                  options={this.state.info.topDepartments} />
+              </div>
+              <div className="form-group row">
+                <div className="col-auto ml-auto">
                   <button type="submit" className="btn btn-outline-primary">Update</button>
                 </div>
               </div>
@@ -176,49 +184,43 @@ export default class National extends React.Component {
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['ingoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Ingoing value" fa="fas fa-plane-arrival"></Stat>
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB2.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB2} type="Outgoing value" fa="fas fa-plane-departure"></Stat>
           </div>
-          
+
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['going']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Ingoing/Outgoing per regions</h6>
-              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={nationalSelectedColors} />
-            </div>
+            <DataViz id="ingoing-outgoing-departments" title="Ingoing/Outgoing per departmens" style={{ borderLeft: statsBorderColors['going'] }}>
+              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={departmentsSelectedColors} />
+            </DataViz>
           </div>
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Ingoing evolution</h6>
+            <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
-            </div>
+            </DataViz>
           </div>
 
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Outgoing evolution</h6>
+            <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
               <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
-            </div>
+            </DataViz>
           </div>
+
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['ingoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of ingoing</h6>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={nationalSelectedColors} />
-            </div>
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['outgoing']}}>
-              <h6 className="text-uppercase font-weight-bold mb-4">Monthly evolution of outgoing</h6>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={nationalSelectedColors} />
-            </div>
+            <DataViz id="monthly-evolution-ingoing" title="Monthly evolution of ingoing" style={{ borderLeft: statsBorderColors['ingoing'] }}>
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
+            </DataViz>
+
+            <DataViz id="monthly-evolution-outgoing" title="Monthly evolution of outgoing" style={{ borderLeft: statsBorderColors['outgoing'] }}>
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
+            </DataViz>
           </div>
+
           <div className="row">
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
-              <h6 className="text-uppercase font-weight-bold">National centrality</h6>
-              <p className="text-uppercase mb-4 text-muted text-small">(PageRank)</p>
-              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={nationalSelectedColors} step={0.5} valueType=" " />
-            </div>
-            <div className="col data-viz" style={{borderLeft: statsBorderColors['central']}}>
-              <h6 className="text-uppercase font-weight-bold">Ingoing centrality evolution</h6>
-              <p className="text-uppercase mb-4 text-muted text-small">(PageRank Y / Y-1)</p>
+            <DataViz id="national-centrality-pagerank" title="National centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
+              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
+            </DataViz>
+            
+            <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" second="(PageRank Y / Y-1)" style={{ borderLeft: statsBorderColors['central'] }}>
               <DiffTable evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} var='value' />
-            </div>
+            </DataViz>
           </div>
-          
         </div>
       </div>
     )

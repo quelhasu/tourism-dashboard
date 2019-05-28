@@ -17,6 +17,7 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "express": "^4.16.4",
+    "html2canvas": "^1.0.0-rc.1",
     "next": "^8.0.4",
     "node-sass": "^4.11.0",
     "nprogress": "^0.2.0",

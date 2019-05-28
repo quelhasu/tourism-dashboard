@@ -75,6 +75,14 @@ export function OrderColorsRGBA(names, selectedColors, name1, name2, alpha="0.3"
   };
 }
 
+/**
+ * Remove key in Object
+ * @param {Object} obj - Object to modify
+ * @param {Any} omitKey - key to remove from object
+ * 
+ * 
+ * @return {Object} Object with the key removed
+ */
 export function Omit(obj, omitKey) {
   return Object.keys(obj).reduce((result, key) => {
     if(!(omitKey.includes(key))) {
@@ -82,4 +90,31 @@ export function Omit(obj, omitKey) {
     }
     return result;
   }, {});
+}
+
+
+/**
+ * Create an object to save uri link into file
+ * @param {String} uri - Uri link to download
+ * @param {String} filename - Name of the file
+ * 
+ */
+export function SaveAs (uri, filename) {
+  var link = document.createElement('a');
+  if (typeof link.download === 'string') {
+      link.href = uri;
+      link.download = filename;
+
+      //Firefox requires the link to be in the body
+      document.body.appendChild(link);
+
+      //simulate click
+      link.click();
+
+      //remove the link when done
+      document.body.removeChild(link);
+
+  } else {
+      window.open(uri);
+  }
 }
