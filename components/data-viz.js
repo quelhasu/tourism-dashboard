@@ -1,12 +1,15 @@
 import React from 'react'
 import { SaveAs } from "../utils/helpers"
-import html2canvas from 'html2canvas';  
+import html2canvas from 'html2canvas';
 
 /**
- * Create a menu with personalized content
- * @class Menu
+ * Create a DataViz block
+ * @class DataViz
  * 
- * @prop {String} title - Title of the menu
+ * @prop {String} title - Title of the component
+ * @prop {String} [second] - Second text
+ * @prop {String} style - Style for border-left 
+ * @prop {String} id - Title of the menu
  * @prop {React.Component} children - Personalized content
  * 
  * @extends React.Component<Props>
@@ -17,7 +20,13 @@ export default class DataViz extends React.Component {
     super(props);
   }
 
+  /**
+   * Process to save div to image
+   * @param {Object} event - Object that called the function
+   * 
+   */
   screenshotDiv = (event) => {
+    console.log(event);
     let current = event.currentTarget
     while (!current.className.includes('data-viz')) current = current.parentNode
     let filename = `${current.id}.png`
