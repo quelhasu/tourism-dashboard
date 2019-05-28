@@ -12,11 +12,11 @@ import { internationalSelectedColors, statsColors, statsBorderColors } from '../
 import { internationalFlags } from '../utils/flags'
 import Stat from '../components/stat'
 import MultiSelect from '../components/multi-select'
-import { MaxEvolution, Omit, SaveAs } from '../utils/helpers'
+import { MaxEvolution, Omit } from '../utils/helpers'
 import DoughnutChart from '../components/doughnut-chart'
 import { toast } from 'react-toastify';
-import html2canvas from 'html2canvas';
 import YearChart from '../components/year-chart';
+import DataViz from '../components/data-viz';
 
 export default class International extends React.Component {
   topYear = [
@@ -133,22 +133,12 @@ export default class International extends React.Component {
     NProgress.done();
   }
 
-  screenshotDiv = (event) => {
-    let current = event.currentTarget
-    while (!current.className.includes('data-viz')) current = current.parentNode
-    let filename = `${current.id}.png`
-    html2canvas(current).then(function (canvas) {
-      console.log(canvas)
-      SaveAs(canvas.toDataURL(), filename);
-    });
-  }
-
   render() {
     const { selectedYear } = this.state;
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="International">
+          <Menu title="International" description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
             <div className="row">
               <div className="col-md-11">
                 <Nav className="justify-content-center">
@@ -190,68 +180,33 @@ export default class International extends React.Component {
               <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
             </div>
             <div className="row">
-              <div id="reviews-country-wo-france" className="col data-viz" style={{ borderLeft: statsBorderColors['going'] }}>
-                <div className="row">
-                  <div className="col">
-                    <h6 className="text-uppercase font-weight-bold mb-4 text-left">Reviews per country (w/o France & others)</h6>
-                  </div>
-                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
-                </div>
+              <DataViz id="reviews-country-wo-france" title="Reviews per country (w/o France & others)" style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
-              </div>
+              </DataViz>
 
-              <div id="reviews-country" className="col data-viz" style={{ borderLeft: statsBorderColors['going'] }}>
-                <div className="row">
-                  <div className="col">
-                    <h6 className="text-uppercase text-left font-weight-bold mb-4">Reviews per country</h6>
-                  </div>
-                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
-                </div>
-
+              <DataViz id="reviews-country" title="Reviews per country" style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
-              </div>
+              </DataViz>
             </div>
 
             <div className="row">
-              <div id="monthly-evolution-reviews-wo-france" className="col data-viz" style={{ borderLeft: statsBorderColors['going'] }}>
-                <div className="row">
-                  <div className="col">
-                    <h6 className="text-uppercase text-left font-weight-bold mb-4">Monthly evolution of reviews (w/o France & others)</h6>
-                  </div>
-                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
-                </div>
+              <DataViz id="monthly-evolution-reviews-wo-france" title="Monthly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['monthly'] }}>
                 <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-              </div>
-              <div id="monthly-evolution-reviews" className="col data-viz" style={{ borderLeft: statsBorderColors['going'] }}>
-                <div className="row">
-                  <div className="col">
-                    <h6 className="text-uppercase text-left font-weight-bold mb-4">Monthly evolution of reviews</h6>
-                  </div>
-                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
-                </div>
+              </DataViz>
+
+              <DataViz id="monthly-evolution-reviews" title="Monthly evolution of reviews" style={{ borderLeft: statsBorderColors['monthly'] }}>
                 <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
-              </div>
+              </DataViz>
             </div>
 
             <div className="row">
-              <div id="yearly-evolution-reviews-wo-france" className="col data-viz" style={{ borderLeft: statsBorderColors['going'] }}>
-                <div className="row">
-                  <div className="col">
-                    <h6 className="text-uppercase text-left font-weight-bold mb-4">Yearly evolution of reviews (w/o France & others)</h6>
-                  </div>
-                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
-                </div>
+              <DataViz id="yearly-evolution-reviews-wo-france" title="Yearly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
-              </div>
-              <div id="yearly-evolution-reviews-wo-france" className="col data-viz" style={{ borderLeft: statsBorderColors['going'] }}>
-                <div className="row">
-                  <div className="col">
-                    <h6 className="text-uppercase text-left font-weight-bold mb-4">Yearly evolution of reviews</h6>
-                  </div>
-                  <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
-                </div>
+              </DataViz>
+
+              <DataViz id="yearly-evolution" title="Yearly evolution of reviews" style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
-              </div>
+              </DataViz>
             </div>
           </div>
         </div>

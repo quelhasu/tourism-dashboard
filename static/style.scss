@@ -1,4 +1,5 @@
 $primary-color: #da276b8d;
+$text-color: #333;
 
 $font-size: 50px;
 $responsive-font-size: 1vw;
@@ -15,6 +16,10 @@ $navbar-height: 3vw;
   @include large-smartphone(){
     font-size: $responsive-font-size;
   }
+}
+
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+  color: $text-color;
 }
 
 h1{
@@ -120,14 +125,19 @@ h6{
 
 .data-viz {
   padding: 20px;
-  margin: 6px 3.5px;
+  // margin: 6px 3.5px;
+  margin: 8px 7.5px;
   background: white;
   border-bottom-color: rgb(209, 209, 209);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px 0px;
   border-radius: 5px;
 
   .statistics{
-    color:white;
+    color:white !important;
+
+    h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+      color: white;
+    }
 
     .text-muted {
       color: #ffffffb3 !important;
