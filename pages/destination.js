@@ -1,28 +1,29 @@
-import Head from '../components/head'
+// Modules
 import axios from 'axios'
-import GoingChart from '../components/going-chart'
-import DiffTable from '../components/diff-table';
-import MonthChart from '../components/month-chart';
-import Menu from '../components/menu';
-import NProgress from 'nprogress'
-import Router from "next/router";
 import Link from 'next/link'
+import { Nav } from 'react-bootstrap';
+import NProgress from 'nprogress'
+import { toast } from 'react-toastify';
+
+// Components
+import DataViz from '../components/data-viz';
+import DiffTable from '../components/diff-table';
+import GoingChart from '../components/going-chart'
+import Head from '../components/head'
+import HorizontalBarChart from '../components/horizontal-bar-chart'
+import Menu from '../components/menu';
+import MonthChart from '../components/month-chart';
+import MultiSelect from '../components/multi-select'
+import Stat from '../components/stat'
+import YearChartDot from '../components/year-chart-dot';
+
+// Utils
+import { MostCentral } from "../utils/helpers"
 import {
   nationalSelectedColors, townshipSelectedColors, statsColors,
   statsBorderColors, departmentsSelectedColors,
   boroughSelectedColors, internationalSelectedColors
 } from '../utils/colors'
-import { nationalFlags } from '../utils/flags'
-import { destination } from '../test/database.js'
-import Stat from '../components/stat'
-import MultiSelect from '../components/multi-select'
-import HorizontalBarChart from '../components/horizontal-bar-chart'
-import { MostCentral, SaveAs } from "../utils/helpers"
-import { toast } from 'react-toastify';
-import DataViz from '../components/data-viz';
-import { Nav, NavItem } from 'react-bootstrap';
-import YearChart from '../components/year-chart';
-import YearChartDot from '../components/year-chart-dot';
 
 
 export default class Destination extends React.Component {
@@ -66,7 +67,6 @@ export default class Destination extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.handleYearChange = this.handleYearChange.bind(this);
     this.selected = JSON.parse(JSON.stringify(this.state.info));
     this.previous = JSON.parse(JSON.stringify(this.state.info));
   }
