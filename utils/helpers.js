@@ -6,6 +6,8 @@
  * @return {Object} Most Central object
  */
 export function MostCentral(data, year){
+  let yearKeys = Object.keys(data).filter(key => data[key][year] == undefined);
+  yearKeys.forEach(key => data = Omit(data, key));
   let key =  Object.keys(data).reduce((max, obj) => data[max][year].value > data[obj][year].value ? max : obj);
   return{
     label: key,
