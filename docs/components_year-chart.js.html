@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Menu - Documentation</title>
+    <title>components/year-chart.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,223 +29,129 @@
 
 <div id="main">
     
-    <h1 class="page-title">Menu</h1>
+    <h1 class="page-title">components/year-chart.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Menu
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="Menu"><span class="type-signature"></span>new Menu<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create a menu with personalized content</p>
-</div>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>String</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Title of the menu</p></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>children</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>React.Component</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Personalized content</p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_menu.js.html">components/menu.js</a>, <a href="components_menu.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>React.Component.&lt;Props></li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Line } from 'react-chartjs-2';
+import { Omit } from '../utils/helpers'
+
+/**
+ * Create a year chart 
+ * @class YearChart
+ * 
+ * @prop {String} height - Height of the Line chart
+ * @prop {String} width - Width of the Line chart
+ * @prop {Object[]} evolution - Monthly evolution values
+ * @prop {String[]} colors - Colors array associated with name
+ * 
+ * 
+ * @extends React.Component&lt;Props>
+ */
+export default class YearChart extends React.Component {
+  options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: false,
+      text: 'Yearly evolution per region '
+    },
+    legend: {
+      labels: {
+        fontSize: 10,
+      }
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true
+    },
+    plugins: {
+      datalabels: {
+        display: false,
+      }
+    },
+    scales: {
+      xAxes: [{
+        gridLines: {
+          borderDash: [8, 4]
+        },
+        ticks: {
+          fontSize: 10
+        },
+        display: true,
+        scaleLabel: {
+          display: false,
+          labelString: 'Year'
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          fontSize: 10,
+          min:0
+        },
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Value'
+        }
+      }]
+    }
+  }
+  data = {
+    datasets: []
+  }
+
+  constructor(props) {
+    super(props);
+    this.data.datasets = chartData(props);
+    this.options.title.text += props.var
+    this.data.labels = Object.getOwnPropertyNames(
+      this.props.evolution[Object.keys(this.props.evolution)[0]]
+    ).filter(el => el.match(/^\d{4}$/))
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.data.datasets = chartData(nextProps);
+  }
+
+  render() {
+    return (
+      &lt;div className="month-chart">
+        &lt;Line width={this.props.width} data={this.data} options={this.options} />
+      &lt;/div>
+    )
+  }
+}
+
+function chartData(props) {
+  let dataArr = null;
+  return Object.keys(props.evolution).map(key => {
+    dataArr = Object.keys(props.evolution[key]).map(elKey => { return props.evolution[key][String(elKey)][props.var] });
+    return {
+      label: key,
+      backgroundColor: '#fff',
+      borderColor: props.colors[key],
+      data: dataArr,
+      fill: false,
+      pointRadius: 5,
+      pointBorderWidth: 2,
+      pointBackgroundColor: '#fff',
+    }
+  })
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

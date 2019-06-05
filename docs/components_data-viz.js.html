@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Menu - Documentation</title>
+    <title>components/data-viz.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,223 +29,70 @@
 
 <div id="main">
     
-    <h1 class="page-title">Menu</h1>
+    <h1 class="page-title">components/data-viz.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Menu
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="Menu"><span class="type-signature"></span>new Menu<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create a menu with personalized content</p>
-</div>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>String</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Title of the menu</p></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>children</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>React.Component</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Personalized content</p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_menu.js.html">components/menu.js</a>, <a href="components_menu.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>React.Component.&lt;Props></li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import { SaveAs } from "../utils/helpers"
+import html2canvas from 'html2canvas';
+
+/**
+ * Create a DataViz block
+ * @class DataViz
+ * 
+ * @prop {String} title - Title of the component
+ * @prop {String} [second] - Second text
+ * @prop {String} style - Style for border-left 
+ * @prop {String} id - Title of the menu
+ * @prop {React.Component} children - Personalized content
+ * 
+ * @extends React.Component&lt;Props>
+ */
+export default class DataViz extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  /**
+   * Process to save div to image
+   * @param {Object} event - Object that called the function
+   * 
+   */
+  screenshotDiv = (event) => {
+    console.log(event);
+    let current = event.currentTarget
+    while (!current.className.includes('data-viz')) current = current.parentNode
+    let filename = `${current.id}.png`
+    html2canvas(current).then(function (canvas) {
+      SaveAs(canvas.toDataURL(), filename);
+    });
+  }
+
+  render() {
+    return (
+      &lt;div id={this.props.id} className="col data-viz" style={this.props.style}>
+        &lt;div className="row">
+          &lt;div className="col">
+            &lt;h6 className="text-uppercase text-left">{this.props.title}&lt;/h6>
+            &lt;p className="text-uppercase mb-4 text-muted text-small text-left">{this.props.second}&lt;/p>
+          &lt;/div>
+          &lt;div className="col-md-2 ml-auto  text-right">&lt;i onClick={this.screenshotDiv} class="fas fa-download download">&lt;/i>&lt;/div>
+        &lt;/div>
+        {this.props.children}
+      &lt;/div>
+    )
+  }
+}</code></pre>
+        </article>
+    </section>
 
 
 
