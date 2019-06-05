@@ -20,7 +20,7 @@ export default class HorizontalBarChart extends React.Component {
     this.data.labels = Object.keys(props.evolution).map(key => { return key })
 
     this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
-      return props.evolution[key][props.year]['value']
+      return props.evolution[key][props.year] ? props.evolution[key][props.year]['value'] : 0
     })
 
     const colors = OrderColors(this.data.labels, this.selectedColors)

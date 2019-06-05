@@ -31,7 +31,6 @@ export default class DataViz extends React.Component {
     while (!current.className.includes('data-viz')) current = current.parentNode
     let filename = `${current.id}.png`
     html2canvas(current).then(function (canvas) {
-      console.log(canvas)
       SaveAs(canvas.toDataURL(), filename);
     });
   }

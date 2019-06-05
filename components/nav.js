@@ -13,9 +13,9 @@ const links = [
 
 const menu = [
   { href: '/stats', label: 'Stats', icon: '' },
-  { href: '/international/2016', label: 'International', icon: '' },
-  { href: '/national/2016', label: 'National', icon: '' },
-  { href: '/clustering/2016/2/gironde', label: 'Clustering', icon: '' }
+  { href: '/international/2018', label: 'International', icon: '' },
+  { href: '/national/2018', label: 'National', icon: '' },
+  { href: '/destination/2018/3/4', label: 'Destination', icon: '' }
 ].map(link => {
   link.key = `menu-link-${link.href}-${link.label}`
   return link
@@ -46,9 +46,9 @@ class Navi extends React.Component {
             </a>
           </Link>
           <Nav className="mr-auto" navbar>
-            {menu.map(({ key, href, label, icon }) => (
+            {menu.map(({ key, as, href, label, icon }) => (
               <NavItem key={key} className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''} `}>
-                <Link prefetch key={`link-${key}`} href={href}>
+                <Link prefetch key={`link-${key}`} href={href} as={as}>
                   <a className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''} nav-link`}
                     onClick={this.selectLink.bind(this, label)} >
                     {label} <i className={icon}></i>

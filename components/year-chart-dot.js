@@ -3,7 +3,7 @@ import { Omit } from '../utils/helpers'
 
 /**
  * Create a year chart 
- * @class YearChart
+ * @class YearChartDot
  * 
  * @prop {String} height - Height of the Line chart
  * @prop {String} width - Width of the Line chart
@@ -13,7 +13,7 @@ import { Omit } from '../utils/helpers'
  * 
  * @extends React.Component<Props>
  */
-export default class YearChart extends React.Component {
+export default class YearChartDot extends React.Component {
   options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -54,6 +54,9 @@ export default class YearChart extends React.Component {
         }
       }],
       yAxes: [{
+        gridLines: {
+          display: false,
+        },
         ticks: {
           fontSize: 10,
           min:0
@@ -105,6 +108,7 @@ function chartData(props) {
       pointRadius: 5,
       pointBorderWidth: 2,
       pointBackgroundColor: '#fff',
+      showLine: false
     }
   })
 }
