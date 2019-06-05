@@ -16,6 +16,7 @@ import MonthChart from '../components/month-chart';
 import MultiSelect from '../components/multi-select'
 import Stat from '../components/stat'
 import YearChartDot from '../components/year-chart-dot';
+import YearChart from '../components/year-chart';
 
 // Utils
 import { MostCentral } from "../utils/helpers"
@@ -97,22 +98,17 @@ export default class Destination extends React.Component {
       })
   }
 
-  handleCountriesChange = async (newValue, actionMeta) => {
-    this.selected.topCountries = newValue
-  }
+  handleCountriesChange = async (newValue, actionMeta) => this.selected.topCountries = newValue
 
-  handleAreasChange = async (newValue, actionMeta) => {
-    this.selected.topAreas = newValue
-  }
+  handleAreasChange = async (newValue, actionMeta) => this.selected.topAreas = newValue
 
-  handleAgesRange = async (newValue, actionMeta) => {
-    this.selected.topAges = newValue
-  }
+  handleAgesRange = async (newValue, actionMeta) => this.selected.topAges = newValue
+  
 
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.state.from}/${this.state.groupby}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
+        const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
 
         const res = await this.axiosProgress(link)
 
@@ -235,35 +231,33 @@ export default class Destination extends React.Component {
           <Head title="Destination" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
+            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['going']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
           </div>
 
           <div className="row">
             <DataViz id="ingoing-outgoing-departments" title="Ingoing/Outgoing per departmens" style={{ borderLeft: statsBorderColors['going'] }}>
-              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={this.scope.find(el => el.key == this.state.groupby).colors} />
+              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
           </div>
 
           <div className="row">
             <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
+              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
-          </div>
 
-          <div className="row">
             <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
+              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
           </div>
 
           <div className="row">
             <DataViz id="monthly-evolution-ingoing" title="Monthly evolution of ingoing" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.state.groupby).colors} />
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
 
             <DataViz id="monthly-evolution-outgoing" title="Monthly evolution of outgoing" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={this.scope.find(el => el.key == this.state.groupby).colors} />
+              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
           </div>
 
@@ -271,12 +265,12 @@ export default class Destination extends React.Component {
             <DataViz id="national-centrality-pagerank" title="National centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
               <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
                 evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
-                type="Rank" colors={this.scope.find(el => el.key == this.state.groupby).colors}
+                type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
                 step={0.5} valueType=" " />
             </DataViz>
 
-            <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" second="(PageRank Y / Y-1)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={this.scope.find(el => el.key == this.state.groupby).colors} />
+            <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" second="(PageRank Y / Y-2)" style={{ borderLeft: statsBorderColors['central'] }}>
+              <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
           </div>
         </div>

@@ -1,21 +1,25 @@
-import Head from '../components/head'
-import axios from 'axios'
-import GoingChart from '../components/going-chart'
-import DiffTable from '../components/diff-table';
-import MonthChart from '../components/month-chart';
-import Menu from '../components/menu';
-import NProgress from 'nprogress'
-import { Nav, NavItem } from 'reactstrap';
-import Link from 'next/link'
-import { nationalSelectedColors, statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
-import { nationalFlags } from '../utils/flags'
-import { national, nationalInfo } from '../test/database.js'
-import Stat from '../components/stat'
-import MultiSelect from '../components/multi-select'
-import HorizontalBarChart from '../components/horizontal-bar-chart'
-import { MostCentral, SaveAs } from "../utils/helpers"
-import { toast } from 'react-toastify';
+// Components
 import DataViz from '../components/data-viz';
+import GoingChart from '../components/going-chart'
+import Head from '../components/head'
+import HorizontalBarChart from '../components/horizontal-bar-chart'
+import Menu from '../components/menu';
+import MonthChart from '../components/month-chart'
+import MultiSelect from '../components/multi-select'
+import Stat from '../components/stat'
+import YearChart from '../components/year-chart'
+import YearChartDot from '../components/year-chart-dot'
+
+// Utils
+import { statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
+import { MostCentral } from "../utils/helpers"
+
+// Modules
+import axios from 'axios'
+import Link from 'next/link'
+import { Nav, NavItem } from 'reactstrap';
+import NProgress from 'nprogress'
+import { toast } from 'react-toastify';
 
 
 export default class National extends React.Component {
@@ -74,41 +78,12 @@ export default class National extends React.Component {
       })
   }
 
-  // needed if multiselect year 
-  // handleYearChange = async (selectedYear) => {
-  //   const res = await this.axiosProgress(`http://localhost:3000/BM/national/${selectedYear.value}/`)
-  //   const info = await axios.get(`http://localhost:3000/BM/national/${selectedYear.value}/info`)
-  //   this.setState({
-  //     data: res.data,
-  //     mostCentral: MostCentral(this.props.data['Centrality'], this.props.year),
-  //     selectedYear,
-  //     info: {
-  //       topCountries: info.data.topCountries.map(el => {
-  //         return { value: el, label: el }
-  //       }),
-  //       topDepartments: info.data.topDepartments.map(el => {
-  //         return { value: el, label: el }
-  //       }),
-  //       topAges: info.data.topAges.map(el => {
-  //         return { value: el, label: el }
-  //       })
-  //     }
-  //   });
-  //   this.selected = JSON.parse(JSON.stringify(this.state.info));
-  //   NProgress.done();
-  // }
+  handleCountriesChange = async (newValue, actionMeta) => this.selected.topCountries = newValue
 
-  handleCountriesChange = async (newValue, actionMeta) => {
-    this.selected.topCountries = newValue
-  }
 
-  handleRegionsChange = async (newValue, actionMeta) => {
-    this.selected.topDepartments = newValue
-  }
+  handleRegionsChange = async (newValue, actionMeta) => this.selected.topDepartments = newValue
 
-  handleAgesRange = async (newValue, actionMeta) => {
-    this.selected.topAges = newValue
-  }
+  handleAgesRange = async (newValue, actionMeta) => this.selected.topAges = newValue
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -182,7 +157,7 @@ export default class National extends React.Component {
           </Menu>
         </div>
         <div className="col">
-          <Head title="National" />
+          <Head title="National" /> 
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
@@ -197,13 +172,11 @@ export default class National extends React.Component {
           </div>
           <div className="row">
             <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Ingoing' />
+              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
             </DataViz>
-          </div>
 
-          <div className="row">
             <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <DiffTable evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} var='Outgoing' />
+              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
             </DataViz>
           </div>
 
@@ -223,7 +196,7 @@ export default class National extends React.Component {
             </DataViz>
             
             <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" second="(PageRank Y / Y-1)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <DiffTable evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} var='value' />
+              <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={departmentsSelectedColors} />
             </DataViz>
           </div>
         </div>
