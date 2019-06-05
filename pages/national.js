@@ -16,8 +16,7 @@ import { MostCentral } from "../utils/helpers"
 
 // Modules
 import axios from 'axios'
-import Link from 'next/link'
-import { Nav, NavItem } from 'reactstrap';
+import { Nav } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
 
@@ -32,7 +31,7 @@ export default class National extends React.Component {
     { value: 2018, label: '2018' },
     { value: 2019, label: '2019' }
   ]
-  
+
   state = {
     mostCentral: MostCentral(this.props.data['Centrality'], this.props.year),
     selectedYear: { value: this.props.year, label: this.props.year },
@@ -60,11 +59,10 @@ export default class National extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const info = await axios.get(`http://localhost:3000/BM/national/${year}/info/?limit=10`)
-    const response = await axios.get(`http://localhost:3000/BM/national/${year}/?countries=${info.data.topCountries}&departments=${info.data.topDepartments}`);
+    const response = await axios.get(`http://localhost:3000/BM/national/${year}`);
     return {
       data: response.data,
-      info: info.data,
+      info: response.data.TopInfo,
       year: year
     }
   }
@@ -111,12 +109,16 @@ export default class National extends React.Component {
         <div className="options-menu">
           <Menu title="National" description="Statistics on the tourist influence of users (TripAdvisor) by country, in circulation between French departments, in Bordeaux Metropole.">
             <div className="row">
-              <div className="col-md-11">
-                <Nav className="justify-content-center">
+              <div className="col">
+                <Nav className="justify-content-center" defaultActiveKey={this.state.selectedYear.value}>
                   {this.topYear.map(({ value, label }) => (
-                    <NavItem key={`nav-navitem-${label}`}>
-                      <Link key={`nav-navitem-link${label}`} href={`${value}`}><a className="nav-link">{label} </a></Link>
-                    </NavItem>
+                    <Nav.Item key={`nav-navitem-${label}`} >
+                      <Nav.Link eventKey={`${label}`}
+                        key={`nav-navitem-link${label}`} href={`${value}`}
+                        disabled={label == this.state.selectedYear.value}>
+                        {label}
+                      </Nav.Link>
+                    </Nav.Item>
                   ))}
                 </Nav>
               </div>
@@ -152,12 +154,11 @@ export default class National extends React.Component {
                   <button type="submit" className="btn btn-outline-primary">Update</button>
                 </div>
               </div>
-
             </form>
           </Menu>
         </div>
         <div className="col">
-          <Head title="National" /> 
+          <Head title="National" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
@@ -194,7 +195,7 @@ export default class National extends React.Component {
             <DataViz id="national-centrality-pagerank" title="National centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
               <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
             </DataViz>
-            
+
             <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" second="(PageRank Y / Y-1)" style={{ borderLeft: statsBorderColors['central'] }}>
               <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={departmentsSelectedColors} />
             </DataViz>

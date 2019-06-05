@@ -12,7 +12,7 @@ const links = [
 })
 
 const menu = [
-  { href: '/stats', label: 'Stats', icon: '' },
+  // { href: '/stats', label: 'Stats', icon: '' },
   { href: '/international/2018', label: 'International', icon: '' },
   { href: '/national/2018', label: 'National', icon: '' },
   { href: '/destination/2018/3/4', label: 'Destination', icon: '' }

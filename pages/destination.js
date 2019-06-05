@@ -218,7 +218,7 @@ export default class Destination extends React.Component {
                 <Nav variant="tabs" className="justify-content-center" defaultActiveKey={this.state.selectedYear.value}>
                   {this.topYear.map(({ value, label }) => (
                     <Nav.Item key={`nav-navitem-${label}`}>
-                      <Nav.Link eventKey={`${label}`} href={`${value}`}>{label}</Nav.Link>
+                      <Nav.Link eventKey={`${label}`} href={`${value}`} key={`nav-navitem-link${label}`}>{label}</Nav.Link>
                     </Nav.Item>
                   ))}
                 </Nav>

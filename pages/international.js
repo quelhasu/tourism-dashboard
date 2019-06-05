@@ -6,7 +6,7 @@ import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
 import Select from 'react-select';
 import NProgress from 'nprogress'
-import { Navbar, Nav, NavItem } from 'reactstrap';
+import { Nav } from 'react-bootstrap';
 import Link from 'next/link'
 import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
 import { internationalFlags } from '../utils/flags'
@@ -55,12 +55,11 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const info = await axios.get(`http://localhost:3000/BM/international/${year}/info/?limit=10`)
-    const response = await axios.get(`http://localhost:3000/BM/international/${year}/?countries=${info.data.topCountries}`);
+    const response = await axios.get(`http://localhost:3000/BM/international/${year}`);
 
     return {
       data: response.data,
-      info: info.data,
+      info: response.data.TopInfo,
       year: year
     }
   }
@@ -140,12 +139,16 @@ export default class International extends React.Component {
         <div className="options-menu">
           <Menu title="International" description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
             <div className="row">
-              <div className="col-md-11">
-                <Nav className="justify-content-center">
+              <div className="col">
+                <Nav className="justify-content-center" defaultActiveKey={this.state.selectedYear.value}>
                   {this.topYear.map(({ value, label }) => (
-                    <NavItem key={`nav-navitem-${label}`}>
-                      <Link key={`nav-navitem-link${label}`} href={`${value}`}><a className="nav-link">{label} </a></Link>
-                    </NavItem>
+                    <Nav.Item key={`nav-navitem-${label}`} >
+                      <Nav.Link eventKey={`${label}`}
+                        key={`nav-navitem-link${label}`} href={`${value}`}
+                        disabled={label == this.state.selectedYear.value}>
+                        {label}
+                      </Nav.Link>
+                    </Nav.Item>
                   ))}
                 </Nav>
               </div>

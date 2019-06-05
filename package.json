@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint app",
     "postinstall": "npm run build && npm run doc",
-    "docs": "jsdoc ./ --configure conf.json && mv ./docs/tourism-dashboard/*/* ./docs"
+    "docs": "rm -rf ./docs && jsdoc ./ --configure conf.json && mv ./docs/tourism-dashboard/*/* ./docs"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
