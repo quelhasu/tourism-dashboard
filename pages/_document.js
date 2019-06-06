@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet"/> 
           <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet"/> 
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
-          
+          <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
           {/* Import CSS for nprogress */}
           <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
         </Head>

@@ -62,11 +62,11 @@ export default class GoingChart extends React.Component {
     this.data.labels = Object.keys(props.evolution).map(key => { return key })
 
     this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
-      return props.evolution[key][props.year]['Ingoing']
+      return props.evolution[key][props.year] ? props.evolution[key][props.year]['Ingoing'] : 0
     })
 
     this.data.datasets[1].data = Object.keys(props.evolution).map(key => {
-      return props.evolution[key][props.year]['Outgoing']
+      return props.evolution[key][props.year] ? props.evolution[key][props.year]['Outgoing'] : 0
     })
 
     const colors = OrderColorsRGBA(this.data.labels, this.selectedColors, 'ingoing', 'outgoing')

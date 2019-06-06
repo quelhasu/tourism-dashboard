@@ -19,15 +19,6 @@ import YearChart from '../components/year-chart';
 import DataViz from '../components/data-viz';
 
 export default class International extends React.Component {
-  topYear = [
-    { value: 2013, label: '2013' },
-    { value: 2014, label: '2014' },
-    { value: 2015, label: '2015' },
-    { value: 2016, label: '2016' },
-    { value: 2017, label: '2017' },
-    { value: 2018, label: '2018' },
-    { value: 2019, label: '2019' }
-  ]
 
   state = {
     maxEvolution: MaxEvolution(this.props.data['Evolution']),
@@ -73,28 +64,6 @@ export default class International extends React.Component {
       })
   }
 
-  handleYearChange = async (selectedYear) => {
-    const res = await this.axiosProgress(`http://localhost:3000/BM/international/${selectedYear.value}/`)
-    const info = await axios.get(`http://localhost:3000/BM/international/${selectedYear.value}/info`)
-    this.setState({
-      data: res.data,
-      internationalData: {
-        'Evolution': Omit(res.data['Evolution'], ['France', '-']),
-        'Monthly': Omit(res.data['Monthly'], ['France', '-'])
-      },
-      selectedYear,
-      info: {
-        topCountries: info.data.topCountries.map(el => {
-          return { value: el, label: el }
-        }),
-        topAges: info.data.topAges.map(el => {
-          return { value: el, label: el }
-        })
-      }
-    });
-    this.selected = JSON.parse(JSON.stringify(this.state.info));
-    NProgress.done();
-  }
 
   handleCountriesChange = async (newValue, actionMeta) => {
     this.selected.topCountries = newValue
@@ -110,6 +79,7 @@ export default class International extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(this.state.topCountries);
     const res = await this.axiosProgress(
       (`http://localhost:3000/BM/international/${this.state.selectedYear.value}/?\
       countries=${this.selected.topCountries.map(el => el.value).join()}&\
@@ -137,22 +107,11 @@ export default class International extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="International" description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
-            <div className="row">
-              <div className="col">
-                <Nav className="justify-content-center" defaultActiveKey={this.state.selectedYear.value}>
-                  {this.topYear.map(({ value, label }) => (
-                    <Nav.Item key={`nav-navitem-${label}`} >
-                      <Nav.Link eventKey={`${label}`}
-                        key={`nav-navitem-link${label}`} href={`${value}`}
-                        disabled={label == this.state.selectedYear.value}>
-                        {label}
-                      </Nav.Link>
-                    </Nav.Item>
-                  ))}
-                </Nav>
-              </div>
-            </div>
+          <Menu title="International" 
+            year={this.state.selectedYear.value}
+            endUrl={``}
+            baseUrl={`international`}
+            description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
                 <label className="col-md-1 col-form-label text-muted">Countries</label>

@@ -13,6 +13,7 @@ import YearChartDot from '../components/year-chart-dot'
 // Utils
 import { statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
 import { MostCentral } from "../utils/helpers"
+import { national2k15, national } from "../test/database"
 
 // Modules
 import axios from 'axios'
@@ -22,15 +23,6 @@ import { toast } from 'react-toastify';
 
 
 export default class National extends React.Component {
-  topYear = [
-    { value: 2013, label: '2013' },
-    { value: 2014, label: '2014' },
-    { value: 2015, label: '2015' },
-    { value: 2016, label: '2016' },
-    { value: 2017, label: '2017' },
-    { value: 2018, label: '2018' },
-    { value: 2019, label: '2019' }
-  ]
 
   state = {
     mostCentral: MostCentral(this.props.data['Centrality'], this.props.year),
@@ -60,6 +52,7 @@ export default class National extends React.Component {
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
     const response = await axios.get(`http://localhost:3000/BM/national/${year}`);
+
     return {
       data: response.data,
       info: response.data.TopInfo,
@@ -107,22 +100,11 @@ export default class National extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="National" description="Statistics on the tourist influence of users (TripAdvisor) by country, in circulation between French departments, in Bordeaux Metropole.">
-            <div className="row">
-              <div className="col">
-                <Nav className="justify-content-center" defaultActiveKey={this.state.selectedYear.value}>
-                  {this.topYear.map(({ value, label }) => (
-                    <Nav.Item key={`nav-navitem-${label}`} >
-                      <Nav.Link eventKey={`${label}`}
-                        key={`nav-navitem-link${label}`} href={`${value}`}
-                        disabled={label == this.state.selectedYear.value}>
-                        {label}
-                      </Nav.Link>
-                    </Nav.Item>
-                  ))}
-                </Nav>
-              </div>
-            </div>
+          <Menu title="National"
+            year={this.state.selectedYear.value}
+            endUrl={``}
+            baseUrl={`national`}
+            description="Statistics on the tourist influence of users (TripAdvisor) by country, in circulation between French departments, in Bordeaux Metropole.">
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="row">
                 <label className="col-md-1"><u>User:</u></label>

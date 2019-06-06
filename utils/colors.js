@@ -112,8 +112,23 @@ const statsBorderColors = {
 	"yearly": 'rgba(164, 191, 249, 0.2) 7px solid'
 }
 
+const touristicColors = {
+	"Bordeaux": 'rgb(54, 162, 235)',
+	"Saint-Emilion Libournais": 'rgb(237,102,117)',
+	"Bassin d'Arcachon": 'rgb(100,188,135)',
+	"Sud Gironde": 'rgb(104,198,237)',
+	"Médoc Atlantique": 'rgb(190,216,110)',
+	"Pays Basque": 'rgb(249,196,98)',
+	"Entre-deux-Mers": 'rgb(202,108,180)',
+	"Biscarosse Mimizan": 'rgb(119,182,177)',
+	"Médoc": 'rgb(95,127,80)',
+	"Sud des Landes": 'RGB(168, 64, 79)',
+	"La Rochelle Ile de Ré": 'RGB(152, 64, 168)',
+	"Royan Ile d'Oléron": 'rgb(223,180,42)'
+}
+
 export {
 	departmentsSelectedColors, internationalSelectedColors,
 	boroughSelectedColors, statsColors, statsBorderColors,
-	nationalSelectedColors, townshipSelectedColors
+	nationalSelectedColors, townshipSelectedColors, touristicColors
 };

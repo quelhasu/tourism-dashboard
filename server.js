@@ -8,9 +8,14 @@ app.prepare()
   .then(() => {
     const server = express();
 
+    server.get('/favicon.ico', (req, res) => (
+      res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })
+    ));
+
     server.get('/national/:year', (req, res) => {
       const actualPage = '/national'
-      const queryParams = { year: req.params.year }
+      let year = req.params.year
+      const queryParams = { year: year }
       app.render(req, res, actualPage, queryParams);
     });
 

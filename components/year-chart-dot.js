@@ -108,7 +108,7 @@ function chartData(props) {
       pointRadius: 5,
       pointBorderWidth: 2,
       pointBackgroundColor: '#fff',
-      showLine: false
+      // showLine: false
     }
   })
 }
