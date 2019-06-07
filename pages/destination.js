@@ -1,7 +1,7 @@
 // Modules
 import axios from 'axios'
 import Link from 'next/link'
-import { Nav } from 'react-bootstrap';
+import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
 
@@ -68,17 +68,33 @@ export default class Destination extends React.Component {
 
   static async getInitialProps({ req }) {
     try {
-    const year = Number(req.params.year) || 2016
-    // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}`);
-    return {
-      data: destinationTouri,
-      info: destinationTouri.TopInfo,
-      year: year,
-      from: Number(req.params.from),
-      groupby: Number(req.params.groupby)
-    }
+      const year = Number(req.params.year) || 2016
+      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual`);
+      return {
+        data: response.data,
+        info: response.data.TopInfo,
+        year: year,
+        from: Number(req.params.from),
+        groupby: Number(req.params.groupby)
+      }
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      const res = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly`);
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          Monthly: res.data['Monthly']
+        },
+      }))
+    } catch (e) {
+      console.log(e);
+    } finally {
+      NProgress.done();
     }
   }
 
@@ -91,31 +107,35 @@ export default class Destination extends React.Component {
       })
   }
 
+  loading = () => {
+    return <div><Spinner animation="grow" role="status" variant="primary"/> <span>Loading...</span></div>
+  }
+
   handleCountriesChange = async (newValue, actionMeta) => this.selected.topCountries = newValue
 
   handleAreasChange = async (newValue, actionMeta) => this.selected.topAreas = newValue
 
   handleAgesRange = async (newValue, actionMeta) => this.selected.topAges = newValue
-  
+
 
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
+      const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
 
-        const res = await this.axiosProgress(link)
+      const res = await this.axiosProgress(link)
 
-        this.setState(prevState => ({
-          modifyScope: false,
-          data: res.data,
-          info: {
-            ...prevState.info,
-            topAreas: res.data.TopInfo.topAreas.map(el => {
-              return { value: el, label: el }
-            })
-          },
-          mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
-        }));
+      this.setState(prevState => ({
+        modifyScope: false,
+        data: res.data,
+        info: {
+          ...prevState.info,
+          topAreas: res.data.TopInfo.topAreas.map(el => {
+            return { value: el, label: el }
+          })
+        },
+        mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
+      }));
     } catch (err) {
       this.notify(err.message + "\nImpossible to use 'group by' with this 'from' option.");
     }
@@ -124,14 +144,14 @@ export default class Destination extends React.Component {
     }
   }
 
-  notify = (msg) => {toast.error(msg); return ''}
+  notify = (msg) => { toast.error(msg); return '' }
 
   render() {
     const { selectedYear } = this.state;
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="Destination" 
+          <Menu title="Destination"
             year={this.state.selectedYear.value}
             endUrl={`${this.props.from}/${this.props.groupby}`}
             baseUrl={`destination`}
@@ -147,7 +167,7 @@ export default class Destination extends React.Component {
                     <Nav variant="pills" defaultActiveKey={this.state.from}
                       onSelect={selectedKey => this.setState({ from: selectedKey, modifyScope: true })}>
                       {this.scope
-                        .filter(({ key }) => key <= 3 && key != 2.5 )
+                        .filter(({ key }) => key <= 3 && key != 2.5)
                         .map(({ key, label }) => (
                           <Nav.Item>
                             <Nav.Link eventKey={key}>{label}</Nav.Link>
@@ -170,7 +190,7 @@ export default class Destination extends React.Component {
                     </Nav>
                   </div>
                 </div>
-                {this.state.modifyScope  ? this.state.from < this.state.groupby ? (
+                {this.state.modifyScope ? this.state.from < this.state.groupby ? (
                   <div className="col-auto ml-auto">
                     <Link href={`/destination/${this.state.selectedYear.value}/${this.state.from}/${this.state.groupby}`}>
                       <a className="btn btn-outline-primary">Update Scope</a>
@@ -228,21 +248,29 @@ export default class Destination extends React.Component {
 
           <div className="row">
             <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+                <Tab eventKey="year" title="Yearly">
+                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+                </Tab>
+                <Tab eventKey="month" title="Monthly">
+                  {this.state.data['Monthly'] ? (
+                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+                    ) : this.loading() }
+                </Tab>
+              </Tabs>
             </DataViz>
 
             <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
-            </DataViz>
-          </div>
-
-          <div className="row">
-            <DataViz id="monthly-evolution-ingoing" title="Monthly evolution of ingoing" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
-            </DataViz>
-
-            <DataViz id="monthly-evolution-outgoing" title="Monthly evolution of outgoing" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+                <Tab eventKey="year" title="Yearly">
+                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+                </Tab>
+                <Tab eventKey="month" title="Monthly">
+                  {this.state.data['Monthly'] ? (
+                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+                  ) : this.loading()}
+                </Tab>
+              </Tabs>
             </DataViz>
           </div>
 
