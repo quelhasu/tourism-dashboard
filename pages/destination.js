@@ -107,9 +107,7 @@ export default class Destination extends React.Component {
       })
   }
 
-  loading = () => {
-    return <div><Spinner animation="grow" role="status" variant="primary"/> <span>Loading...</span></div>
-  }
+  loading = () => <div><Spinner animation="grow" role="status" variant="primary"/> <span>Loading...</span></div>
 
   handleCountriesChange = async (newValue, actionMeta) => this.selected.topCountries = newValue
 

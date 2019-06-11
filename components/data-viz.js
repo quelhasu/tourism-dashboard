@@ -37,7 +37,7 @@ export default class DataViz extends React.Component {
 
   render() {
     return (
-      <div id={this.props.id} className="col data-viz" style={this.props.style}>
+      <div id={this.props.id} className={`col data-viz`} style={this.props.style}>
         <div className="row">
           <div className="col">
             <h6 className="text-uppercase text-left">{this.props.title}</h6>
@@ -45,7 +45,11 @@ export default class DataViz extends React.Component {
           </div>
           <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
         </div>
-        {this.props.children}
+        <div className="row">
+          <div className="col">
+            {this.props.children}
+          </div>
+        </div>
       </div>
     )
   }

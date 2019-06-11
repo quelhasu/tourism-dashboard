@@ -9,6 +9,7 @@ import MultiSelect from '../components/multi-select'
 import Stat from '../components/stat'
 import YearChart from '../components/year-chart'
 import YearChartDot from '../components/year-chart-dot'
+import CentralityMap from '../components/centrality-map'
 
 // Utils
 import { statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
@@ -17,7 +18,7 @@ import { national2k15, national } from "../test/database"
 
 // Modules
 import axios from 'axios'
-import { Nav } from 'react-bootstrap';
+import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
 
@@ -50,13 +51,35 @@ export default class National extends React.Component {
 
 
   static async getInitialProps({ req }) {
-    const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/national/${year}`);
+    try {
+      const year = Number(req.params.year) || 2016
+      // const response = await axios.get(`http://localhost:3000/BM/national/${year}/annual`);
 
-    return {
-      data: response.data,
-      info: response.data.TopInfo,
-      year: year
+      return {
+        data: national,
+        info: national.TopInfo,
+        year: year
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      // const monthRes = await this.axiosProgress(`http://localhost:3000/BM/national/${this.props.year}/monthly`);
+      // const centralRes = await this.axiosProgress(`http://localhost:3000/BM/national/${this.props.year}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&departments=${this.selected.topDepartments.map(el => el.value).join()}  `)
+      // this.setState(prevState => ({
+      //   data: {
+      //     ...prevState.data,
+      //     Monthly: monthRes.data['Monthly'],
+      //     Centrality: centralRes.data['Centrality']
+      //   },
+      // }))
+    } catch (e) {
+      console.log(e);
+    } finally {
+      NProgress.done();
     }
   }
 
@@ -68,6 +91,9 @@ export default class National extends React.Component {
         return res;
       })
   }
+
+  loading = () => <div><Spinner animation="grow" role="status" variant="primary" /> <span>Loading...</span></div>
+
 
   handleCountriesChange = async (newValue, actionMeta) => this.selected.topCountries = newValue
 
@@ -155,31 +181,57 @@ export default class National extends React.Component {
           </div>
           <div className="row">
             <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
+              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+                <Tab eventKey="year" title="Yearly">
+                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
+                </Tab>
+                <Tab eventKey="month" title="Monthly">
+                  {this.state.data['Monthly'] ? (
+                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
+                  ) : this.loading()}
+                </Tab>
+              </Tabs>
             </DataViz>
 
             <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
+              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+                <Tab eventKey="year" title="Yearly">
+                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
+                </Tab>
+                <Tab eventKey="month" title="Monthly">
+                  {this.state.data['Monthly'] ? (
+                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
+                  ) : this.loading()}
+                </Tab>
+              </Tabs>
             </DataViz>
           </div>
 
-          <div className="row">
-            <DataViz id="monthly-evolution-ingoing" title="Monthly evolution of ingoing" style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
+          <div className="row ">
+            <DataViz id="national-centrality-pagerank" title="National centrality" style={{ borderLeft: statsBorderColors['central'] }}>
+              <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
+                <Tab eventKey="map" title="Map">
+                  {this.state.data['Centrality'] ? (
+                    <CentralityMap zoom={7}
+                      geoJSON='https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php?gid_1=FRA.10_1'
+                      position={[44.8404400, -0.5805000]}
+                      evolution={this.state.data['Centrality']}
+                      mostCentral={this.state.mostCentral}
+                      name='name_2'
+                      year={this.state.selectedYear['value']} />
+                  ) : this.loading()}
+                </Tab>
+                <Tab eventKey="bar-chart" title="Bar Chart">
+                  {this.state.data['Centrality'] ? (
+                    <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
+                  ) : this.loading()}
+                </Tab>
+              </Tabs>
+
             </DataViz>
 
-            <DataViz id="monthly-evolution-outgoing" title="Monthly evolution of outgoing" style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
-            </DataViz>
-          </div>
-
-          <div className="row">
-            <DataViz id="national-centrality-pagerank" title="National centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
-            </DataViz>
-
-            <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" second="(PageRank Y / Y-1)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={departmentsSelectedColors} />
+            <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution"  style={{ borderLeft: statsBorderColors['central'] }}>
+              <YearChartDot height={500} width={50} evolution={this.state.data['Centrality']} var='value' colors={departmentsSelectedColors} />
             </DataViz>
           </div>
         </div>

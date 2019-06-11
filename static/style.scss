@@ -162,6 +162,24 @@ h6{
 
   }
 
+  .info-control {
+      display: inline-block;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      z-index: 1000;
+      padding: 6px 8px;
+      background: white;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+  
+    h4 {
+      margin: 0 0 5px;
+      color: #777;
+    }
+  }
+
   table {
     font-size: 0.7vw;
   }
@@ -185,7 +203,7 @@ h6{
 
 .body-content{
   top: $navbar-height + 2vw;
-  padding: 0 25px;
+  padding: 0 10px;
 }
 
 .basic-multi-select {
@@ -238,4 +256,12 @@ xsmall{
 
 .options-menu{
   margin-bottom: 5px;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px 0px;
+  border-radius: 5px;
+  top: 5px;
 }
