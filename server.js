@@ -28,7 +28,11 @@ app.prepare()
 
     server.get('/destination/:year/:from/:groupby', (req, res) => {
       const actualPage = '/destination'
-      const queryParams = { year: req.params.year, from: req.params.from, groupBy: req.params.groupby }
+      const queryParams = {
+        year: req.params.year,
+        from: req.params.from, groupBy: req.params.groupby,
+        limit: req.query.limit, limitareas: req.query.limitareas
+      }
       app.render(req, res, actualPage, queryParams);
     });
 

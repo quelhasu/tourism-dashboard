@@ -170,8 +170,8 @@ export default class National extends React.Component {
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             {this.state.mostCentral ? (
-            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>) : 
-            <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
+            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
+            ) : <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
           </div>
 

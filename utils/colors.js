@@ -128,7 +128,16 @@ const touristicColors = {
 	"Médoc": 'rgb(95,127,80)',
 	"Sud des Landes": 'RGB(168, 64, 79)',
 	"La Rochelle Ile de Ré": 'RGB(152, 64, 168)',
-	"Royan Ile d'Oléron": 'rgb(223,180,42)'
+	"Royan Ile d'Oléron": 'rgb(223,180,42)',
+	"Blaye & Bourg": 'RGB(160, 199, 60)',
+	"Poitiers Futuroscope":'RGB(199, 97, 60)',
+	"Pau Pyrénées":'RGB(142, 127, 18)',
+	"Sarlat Périgord noir": 'RGB(181, 110, 37)',
+	"Agenais": 'RGB(111, 136, 32)',
+	"Périgord rouge - Bergerac": 'RGB(210, 86, 89)',
+	"Cognac": 'RGB(0, 148, 118)',
+	"Val de Garonne":'RGB(192, 108, 85)'
+
 }
 
 export {

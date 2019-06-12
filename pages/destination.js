@@ -17,6 +17,7 @@ import MultiSelect from '../components/multi-select'
 import Stat from '../components/stat'
 import YearChartDot from '../components/year-chart-dot';
 import YearChart from '../components/year-chart';
+import CentralityMap from '../components/centrality-map'
 
 // Utils
 import { destination, destinationTouri } from '../test/database'
@@ -33,14 +34,13 @@ export default class Destination extends React.Component {
   scope = [
     { key: 0, label: 'Country', colors: internationalSelectedColors },
     { key: 1, label: 'Region', colors: nationalSelectedColors },
-    { key: 2, label: 'Department', colors: departmentsSelectedColors },
-    { key: 2.5, label: 'Touristic', colors: touristicColors },
+    { key: 2, label: 'Department', colors: departmentsSelectedColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php', name:'name_2' },
+    { key: 2.5, label: 'Touristic', colors: touristicColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONbycodetouriIDdata.php', name: 'nom_touri' },
     { key: 3, label: 'Borough', colors: boroughSelectedColors },
     { key: 4, label: 'Township', colors: townshipSelectedColors }
   ]
 
   state = {
-    mostCentral: MostCentral(this.props.data['Centrality'], this.props.year),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     from: this.props.from,
@@ -69,13 +69,15 @@ export default class Destination extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual`);
+      const limitareas = Number(req.query.limitareas) || 12
+      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
       return {
         data: response.data,
         info: response.data.TopInfo,
         year: year,
         from: Number(req.params.from),
-        groupby: Number(req.params.groupby)
+        groupby: Number(req.params.groupby),
+        limitareas: limitareas
       }
     } catch (err) {
       console.log(err);
@@ -84,12 +86,16 @@ export default class Destination extends React.Component {
 
   async componentDidMount() {
     try {
-      const res = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly`);
+      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&limitareas=${this.props.limitareas}`)
+
       this.setState(prevState => ({
         data: {
           ...prevState.data,
-          Monthly: res.data['Monthly']
+          Monthly: monthRes.data['Monthly'],
+          Centrality: centralRes.data['Centrality']
         },
+        mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year)
       }))
     } catch (e) {
       console.log(e);
@@ -107,7 +113,7 @@ export default class Destination extends React.Component {
       })
   }
 
-  loading = () => <div><Spinner animation="grow" role="status" variant="primary"/> <span>Loading...</span></div>
+  loading = () => <div><Spinner animation="grow" role="status" variant="primary" /> <span>Loading...</span></div>
 
   handleCountriesChange = async (newValue, actionMeta) => this.selected.topCountries = newValue
 
@@ -145,6 +151,7 @@ export default class Destination extends React.Component {
   notify = (msg) => { toast.error(msg); return '' }
 
   render() {
+    let selectedScope = this.scope.find(el => el.key == this.props.groupby);
     const { selectedYear } = this.state;
     return (
       <div className="col body-content">
@@ -234,7 +241,9 @@ export default class Destination extends React.Component {
           <Head title="Destination" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>
+            {this.state.mostCentral ? (
+              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>
+            ) : <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
           </div>
 
@@ -253,7 +262,7 @@ export default class Destination extends React.Component {
                 <Tab eventKey="month" title="Monthly">
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
-                    ) : this.loading() }
+                  ) : this.loading()}
                 </Tab>
               </Tabs>
             </DataViz>
@@ -274,14 +283,33 @@ export default class Destination extends React.Component {
 
           <div className="row">
             <DataViz id="centrality-pagerank" title="Centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
-                evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
-                type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
-                step={0.5} valueType=" " />
+              <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
+              <Tab eventKey="map" title="Map">
+                  {this.state.data['Centrality'] ? (
+                    <CentralityMap zoom={6}
+                      geoJSON={selectedScope.geoJSON}
+                      position={[44.8404400, -0.5805000]}
+                      evolution={this.state.data['Centrality']}
+                      mostCentral={this.state.mostCentral}
+                      name={selectedScope.name}
+                      year={this.state.selectedYear['value']} />
+                  ) : this.loading()}
+                </Tab>
+              <Tab eventKey="bar-chart" title="Bar Chart">
+                {this.state.data['Centrality'] ? (
+                  <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
+                    evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
+                    type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
+                    step={0.5} valueType=" " />
+                ) : this.loading()}
+                </Tab>
+              </Tabs>
             </DataViz>
 
             <DataViz id="centrality-evolution" title="Centrality evolution" second="(PageRank Y / Y-2)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+              {this.state.data['Centrality'] ? (
+                <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
+              ) : this.loading()}
             </DataViz>
           </div>
         </div>
