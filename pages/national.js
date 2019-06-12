@@ -212,8 +212,8 @@ export default class National extends React.Component {
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
                 <Tab eventKey="map" title="Map">
                   {this.state.data['Centrality'] ? (
-                    <CentralityMap zoom={7}
-                      geoJSON='https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php?gid_1=FRA.10_1'
+                    <CentralityMap zoom={6}
+                      geoJSON='https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php'
                       position={[44.8404400, -0.5805000]}
                       evolution={this.state.data['Centrality']}
                       mostCentral={this.state.mostCentral}

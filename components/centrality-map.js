@@ -44,7 +44,6 @@ export default class CentralityMap extends React.Component {
         centralKeys: Object.keys(this.props.evolution).map(el => el),
         evolution: evolution
       })
-      console.log(evolution);
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +85,7 @@ export default class CentralityMap extends React.Component {
   highlightFeature(e) {
     var layer = e.target;
     let area = this.state.evolution.find(el => el[0] == layer.feature.properties[this.props.name]);
-    
+
     if (area) {
       this.setState({
         selected: {
@@ -130,7 +129,7 @@ export default class CentralityMap extends React.Component {
         <Map center={this.props.position} zoom={this.props.zoom}>
           <TileLayer
             url={`https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${mapboxAccessToken}`}
-            id='mapbox.streets'
+            id='mapbox.light'
             attribution='© OpenStreetMap contributors'
             maxZoom={19}
           />
@@ -142,10 +141,10 @@ export default class CentralityMap extends React.Component {
           <div className="info-control">
             <h4>PageRank</h4>
             {this.state.selected ? (
-              <p>
-                <b>{this.state.selected.name}</b>(#{this.state.selected.rank}): {this.state.selected.value}
-                </p>
-            ) : ''}
+              <span>
+                <b>{this.state.selected.name}</b> (#{this.state.selected.rank}): {this.state.selected.value}
+              </span>
+            ) : <span>Hover an area</span>}
           </div>
         </Map>
       </div>

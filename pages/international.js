@@ -17,6 +17,7 @@ import DoughnutChart from '../components/doughnut-chart'
 import { toast } from 'react-toastify';
 import YearChart from '../components/year-chart';
 import DataViz from '../components/data-viz';
+import {international } from '../test/database'
 
 export default class International extends React.Component {
 
@@ -40,18 +41,37 @@ export default class International extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleYearChange = this.handleYearChange.bind(this);
     this.selected = JSON.parse(JSON.stringify(this.state.info));
   }
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    const response = await axios.get(`http://localhost:3000/BM/international/${year}`);
+    // const response = await axios.get(`http://localhost:3000/BM/international/${year}/annual`);
 
     return {
-      data: response.data,
-      info: response.data.TopInfo,
+      data: international,
+      info: international.TopInfo,
       year: year
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/international/${this.props.year}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}`)
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          Monthly: monthRes.data['Monthly']
+        },
+        internationalData: {
+          ...prevState.internationalData,
+          Monthly: Omit(this.props.data['Monthly'], ['France', '-'])
+        }
+      }))
+    } catch (e) {
+      console.log(e);
+    } finally {
+      NProgress.done();
     }
   }
 
@@ -64,6 +84,7 @@ export default class International extends React.Component {
       })
   }
 
+  loading = () => <div><Spinner animation="grow" role="status" variant="primary" /> <span>Loading...</span></div>
 
   handleCountriesChange = async (newValue, actionMeta) => {
     this.selected.topCountries = newValue
@@ -107,7 +128,7 @@ export default class International extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="International" 
+          <Menu title="International"
             year={this.state.selectedYear.value}
             endUrl={``}
             baseUrl={`international`}
@@ -153,11 +174,15 @@ export default class International extends React.Component {
 
             <div className="row">
               <DataViz id="monthly-evolution-reviews-wo-france" title="Monthly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['monthly'] }}>
-                <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+                {this.state.data['Monthly'] ? (
+                  <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+                ) : this.loading()}
               </DataViz>
 
               <DataViz id="monthly-evolution-reviews" title="Monthly evolution of reviews" style={{ borderLeft: statsBorderColors['monthly'] }}>
-                <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+                {this.state.data['Monthly'] ? (
+                  <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
+                ) : this.loading()}
               </DataViz>
             </div>
 
