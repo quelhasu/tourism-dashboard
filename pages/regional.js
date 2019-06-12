@@ -14,7 +14,7 @@ import CentralityMap from '../components/centrality-map'
 // Utils
 import { statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
 import { MostCentral } from "../utils/helpers"
-import { newNational } from "../test/database"
+import { regional } from "../test/database"
 
 // Modules
 import axios from 'axios'
@@ -23,7 +23,7 @@ import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
 
 
-export default class National extends React.Component {
+export default class Regional extends React.Component {
 
   state = {
     selectedYear: { value: this.props.year, label: this.props.year },
@@ -52,11 +52,11 @@ export default class National extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/0/2/annual`);
+      // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/1/2/annual`);
 
       return {
-        data: newNational,
-        info: newNational.TopInfo,
+        data: regional,
+        info: regional.TopInfo,
         year: year
       }
     } catch (err) {
@@ -66,8 +66,8 @@ export default class National extends React.Component {
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/0/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`);
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/0/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/1/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`);
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
       this.setState(prevState => ({
         data: {
           ...prevState.data,
@@ -213,7 +213,7 @@ export default class National extends React.Component {
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
                 <Tab eventKey="map" title="Map">
                   {this.state.data['Centrality'] ? (
-                    <CentralityMap zoom={6}
+                    <CentralityMap zoom={6.5}
                       geoJSON='https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php'
                       position={[44.8404400, -0.5805000]}
                       evolution={this.state.data['Centrality']}

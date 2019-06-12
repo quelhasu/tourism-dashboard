@@ -33,11 +33,15 @@ const departmentsSelectedColors = {
 	"Charente-Maritime": 'RGB(0, 171, 218)',
 	"Pyrénées-Atlantiques": 'RGB(190, 150, 72)',
 	"Gironde": 'RGB(220, 135, 92)',
-	"Haute-Garonne": 'RGB(1, 177, 144)',
+	"Bouches-du-Rhône": 'RGB(1, 177, 144)',
 	"Charente": 'RGB(190, 150, 72)',
 	"Indre-et-Loire": 'RGB(150, 163, 76)',
 	"Vienne": 'RGB(0, 173, 221)',
-	"Hautes-Pyrénées": 'RGB(102, 175, 123)'
+	"Hautes-Pyrénées": 'RGB(102, 175, 123)',
+	"Maine-et-Loire" :'RGB(120, 120, 120)',
+	"Haute-Vienne": 'RGB(159, 166, 96)',
+	"Lot-et-Garonne": 'RGB(103, 96, 166)',
+	"Aude":'RGB(152, 89, 45)',
 }
 
 const internationalSelectedColors = {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Spinner } from 'react-bootstrap';
 
 /**
  * Create a Stat object component
@@ -58,6 +59,7 @@ export default class Stat extends React.Component {
             <i className={`${this.props.fa} center-item`}></i>
           </div>
           {this.addValueRender(addValue)}
+          {this.props.loading ? (<Spinner animation="grow" role="status" variant="light" />) : ''}
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
