@@ -41,6 +41,7 @@ export default class Destination extends React.Component {
   ]
 
   state = {
+    loading: true,
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     from: this.props.from,
@@ -72,15 +73,14 @@ export default class Destination extends React.Component {
       const year = Number(req.params.year) || 2016
       const limitareas = Number(req.query.limitareas) || 12
       const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
-      const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
+      
       return {
         data: response.data,
         info: response.data.TopInfo,
         year: year,
         from: Number(req.params.from),
         groupby: Number(req.params.groupby),
-        limitareas: limitareas,
-        geoJSON: geoJSON.data
+        limitareas: limitareas
       }
     } catch (err) {
       console.log(err);
@@ -90,7 +90,9 @@ export default class Destination extends React.Component {
   async componentDidMount() {
     try {
       const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&limitareas=${this.props.limitareas}`)
+      const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
+      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/info/areas`)
 
       this.setState(prevState => ({
         data: {
@@ -98,7 +100,15 @@ export default class Destination extends React.Component {
           Monthly: monthRes.data['Monthly'],
           Centrality: centralRes.data['Centrality']
         },
-        mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year)
+        info: {
+          ...prevState.info,
+          topAreasAvailable: topAreas.data['topAreas'].map(el => {
+            return { value: el, label: el }
+          })
+        },
+        mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year),
+        geoJSON: geoJSON.data,
+        loading: false
       }))
     } catch (e) {
       console.log(e);
@@ -131,9 +141,10 @@ export default class Destination extends React.Component {
       const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
       const res = await this.axiosProgress(link)
       const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&limitareas=${this.props.limitareas}`)
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
       const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
-
+      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/info/areas`)
+      
       this.setState(prevState => ({
         modifyScope: false,
         data: {
@@ -145,14 +156,16 @@ export default class Destination extends React.Component {
         mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year),
         info: {
           ...prevState.info,
-          topAreas: res.data.TopInfo.topAreas.map(el => {
+          topAreasAvailable: topAreas.data['topAreas'].map(el => {
             return { value: el, label: el }
           })
         },
-        geoJSON: geoJSON.data
+        geoJSON: geoJSON.data,
+        loading: false
       }));
+
     } catch (err) {
-      this.notify(err.message + "\nImpossible to use 'group by' with this 'from' option.");
+      this.notify(err.message);
     }
     finally {
       NProgress.done();
@@ -236,11 +249,13 @@ export default class Destination extends React.Component {
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleAreasChange}
                   default={this.state.info.topAreas} name="areas"
-                  options={this.state.info.topAreas} />
+                  options={this.state.info.topAreasAvailable} />
               </div>
               <div className="form-group row">
                 <div className="col-auto ml-auto">
-                  <button type="submit" className="btn btn-outline-primary">Update</button>
+                  <button type="submit" className="btn btn-outline-primary" 
+                  onClick={() => this.setState({ loading: true })}
+                  disabled={this.state.loading}>Update</button>
                 </div>
               </div>
 
@@ -270,7 +285,7 @@ export default class Destination extends React.Component {
                 <Tab eventKey="year" title="Yearly">
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly">
+                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                   ) : this.loading()}
@@ -283,7 +298,7 @@ export default class Destination extends React.Component {
                 <Tab eventKey="year" title="Yearly">
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly">
+                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                   ) : this.loading()}
@@ -296,7 +311,7 @@ export default class Destination extends React.Component {
             <DataViz id="centrality-pagerank" title="Centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
               <Tab eventKey="map" title="Map">
-                  {/* {this.state.data['Centrality'] ? (
+                  {this.state.data['Centrality'] && selectedScope.geoJSON ? (
                     <CentralityMap zoom={6}
                       geoJSON={this.state.geoJSON}
                       position={[44.8404400, -0.5805000]}
@@ -304,7 +319,7 @@ export default class Destination extends React.Component {
                       mostCentral={this.state.mostCentral}
                       name={selectedScope.name}
                       year={this.state.selectedYear['value']} />
-                  ) : this.loading()} */}
+                  ) : this.loading()}
                 </Tab>
               <Tab eventKey="bar-chart" title="Bar Chart">
                 {this.state.data['Centrality'] ? (

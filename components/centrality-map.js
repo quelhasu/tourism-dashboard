@@ -71,10 +71,12 @@ export default class CentralityMap extends React.Component {
 
     if (this.state.centralKeys.includes(feature.properties[this.props.name])) {
       let area = Object.entries(this.props.evolution).find(el => el[0] == feature.properties[this.props.name]);
-      options.fillColor = 'red'
-      options.fillColor = getColor(area[1].percentage)
-      options.dashArray = '0';
-      options.weight = 2;
+      if (area) {
+        options.fillColor = 'red'
+        options.fillColor = getColor(area[1].percentage)
+        options.dashArray = '0';
+        options.weight = 2;
+      }
       // options.fillOpacity = area[1].opacity
     }
 

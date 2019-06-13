@@ -38,10 +38,10 @@ const departmentsSelectedColors = {
 	"Indre-et-Loire": 'RGB(150, 163, 76)',
 	"Vienne": 'RGB(0, 173, 221)',
 	"Hautes-Pyrénées": 'RGB(102, 175, 123)',
-	"Maine-et-Loire" :'RGB(120, 120, 120)',
+	"Maine-et-Loire": 'RGB(120, 120, 120)',
 	"Haute-Vienne": 'RGB(159, 166, 96)',
 	"Lot-et-Garonne": 'RGB(103, 96, 166)',
-	"Aude":'RGB(152, 89, 45)',
+	"Aude": 'RGB(152, 89, 45)',
 }
 
 const internationalSelectedColors = {
@@ -130,14 +130,31 @@ const touristicColors = {
 	"La Rochelle Ile de Ré": 'RGB(152, 64, 168)',
 	"Royan Ile d'Oléron": 'rgb(223,180,42)',
 	"Blaye & Bourg": 'RGB(160, 199, 60)',
-	"Poitiers Futuroscope":'RGB(199, 97, 60)',
-	"Pau Pyrénées":'RGB(142, 127, 18)',
+	"Poitiers Futuroscope": 'RGB(199, 97, 60)',
+	"Pau Pyrénées": 'RGB(142, 127, 18)',
 	"Sarlat Périgord noir": 'RGB(181, 110, 37)',
 	"Agenais": 'RGB(111, 136, 32)',
 	"Périgord rouge - Bergerac": 'RGB(210, 86, 89)',
 	"Cognac": 'RGB(0, 148, 118)',
-	"Val de Garonne":'RGB(192, 108, 85)'
-
+	"Val de Garonne": 'RGB(192, 108, 85)',
+	"Agenais": 'RGB(95, 130, 201)',
+	"Limoges": 'RGB(100, 142, 75)',
+	"Périgord blanc - Périgueux": 'RGB(92, 92, 92)',
+	"Mont de Marsan Landes intérieures": 'RGB(92, 37, 37)',
+	"Angoulême et Pays du Ruffecois": 'RGB(0, 91, 203)',
+	"Saintes": 'RGB(140, 60, 170)',
+	"Vallée du Lot": 'RGB(90, 170, 60)',
+	"Brive-la-Gaillarde": 'RGB(177, 0, 61)',
+	"Périgord vert": 'RGB(0, 177, 116)',
+	"Sud Vienne": 'RGB(161, 48, 5)',
+	"Niort Marais Poitvein": 'RGB(98, 90, 0)',
+	"Châtellerault": 'RGB(128, 124, 89)',
+	"Tulle Corrèze": 'RGB(173, 26, 20)',
+	"Haut Limousin": 'RGB(89, 93, 128)',
+	"Ruffecois Nord Charente": 'RGB(122, 84, 108)',
+	"Ouest Limousin": 'RGB(84, 84, 84)',
+	"Creuse": 'RGB(96, 98, 62)',
+	"Nord Deux-Sèvres": 'RGB(173, 109, 106)'
 }
 
 export {

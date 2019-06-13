@@ -76,7 +76,8 @@ export default class Regional extends React.Component {
           Monthly: monthRes.data['Monthly'],
           Centrality: centralRes.data['Centrality']
         },
-        mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year)
+        mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year),
+        loading: false
       }))
     } catch (e) {
       console.log(e);
@@ -123,7 +124,8 @@ export default class Regional extends React.Component {
             Monthly: monthRes.data['Monthly'],
             Centrality: centralRes.data['Centrality']
           },
-          mostCentral: MostCentral(centralRes.data['Centrality'], this.state.selectedYear.value)
+          mostCentral: MostCentral(centralRes.data['Centrality'], this.state.selectedYear.value),
+          loading: false
         });
       }
     } catch (e) {
@@ -171,7 +173,9 @@ export default class Regional extends React.Component {
               </div>
               <div className="form-group row">
                 <div className="col-auto ml-auto">
-                  <button type="submit" className="btn btn-outline-primary">Update</button>
+                  <button type="submit" className="btn btn-outline-primary"
+                    onClick={() => this.setState({ loading: true })}
+                    disabled={this.state.loading}>Update</button>
                 </div>
               </div>
             </form>
@@ -198,7 +202,7 @@ export default class Regional extends React.Component {
                 <Tab eventKey="year" title="Yearly">
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly" disabled={this.state.data['Monthly']}>
+                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
                   ) : this.loading()}
@@ -211,7 +215,7 @@ export default class Regional extends React.Component {
                 <Tab eventKey="year" title="Yearly">
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly" disabled={this.state.data['Monthly']}>
+                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
                   ) : this.loading()}
