@@ -26,6 +26,7 @@ import { toast } from 'react-toastify';
 export default class Regional extends React.Component {
 
   state = {
+    geoJSON: this.props.geoJSON,
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     info: {
@@ -52,11 +53,12 @@ export default class Regional extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/1/2/annual`);
-
+      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/1/2/annual`);
+      const geoJSON = await axios.get('https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php');
       return {
-        data: regional,
-        info: regional.TopInfo,
+        geoJSON: geoJSON.data,
+        data: response.data,
+        info: response.data.TopInfo,
         year: year
       }
     } catch (err) {
@@ -103,22 +105,32 @@ export default class Regional extends React.Component {
   handleAgesRange = async (newValue, actionMeta) => this.selected.topAges = newValue
 
   handleSubmit = async (event) => {
-    event.preventDefault();
-    const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
-        .replace(/\s\s+/g, ' ')
-    )
-    if (res.data['Evolution'] === null) {
-      console.log("Not enough information with these parameters!");
-      toast.error("Not enough information with these parameters!");
+    try {
+      event.preventDefault();
+      const res = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/1/2/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+
+      if (res.data['Evolution'] === null) {
+        console.log("Not enough information with these parameters!");
+        toast.error("Not enough information with these parameters!");
+      }
+      else {
+        this.setState({
+          data: {
+            Evolution: res.data['Evolution'],
+            TotalReviews: res.data['TotalReviews'],
+            Monthly: monthRes.data['Monthly'],
+            Centrality: centralRes.data['Centrality']
+          },
+          mostCentral: MostCentral(centralRes.data['Centrality'], this.state.selectedYear.value)
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      NProgress.done();
     }
-    else {
-      this.setState({
-        data: res.data,
-        mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
-      });
-    }
-    NProgress.done();
   }
 
   render() {
@@ -126,10 +138,10 @@ export default class Regional extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="National"
+          <Menu title="Regional"
             year={this.state.selectedYear.value}
             endUrl={``}
-            baseUrl={`national`}
+            baseUrl={`regional`}
             description="Statistics on the tourist influence of users (TripAdvisor) by country, in circulation between French departments, in Bordeaux Metropole.">
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="row">
@@ -166,12 +178,12 @@ export default class Regional extends React.Component {
           </Menu>
         </div>
         <div className="col">
-          <Head title="National" />
+          <Head title="Regional" />
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             {this.state.mostCentral ? (
-            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>) : 
-            <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
+              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>) :
+              <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
           </div>
 
@@ -186,7 +198,7 @@ export default class Regional extends React.Component {
                 <Tab eventKey="year" title="Yearly">
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly">
+                <Tab eventKey="month" title="Monthly" disabled={this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
                   ) : this.loading()}
@@ -199,7 +211,7 @@ export default class Regional extends React.Component {
                 <Tab eventKey="year" title="Yearly">
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly">
+                <Tab eventKey="month" title="Monthly" disabled={this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
                   ) : this.loading()}
@@ -214,7 +226,7 @@ export default class Regional extends React.Component {
                 <Tab eventKey="map" title="Map">
                   {this.state.data['Centrality'] ? (
                     <CentralityMap zoom={6.5}
-                      geoJSON='https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php'
+                      geoJSON={this.state.geoJSON}
                       position={[44.8404400, -0.5805000]}
                       evolution={this.state.data['Centrality']}
                       mostCentral={this.state.mostCentral}

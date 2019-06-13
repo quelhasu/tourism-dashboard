@@ -18,35 +18,45 @@ function getColor(d) {
 export default class CentralityMap extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       geoJSON: 'null',
       selected: null,
     };
+
+    this.state = this.mapRenderingData(props);
   }
 
-  async componentDidMount() {
+  mapRenderingData(props) {
     try {
-      const response = await axios.get(this.props.geoJSON)
-      let yearKeys = Object.keys(this.props.evolution).filter(key => this.props.evolution[key][this.props.year] == undefined)
-      let evolution = this.props.evolution
+      // const response = await axios.get(props.geoJSON)
+      let yearKeys = Object.keys(props.evolution).filter(key => props.evolution[key][props.year] == undefined)
+      let evolution = props.evolution
 
-      yearKeys.forEach(key => evolution = Omit(this.props.evolution, key))
-      evolution = Object.entries(evolution).sort((a, b) => (a[1][this.props.year].value > b[1][this.props.year].value) ? -1 : 1)
+      yearKeys.forEach(key => evolution = Omit(props.evolution, key))
+      evolution = Object.entries(evolution).sort((a, b) => (a[1][props.year].value > b[1][props.year].value) ? -1 : 1)
 
       evolution.forEach((obj, index) => {
         obj[1]['rank'] = ((index + 1));
-        obj[1]['percentage'] = obj[1]['2018'].value / this.props.mostCentral.value[this.props.year].value * 100
+        obj[1]['percentage'] = obj[1][props.year].value / props.mostCentral.value[props.year].value * 100
       });
 
-      this.setState({
-        geoJSON: response.data,
+      return {
+        geoJSON: props.geoJSON,
         yearKeys: yearKeys,
-        centralKeys: Object.keys(this.props.evolution).map(el => el),
-        evolution: evolution
-      })
+        centralKeys: Object.keys(props.evolution).map(el => el),
+        evolution: evolution,
+        position: props.position,
+        zoom: props.zoom
+      }
+
     } catch (err) {
       console.log(err);
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.mapRenderingData(nextProps))
   }
 
   style(feature) {
@@ -126,7 +136,7 @@ export default class CentralityMap extends React.Component {
     let mapboxAccessToken = 'pk.eyJ1IjoicXVlbGhhc3UiLCJhIjoiY2p3bTgyOWE2MTF0czQ1bnNpdndjam0zYSJ9.PxdCYX08kgIQEXKx4RzKUw';
     return (
       <div style={{ height: '500px', width: '' }}  >
-        <Map center={this.props.position} zoom={this.props.zoom}>
+        <Map center={this.state.position} zoom={this.state.zoom}>
           <TileLayer
             url={`https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${mapboxAccessToken}`}
             id='mapbox.light'

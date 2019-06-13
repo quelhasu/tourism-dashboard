@@ -26,6 +26,7 @@ import { toast } from 'react-toastify';
 export default class National extends React.Component {
 
   state = {
+    geoJSON: this.props.geoJSON,
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     info: {
@@ -52,9 +53,10 @@ export default class National extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/0/2/annual`);
-
+      // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/0/2/annual&limitareas=20`);
+      const geoJSON = await axios.get('https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php');
       return {
+        geoJSON: geoJSON.data,
         data: newNational,
         info: newNational.TopInfo,
         year: year
@@ -103,22 +105,36 @@ export default class National extends React.Component {
   handleAgesRange = async (newValue, actionMeta) => this.selected.topAges = newValue
 
   handleSubmit = async (event) => {
-    event.preventDefault();
-    const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
-        .replace(/\s\s+/g, ' ')
-    )
-    if (res.data['Evolution'] === null) {
-      console.log("Not enough information with these parameters!");
-      toast.error("Not enough information with these parameters!");
+    try {
+      event.preventDefault();
+      // const res = await this.axiosProgress(
+      //   (`http://localhost:3000/BM/national/${this.state.selectedYear.value}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+      //     .replace(/\s\s+/g, ' ')
+      // )
+      const res = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/0/2/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/0/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/0/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+
+      if (res.data['Evolution'] === null) {
+        console.log("Not enough information with these parameters!");
+        toast.error("Not enough information with these parameters!");
+      }
+      else {
+        this.setState({
+          data: {
+            Evolution: res.data['Evolution'],
+            TotalReviews: res.data['TotalReviews'],
+            Monthly: monthRes.data['Monthly'],
+            Centrality: centralRes.data['Centrality']
+          },
+          mostCentral: MostCentral(centralRes.data['Centrality'], this.state.selectedYear.value)
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      NProgress.done();
     }
-    else {
-      this.setState({
-        data: res.data,
-        mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
-      });
-    }
-    NProgress.done();
   }
 
   render() {
@@ -170,7 +186,7 @@ export default class National extends React.Component {
           <div className="row stats">
             <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             {this.state.mostCentral ? (
-            <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
+              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>
             ) : <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
             <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
           </div>
@@ -214,7 +230,7 @@ export default class National extends React.Component {
                 <Tab eventKey="map" title="Map">
                   {this.state.data['Centrality'] ? (
                     <CentralityMap zoom={6}
-                      geoJSON='https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php'
+                      geoJSON={this.state.geoJSON}
                       position={[44.8404400, -0.5805000]}
                       evolution={this.state.data['Centrality']}
                       mostCentral={this.state.mostCentral}

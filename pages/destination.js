@@ -46,6 +46,7 @@ export default class Destination extends React.Component {
     from: this.props.from,
     groupby: this.props.groupby,
     modifyScope: false,
+    geoJSON: this.props.geoJSON,
     info: {
       topCountries: this.props.info.topCountries.map(el => {
         return { value: el, label: el }
@@ -71,13 +72,15 @@ export default class Destination extends React.Component {
       const year = Number(req.params.year) || 2016
       const limitareas = Number(req.query.limitareas) || 12
       const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
+      const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
       return {
         data: response.data,
         info: response.data.TopInfo,
         year: year,
         from: Number(req.params.from),
         groupby: Number(req.params.groupby),
-        limitareas: limitareas
+        limitareas: limitareas,
+        geoJSON: geoJSON.data
       }
     } catch (err) {
       console.log(err);
@@ -125,20 +128,28 @@ export default class Destination extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
-
+      const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
       const res = await this.axiosProgress(link)
+      const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
+      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&limitareas=${this.props.limitareas}`)
+      const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
 
       this.setState(prevState => ({
         modifyScope: false,
-        data: res.data,
+        data: {
+          TotalReviews: res.data['TotalReviews'],
+          Evolution: res.data['Evolution'],
+          Monthly: monthRes.data['Monthly'],
+          Centrality: centralRes.data['Centrality']
+        },
+        mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year),
         info: {
           ...prevState.info,
           topAreas: res.data.TopInfo.topAreas.map(el => {
             return { value: el, label: el }
           })
         },
-        mostCentral: MostCentral(res.data['Centrality'], this.state.selectedYear.value)
+        geoJSON: geoJSON.data
       }));
     } catch (err) {
       this.notify(err.message + "\nImpossible to use 'group by' with this 'from' option.");
@@ -285,15 +296,15 @@ export default class Destination extends React.Component {
             <DataViz id="centrality-pagerank" title="Centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
               <Tab eventKey="map" title="Map">
-                  {this.state.data['Centrality'] ? (
+                  {/* {this.state.data['Centrality'] ? (
                     <CentralityMap zoom={6}
-                      geoJSON={selectedScope.geoJSON}
+                      geoJSON={this.state.geoJSON}
                       position={[44.8404400, -0.5805000]}
                       evolution={this.state.data['Centrality']}
                       mostCentral={this.state.mostCentral}
                       name={selectedScope.name}
                       year={this.state.selectedYear['value']} />
-                  ) : this.loading()}
+                  ) : this.loading()} */}
                 </Tab>
               <Tab eventKey="bar-chart" title="Bar Chart">
                 {this.state.data['Centrality'] ? (

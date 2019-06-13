@@ -1,6 +1,8 @@
 import React from 'react'
 import { Collapse } from 'reactstrap';
+import Link from 'next/link'
 import { Nav } from 'react-bootstrap';
+import NProgress from 'nprogress'
 
 /**
  * Create a menu with personalized content
@@ -60,8 +62,10 @@ export default class Menu extends React.Component {
                       {this.topYear.map(({ value, label }) => (
                         <Nav.Item key={`nav-navitem-${label}`} >
                           <Nav.Link eventKey={`${label}`}
-                            key={`nav-navitem-link${label}`} href={`/${this.props.baseUrl}/${value}${this.props.endUrl ? `/${this.props.endUrl}` : ''}`}
-                            disabled={label == this.props.year}>
+                            onClick={() => NProgress.start()}
+                            key={`nav-navitem-link${label}`}
+                            disabled={label == this.props.year}
+                            href={`/${this.props.baseUrl}/${value}${this.props.endUrl ? `/${this.props.endUrl}` : ''}`}>
                             {label}
                           </Nav.Link>
                         </Nav.Item>

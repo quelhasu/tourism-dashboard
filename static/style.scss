@@ -267,3 +267,18 @@ xsmall{
   border-radius: 5px;
   top: 5px;
 }
+
+#nprogress {
+  .bar {
+    background: #C50054;
+    color: #C50054;
+  }
+  .peg{
+    box-shadow: 0 0 10px #C50054, 0 0 5px #C50054
+  }
+}
+
+#nprogress .spinner-icon {
+  // border-top-color: red;
+  // border-left-color: red;
+}
