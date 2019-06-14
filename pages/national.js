@@ -54,12 +54,12 @@ export default class National extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      // const response = await axios.get(`http://localhost:3000/BM/destination/${year}/0/2/annual&limitareas=20`);
+      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/0/2/annual&limitareas=20`);
       const geoJSON = await axios.get('https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php');
       return {
         geoJSON: geoJSON.data,
-        data: newNational,
-        info: newNational.TopInfo,
+        data: response.data,
+        info: response.data.TopInfo,
         year: year
       }
     } catch (err) {
@@ -71,6 +71,8 @@ export default class National extends React.Component {
     try {
       const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/0/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`);
       const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/0/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/0/2/info/areas`)
+
       this.setState(prevState => ({
         data: {
           ...prevState.data,
@@ -78,7 +80,13 @@ export default class National extends React.Component {
           Centrality: centralRes.data['Centrality']
         },
         mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year),
-        loading: false
+        loading: false,
+        info: {
+          ...prevState.info,
+          topAreasAvailable: topAreas.data['topAreas'].map(el => {
+            return { value: el, label: el }
+          })
+        },
       }))
     } catch (e) {
       console.log(e);
@@ -174,7 +182,7 @@ export default class National extends React.Component {
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleRegionsChange}
                   default={this.state.info.topAreas} name="areas"
-                  options={this.state.info.topAreas} />
+                  options={this.state.info.topAreasAvailable} />
               </div>
               <div className="form-group row">
                 <div className="col-auto ml-auto">

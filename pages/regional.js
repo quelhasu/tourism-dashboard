@@ -70,11 +70,19 @@ export default class Regional extends React.Component {
     try {
       const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/1/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`);
       const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/info/areas`)
+
       this.setState(prevState => ({
         data: {
           ...prevState.data,
           Monthly: monthRes.data['Monthly'],
           Centrality: centralRes.data['Centrality']
+        },
+        info: {
+          ...prevState.info,
+          topAreasAvailable: topAreas.data['topAreas'].map(el => {
+            return { value: el, label: el }
+          })
         },
         mostCentral: MostCentral(centralRes.data['Centrality'], this.props.year),
         loading: false
@@ -169,7 +177,7 @@ export default class Regional extends React.Component {
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleRegionsChange}
                   default={this.state.info.topAreas} name="areas"
-                  options={this.state.info.topAreas} />
+                  options={this.state.info.topAreasAvailable} />
               </div>
               <div className="form-group row">
                 <div className="col-auto ml-auto">
