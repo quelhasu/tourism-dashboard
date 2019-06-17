@@ -35,7 +35,7 @@
     "react-pan-zoom-element": "^2.0.1",
     "react-select": "^2.4.3",
     "react-sidebar": "^3.0.2",
-    "react-toastify": "^5.1.0",
+    "react-toastify": "^5.2.1",
     "reactstrap": "^8.0.0"
   },
   "license": "ISC",
