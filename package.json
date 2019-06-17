@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint app",
+    "production": "npm run build && NODE_ENV=production node server.js",
     "postinstall": "npm run build && npm run doc",
     "docs": "rm -rf ./docs && jsdoc ./ --configure conf.json && mv ./docs/tourism-dashboard/*/* ./docs"
   },
