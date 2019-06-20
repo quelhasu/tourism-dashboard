@@ -42,8 +42,8 @@ class Navi extends React.Component {
         <Navbar className="navbar" bg="light" fixed="top" light expand="md">
           <Link href="/">
             <a className="navbar-brand">
-              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" className="navbar-logo" />
-              Tourism
+              <img src="https://images.emojiterra.com/google/android-pie/512px/1f686.png" className="navbar-logo" />
+              <span>Tourism</span>
             </a>
           </Link>
           <Nav className="mr-auto" navbar>
