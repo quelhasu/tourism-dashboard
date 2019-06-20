@@ -75,8 +75,12 @@ export default class YearChartDot extends React.Component {
 
   constructor(props) {
     super(props);
-    this.data.datasets = chartData(props);
-    this.options.title.text += props.var
+    
+  }
+
+  componentWillMount(){
+    this.data.datasets = chartData(this.props);
+    this.options.title.text += this.props.var
     this.data.labels = Object.getOwnPropertyNames(
       this.props.evolution[Object.keys(this.props.evolution)[0]]
     ).filter(el => el.match(/^\d{4}$/))

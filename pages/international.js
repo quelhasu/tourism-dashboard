@@ -173,7 +173,7 @@ export default class International extends React.Component {
               </DataViz>
             </div>
 
-            <div className="row">
+             <div className="row">
               <DataViz id="monthly-evolution-reviews-wo-france" title="Monthly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />

@@ -1,4 +1,5 @@
 import { Line } from 'react-chartjs-2';
+import Chart from "chart.js";
 
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -15,6 +16,7 @@ var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
  * @extends React.Component<Props>
  */
 export default class MonthChart extends React.Component {
+  chartRef = React.createRef();
     options= {
       responsive: true,
       maintainAspectRatio: false,
@@ -70,18 +72,38 @@ export default class MonthChart extends React.Component {
 
   constructor(props) {
     super(props);
-    this.data.datasets = chartData(props);
-    this.options.title.text += props.var
+    
+  }
+
+  componentDidMount() {
+    this.data.datasets = chartData(this.props);
+
+    const myChartRef = this.chartRef.current.getContext("2d");
+    new Chart(myChartRef, {
+      type: "line",
+      data: this.data,
+      options: this.options
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     this.data.datasets = chartData(nextProps);
+    const myChartRef = this.chartRef.current.getContext("2d");
+    new Chart(myChartRef, {
+      type: "line",
+      data: this.data,
+      options: this.options
+    });
   }
 
   render() {
     return (
       <div className="month-chart">
-        <Line width={this.props.width} data={this.data} options={this.options} />
+        {/* <Line width={this.props.width} data={this.data} options={this.options} /> */}
+        <canvas
+          id="myChart"
+          ref={this.chartRef}
+        />
       </div>
     )
   }
