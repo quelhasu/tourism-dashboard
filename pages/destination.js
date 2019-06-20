@@ -145,7 +145,7 @@ export default class Destination extends React.Component {
       const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
       const geoJSON = scope.geoJSON ? await axios.get(scope.geoJSON) : { data: null };
       const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/info/areas`)
-
+      
       this.setState(prevState => ({
         modifyScope: false,
         data: {

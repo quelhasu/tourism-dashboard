@@ -37,7 +37,8 @@
     "react-select": "^2.4.3",
     "react-sidebar": "^3.0.2",
     "react-toastify": "^5.2.1",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "seedrandom": "^3.0.1"
   },
   "license": "ISC",
   "devDependencies": {

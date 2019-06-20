@@ -44,7 +44,7 @@ export default class BarChart extends React.Component {
     this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
       return props.evolution[key][props.year]['value']
     })
-  
+    
     const colors = OrderColors(this.data.labels, this.selectedColors)
   
     this.data.datasets[0].backgroundColor = colors

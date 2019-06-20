@@ -1,5 +1,7 @@
 import { Line } from 'react-chartjs-2';
 import Chart from "chart.js";
+import { RandomIndex } from '../utils/helpers'
+import { defaultColors } from '../utils/colors'
 
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -110,11 +112,13 @@ export default class MonthChart extends React.Component {
 }
 
 function chartData(props) {
+  var color = '';
    return Object.keys(props.evolution).map(key => {
+    color = props.colors[key] ? props.colors[key] :  defaultColors[RandomIndex(key, defaultColors.length)]
     return {
       label: key,
-      backgroundColor: props.colors[key],
-      borderColor: props.colors[key],
+      backgroundColor: color,
+      borderColor: color,
       data: props.evolution[key][props.var] ? props.evolution[key][props.var].months.map(el => {return el != null ? el.low : 0}) : -1,
       fill: false
     }

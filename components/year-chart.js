@@ -1,5 +1,6 @@
-import { Omit } from '../utils/helpers'
+import { RandomIndex } from '../utils/helpers'
 import Chart from "chart.js";
+import { defaultColors } from '../utils/colors'
 
 /**
  * Create a year chart 
@@ -102,13 +103,15 @@ export default class YearChart extends React.Component {
   }
 
   chartData(props) {
-    let dataArr = null;
+    let dataArr = null
+    var color = ''
     return Object.keys(props.evolution).map(key => {
+      color = props.colors[key] ? props.colors[key] : defaultColors[RandomIndex(key, defaultColors.length)]
       dataArr = Object.keys(props.evolution[key]).map(elKey => { return props.evolution[key][String(elKey)][props.var] });
       return {
         label: key,
         backgroundColor: '#fff',
-        borderColor: props.colors[key],
+        borderColor: color,
         data: dataArr,
         fill: false,
         pointRadius: 5,
