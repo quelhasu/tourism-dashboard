@@ -6,7 +6,7 @@ import MonthChart from '../components/month-chart';
 import Menu from '../components/menu';
 import Select from 'react-select';
 import NProgress from 'nprogress'
-import { Nav } from 'react-bootstrap';
+import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
 import Link from 'next/link'
 import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
 import { internationalFlags } from '../utils/flags'
@@ -17,7 +17,7 @@ import DoughnutChart from '../components/doughnut-chart'
 import { toast } from 'react-toastify';
 import YearChart from '../components/year-chart';
 import DataViz from '../components/data-viz';
-import {international } from '../test/database'
+import { international } from '../test/database'
 
 export default class International extends React.Component {
 
@@ -26,8 +26,7 @@ export default class International extends React.Component {
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     internationalData: {
-      'Evolution': Omit(this.props.data['Evolution'], ['France', '-']),
-      'Monthly': Omit(this.props.data['Monthly'], ['France', '-'])
+      'Evolution': Omit(this.props.data['Evolution'], ['France', '-'])
     },
     info: {
       topCountries: this.props.info.topCountries.map(el => {
@@ -46,18 +45,18 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    // const response = await axios.get(`http://localhost:3000/BM/international/${year}/annual`);
+    const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${year}/annual`);
 
     return {
-      data: international,
-      info: international.TopInfo,
+      data: response.data,
+      info: response.data.TopInfo,
       year: year
     }
   }
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/international/${this.props.year}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}`)
+      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${this.props.year}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}`)
       this.setState(prevState => ({
         data: {
           ...prevState.data,
@@ -65,7 +64,7 @@ export default class International extends React.Component {
         },
         internationalData: {
           ...prevState.internationalData,
-          Monthly: Omit(this.props.data['Monthly'], ['France', '-'])
+          Monthly: Omit(monthRes.data['Monthly'], ['France', '-'])
         }
       }))
     } catch (e) {
@@ -101,21 +100,23 @@ export default class International extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     console.log(this.state.topCountries);
-    const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/international/${this.state.selectedYear.value}/?\
-      countries=${this.selected.topCountries.map(el => el.value).join()}&\
-      ages=${this.selected.topAges.value || "-"}`)
-        .replace(/ /g, "")
-    )
+    const res = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${this.state.selectedYear.value}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+
+    const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${this.state.selectedYear.value}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}ages=${this.selected.topAges.value || "-"}`)
+
     if (res.data['Evolution'] === null) {
       toast.error("Not enough information with these parameters!");
     }
     else {
       this.setState({
-        data: res.data,
+        data: {
+          TotalReviews: res.data['TotalReviews'],
+          Evolution: res.data['Evolution'],
+          Monthly: monthRes.data['Monthly']
+        },
         internationalData: {
           'Evolution': Omit(res.data['Evolution'], ['France', '-']),
-          'Monthly': Omit(res.data['Monthly'], ['France', '-'])
+          'Monthly': Omit(monthRes.data['Monthly'], ['France', '-'])
         },
         maxEvolution: MaxEvolution(res.data['Evolution']),
       });

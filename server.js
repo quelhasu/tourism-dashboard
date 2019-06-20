@@ -3,6 +3,7 @@ const next = require('next');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 app.prepare()
   .then(() => {

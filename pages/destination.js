@@ -34,7 +34,7 @@ export default class Destination extends React.Component {
   scope = [
     { key: 0, label: 'Country', colors: internationalSelectedColors },
     { key: 1, label: 'Region', colors: nationalSelectedColors },
-    { key: 2, label: 'Department', colors: departmentsSelectedColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php', name:'name_2' },
+    { key: 2, label: 'Department', colors: departmentsSelectedColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php', name: 'name_2' },
     { key: 2.5, label: 'Touristic', colors: touristicColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONbycodetouriIDdata.php', name: 'nom_touri' },
     { key: 3, label: 'Borough', colors: boroughSelectedColors },
     { key: 4, label: 'Township', colors: townshipSelectedColors }
@@ -72,8 +72,8 @@ export default class Destination extends React.Component {
     try {
       const year = Number(req.params.year) || 2016
       const limitareas = Number(req.query.limitareas) || 12
-      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
-      
+      const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
+
       return {
         data: response.data,
         info: response.data.TopInfo,
@@ -89,10 +89,10 @@ export default class Destination extends React.Component {
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
+      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
       const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
-      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/info/areas`)
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
+      const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/info/areas`)
 
       this.setState(prevState => ({
         data: {
@@ -138,13 +138,14 @@ export default class Destination extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
+      let scope = this.scope.find(el => el.key == this.props.groupby)
+      const link = (`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
       const res = await this.axiosProgress(link)
-      const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
-      const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
-      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/info/areas`)
-      
+      const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`);
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const geoJSON = scope.geoJSON ? await axios.get(scope.geoJSON) : { data: null };
+      const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/info/areas`)
+
       this.setState(prevState => ({
         modifyScope: false,
         data: {
@@ -253,9 +254,9 @@ export default class Destination extends React.Component {
               </div>
               <div className="form-group row">
                 <div className="col-auto ml-auto">
-                  <button type="submit" className="btn btn-outline-primary" 
-                  onClick={() => this.setState({ loading: true })}
-                  disabled={this.state.loading}>Update</button>
+                  <button type="submit" className="btn btn-outline-primary"
+                    onClick={() => this.setState({ loading: true })}
+                    disabled={this.state.loading}>Update</button>
                 </div>
               </div>
 
@@ -310,24 +311,25 @@ export default class Destination extends React.Component {
           <div className="row">
             <DataViz id="centrality-pagerank" title="Centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
-              <Tab eventKey="map" title="Map">
-                  {this.state.data['Centrality'] && selectedScope.geoJSON ? (
-                    <CentralityMap zoom={6}
-                      geoJSON={this.state.geoJSON}
-                      position={[44.8404400, -0.5805000]}
-                      evolution={this.state.data['Centrality']}
-                      mostCentral={this.state.mostCentral}
-                      name={selectedScope.name}
-                      year={this.state.selectedYear['value']} />
+                {selectedScope.geoJSON ? (
+                  <Tab eventKey="map" title="Map">
+                    {this.state.data['Centrality'] && selectedScope.geoJSON ? (
+                      <CentralityMap zoom={6}
+                        geoJSON={this.state.geoJSON}
+                        position={[44.8404400, -0.5805000]}
+                        evolution={this.state.data['Centrality']}
+                        mostCentral={this.state.mostCentral}
+                        name={selectedScope.name}
+                        year={this.state.selectedYear['value']} />
+                    ) : this.loading()}
+                  </Tab>) : ''}
+                <Tab eventKey="bar-chart" title="Bar Chart">
+                  {this.state.data['Centrality'] ? (
+                    <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
+                      evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
+                      type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
+                      step={0.5} valueType=" " />
                   ) : this.loading()}
-                </Tab>
-              <Tab eventKey="bar-chart" title="Bar Chart">
-                {this.state.data['Centrality'] ? (
-                  <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
-                    evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
-                    type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
-                    step={0.5} valueType=" " />
-                ) : this.loading()}
                 </Tab>
               </Tabs>
             </DataViz>
