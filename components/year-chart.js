@@ -1,7 +1,9 @@
 import { RandomIndex } from '../utils/helpers'
 import Chart from "chart.js";
 import { defaultColors } from '../utils/colors'
-import { withTranslation } from '../i18n'/**
+import { withTranslation } from '../i18n'
+
+/**
  * Create a year chart 
  * @class YearChart
  * 
@@ -62,7 +64,7 @@ import { withTranslation } from '../i18n'/**
         display: true,
         scaleLabel: {
           display: true,
-          labelString: this.props.t('percentage')
+          labelString: this.props.t('chart:percentage')
         }
       }]
     }

@@ -72,7 +72,7 @@ class Destination extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      const limitareas = Number(req.query.limitareas) || 12
+      const limitareas = Number(req.query.limitareas) || 20
       const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
 
       return {

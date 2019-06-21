@@ -54,7 +54,7 @@ class National extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${year}/0/2/annual`);
+      const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${year}/0/2/annual?limitareas=20`);
       const geoJSON = await axios.get('https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php');
       return {
         geoJSON: geoJSON.data,
@@ -216,7 +216,7 @@ class National extends React.Component {
                 <Tab eventKey="year" title={this.props.t('destination:yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
                 </Tab>
-                <Tab eventKey="month" title={this.props.t('destination:centrality')} disabled={!this.state.data['Monthly']}>
+                <Tab eventKey="month" title={this.props.t('destination:monthly')} disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
                   ) : this.loading()}
