@@ -18,6 +18,7 @@ export default class YearChartDot extends React.Component {
   chartRef = React.createRef();
   chart = '';
   options = {
+    bezierCurve: false,
     responsive: true,
     maintainAspectRatio: false,
     title: {
@@ -132,6 +133,7 @@ function chartData(props) {
       pointRadius: 5,
       pointBorderWidth: 2,
       pointBackgroundColor: '#fff',
+      lineTension: 0,
       // showLine: false
     }
   })
