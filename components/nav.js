@@ -60,7 +60,7 @@ class Navi extends React.Component {
           <Link href="/">
             <a className="navbar-brand">
               <img src="https://images.emojiterra.com/google/android-pie/512px/1f686.png" className="navbar-logo" />
-              <span>{this.props.t('tourism')}</span>
+              <span>Neo4Tourism</span>
             </a>
           </Link>
           <Nav className="mr-auto" navbar>

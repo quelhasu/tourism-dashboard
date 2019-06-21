@@ -1,8 +1,7 @@
 import { RandomIndex } from '../utils/helpers'
 import Chart from "chart.js";
 import { defaultColors } from '../utils/colors'
-
-/**
+import { withTranslation } from '../i18n'/**
  * Create a year chart 
  * @class YearChart
  * 
@@ -14,7 +13,7 @@ import { defaultColors } from '../utils/colors'
  * 
  * @extends React.Component<Props>
  */
-export default class YearChart extends React.Component {
+ class YearChart extends React.Component {
   chartRef = React.createRef();
   options = {
     responsive: true,
@@ -63,13 +62,19 @@ export default class YearChart extends React.Component {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Value'
+          labelString: this.props.t('percentage')
         }
       }]
     }
   }
   data = {
     datasets: []
+  }
+
+  static async getInitialProps({req}){
+    return {
+      namespacesRequired: ['chart'],
+    }
   }
 
   componentDidMount() {
@@ -133,3 +138,5 @@ export default class YearChart extends React.Component {
     )
   }
 }
+
+export default withTranslation('chart')(YearChart)
