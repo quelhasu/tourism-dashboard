@@ -15,8 +15,9 @@ import { withTranslation } from '../i18n'
  * 
  * @extends React.Component<Props>
  */
- class YearChart extends React.Component {
+class YearChart extends React.Component {
   chartRef = React.createRef();
+  chart = '';
   options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -73,7 +74,11 @@ import { withTranslation } from '../i18n'
     datasets: []
   }
 
-  static async getInitialProps({req}){
+  state = {
+    data: {}
+  }
+
+  static async getInitialProps({ req }) {
     return {
       namespacesRequired: ['chart'],
     }
@@ -86,27 +91,24 @@ import { withTranslation } from '../i18n'
       this.props.evolution[Object.keys(this.props.evolution)[0]]
     ).filter(el => el.match(/^\d{4}$/))
 
+
     const myChartRef = this.chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
+    this.chart = new Chart(myChartRef, {
       type: "line",
       data: data,
       options: this.options
-    });
+    })
+
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    let data = {};
-    data.datasets = this.chartData(nextProps);
-    data.labels = Object.getOwnPropertyNames(
+    this.chart.data.datasets = this.chartData(nextProps);
+    this.chart.data.labels = Object.getOwnPropertyNames(
       nextProps.evolution[Object.keys(nextProps.evolution)[0]]
     ).filter(el => el.match(/^\d{4}$/))
 
-    const myChartRef = this.chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
-      type: "line",
-      data: data,
-      options: this.options
-    });
+    this.chart.update();
+
   }
 
   chartData(props) {
@@ -131,11 +133,10 @@ import { withTranslation } from '../i18n'
   render() {
     return (
       <div className="month-chart">
-         <canvas
+        <canvas
           id="myChart"
           ref={this.chartRef}
         />
-        {/* <Line width={this.props.width} data={this.data} options={this.options} /> */}
       </div>
     )
   }

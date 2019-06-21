@@ -1,5 +1,5 @@
-import { Bar } from 'react-chartjs-2';
 import { OrderColors } from '../utils/helpers'
+import Chart from "chart.js";
 
 /**
  * Create a bar chart
@@ -12,6 +12,8 @@ import { OrderColors } from '../utils/helpers'
  * @extends React.Component<Props>
  */
 export default class BarChart extends React.Component {
+  chartRef = React.createRef();
+  chart = '';
   options = {
     datasetFill: true,
     legend: {
@@ -74,12 +76,21 @@ export default class BarChart extends React.Component {
         }]
       }
     }
-    this.selectedColors = props.colors
     this.chartData(props);
+    this.selectedColors = props.colors
+
+    const myChartRef = this.chartRef.current.getContext("2d");
+    this.chart = new Chart(myChartRef, {
+      type: "bar",
+      data: this.data,
+      options: this.options
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     this.chartData(nextProps);
+    this.chart.data = this.data;
+    this.chart.update();
   }
 
   render() {
@@ -91,11 +102,9 @@ export default class BarChart extends React.Component {
     // });
     return (
       <div>
-        <Bar
-          data={this.data}
-          width={100}
-          height={20}
-          options={this.options}
+        <canvas
+          id="myChart"
+          ref={this.chartRef}
         />
       </div>
     )

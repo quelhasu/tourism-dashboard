@@ -1,4 +1,4 @@
-import { Line } from 'react-chartjs-2';
+import Chart from "chart.js";
 import { RandomIndex } from '../utils/helpers'
 import { defaultColors } from '../utils/colors'
 
@@ -15,6 +15,8 @@ import { defaultColors } from '../utils/colors'
  * @extends React.Component<Props>
  */
 export default class YearChartDot extends React.Component {
+  chartRef = React.createRef();
+  chart = '';
   options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -79,22 +81,37 @@ export default class YearChartDot extends React.Component {
     
   }
 
-  componentWillMount(){
-    this.data.datasets = chartData(this.props);
-    this.options.title.text += this.props.var
-    this.data.labels = Object.getOwnPropertyNames(
+  componentDidMount(){
+    let data = {}
+    data.datasets = chartData(this.props);
+    data.labels = Object.getOwnPropertyNames(
       this.props.evolution[Object.keys(this.props.evolution)[0]]
     ).filter(el => el.match(/^\d{4}$/))
+
+    const myChartRef = this.chartRef.current.getContext("2d");
+    this.chart = new Chart(myChartRef, {
+      type: "line",
+      data: data,
+      options: this.options
+    })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.data.datasets = chartData(nextProps);
+    this.chart.data.datasets = chartData(nextProps);
+    this.chart.data.labels = Object.getOwnPropertyNames(
+      nextProps.evolution[Object.keys(nextProps.evolution)[0]]
+    ).filter(el => el.match(/^\d{4}$/))
+
+    this.chart.update();
   }
 
   render() {
     return (
       <div className="month-chart">
-        <Line width={this.props.width} data={this.data} options={this.options} />
+         <canvas
+          id="myChart"
+          ref={this.chartRef}
+        />
       </div>
     )
   }

@@ -21,6 +21,7 @@ var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 
 class MonthChart extends React.Component {
   chartRef = React.createRef();
+  chart = '';
   options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -89,7 +90,7 @@ class MonthChart extends React.Component {
     this.data.datasets = chartData(this.props);
 
     const myChartRef = this.chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
+    this.chart = new Chart(myChartRef, {
       type: "line",
       data: this.data,
       options: this.options
@@ -97,19 +98,13 @@ class MonthChart extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.data.datasets = chartData(nextProps);
-    const myChartRef = this.chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
-      type: "line",
-      data: this.data,
-      options: this.options
-    });
+    this.chart.data.datasets = chartData(nextProps);
+    this.chart.update();
   }
 
   render() {
     return (
       <div className="month-chart">
-        {/* <Line width={this.props.width} data={this.data} options={this.options} /> */}
         <canvas
           id="myChart"
           ref={this.chartRef}
