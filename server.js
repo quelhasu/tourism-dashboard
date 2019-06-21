@@ -2,12 +2,16 @@ const express = require('express');
 const next = require('next');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
+const nextI18NextMiddleware = require('next-i18next/middleware')
+const nextI18next = require('./i18n')
 const handle = app.getRequestHandler();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 app.prepare()
   .then(() => {
     const server = express();
+    
+    server.use(nextI18NextMiddleware(nextI18next))
 
     server.get('/favicon.ico', (req, res) => (
       res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })

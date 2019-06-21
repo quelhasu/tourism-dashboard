@@ -18,8 +18,9 @@ import { toast } from 'react-toastify';
 import YearChart from '../components/year-chart';
 import DataViz from '../components/data-viz';
 import { international } from '../test/database'
+import { withTranslation } from '../i18n'
 
-export default class International extends React.Component {
+class International extends React.Component {
 
   state = {
     maxEvolution: MaxEvolution(this.props.data['Evolution']),
@@ -50,7 +51,8 @@ export default class International extends React.Component {
     return {
       data: response.data,
       info: response.data.TopInfo,
-      year: year
+      year: year,
+      namespacesRequired: ['international', 'stats', 'filter'],
     }
   }
 
@@ -129,14 +131,14 @@ export default class International extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="International"
+          <Menu title={this.props.t('page-title')}
             year={this.state.selectedYear.value}
             endUrl={``}
             baseUrl={`international`}
-            description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
+            description={this.props.t('description')}>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Countries</label>
+                <label className="col-md-1 col-form-label text-muted">{this.props.t('filter:countries')}</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries}
@@ -149,7 +151,7 @@ export default class International extends React.Component {
                   default={this.state.info.topAges[0]} name="ages"
                   options={this.state.info.topAges} />
                 <div className="col-auto">
-                  <button type="submit" className="btn btn-outline-primary">Update</button>
+                  <button type="submit" className="btn btn-outline-primary">{this.props.t('filter:update')}</button>
                 </div>
               </div>
             </form>
@@ -157,30 +159,30 @@ export default class International extends React.Component {
         </div>
         <div className="col">
           <div className="test">
-            <Head title="International" />
+            <Head title={this.props.t('page-title')} />
             <div className="row stats">
-              <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-              <Stat value={this.state.maxEvolution.label} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
-              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
+              <Stat value={this.state.selectedYear['value']} type={this.props.t('stats:year')} background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
+              <Stat value={this.state.maxEvolution.label} type={this.props.t('stats:present')} background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
+              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} type={this.props.t('stats:reviews')} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} fa="fas fa-star"></Stat>
             </div>
             <div className="row">
-              <DataViz id="reviews-country-wo-france" title="Reviews per country (w/o France & others)" style={{ borderLeft: statsBorderColors['reviews'] }}>
+              <DataViz id="reviews-country-wo-france" title={this.props.t('reviews-wo-france')} style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </DataViz>
 
-              <DataViz id="reviews-country" title="Reviews per country" style={{ borderLeft: statsBorderColors['reviews'] }}>
+              <DataViz id="reviews-country" title={this.props.t('reviews')} style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </DataViz>
             </div>
 
              <div className="row">
-              <DataViz id="monthly-evolution-reviews-wo-france" title="Monthly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['monthly'] }}>
+              <DataViz id="monthly-evolution-reviews-wo-france" title={this.props.t('monthly-wo-france')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 ) : this.loading()}
               </DataViz>
 
-              <DataViz id="monthly-evolution-reviews" title="Monthly evolution of reviews" style={{ borderLeft: statsBorderColors['monthly'] }}>
+              <DataViz id="monthly-evolution-reviews" title={this.props.t('monthly')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 ) : this.loading()}
@@ -188,11 +190,11 @@ export default class International extends React.Component {
             </div>
 
             <div className="row">
-              <DataViz id="yearly-evolution-reviews-wo-france" title="Yearly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['yearly'] }}>
+              <DataViz id="yearly-evolution-reviews-wo-france" title={this.props.t('yearly-wo-france')} style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
               </DataViz>
 
-              <DataViz id="yearly-evolution" title="Yearly evolution of reviews" style={{ borderLeft: statsBorderColors['yearly'] }}>
+              <DataViz id="yearly-evolution" title={this.props.t('yearly')} style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
               </DataViz>
             </div>
@@ -204,3 +206,5 @@ export default class International extends React.Component {
   }
 
 }
+
+export default withTranslation(['international', 'stats', 'filter'])(International)
