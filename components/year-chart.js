@@ -119,7 +119,7 @@ class YearChart extends React.Component {
       color = props.colors[key] ? props.colors[key] : defaultColors[RandomIndex(key, defaultColors.length)]
       dataArr = Object.keys(props.evolution[key]).map(elKey => { return props.evolution[key][String(elKey)][props.var] });
       return {
-        lineTension: 0,     
+        lineTension: 0,
         label: key,
         backgroundColor: '#fff',
         borderColor: color,

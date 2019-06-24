@@ -51,7 +51,7 @@ export default class Stat extends React.Component {
   render() {
     let addValue = this.addValueProcess(this.props.addValue);
     let addValueFa = addValue >= 0 ? <i class="fas fa-caret-up"></i> : <i class="fas fa-caret-down"></i>
-
+    let length = this.props.value.length
     return (
       <div className="col-md  data-viz " style={{ background: this.props.background }}>
         <div className="row statistics">
@@ -63,7 +63,7 @@ export default class Stat extends React.Component {
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
-                <h5>{this.props.value}</h5>
+                <h5 style={length > 15 ? { fontSize: '1.5vw' } : { fontSize: '2vw' } }>{this.props.value}</h5>
               </div>
             </div>
             <div className="row">
