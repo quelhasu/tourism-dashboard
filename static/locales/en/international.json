@@ -1,0 +1,10 @@
+{
+  "description": "Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.",
+  "page-title": "International",
+  "reviews-wo-france": "Reviews per country (w/o France & others)",
+  "reviews": "Reviews per country",
+  "monthly-wo-france": "Monthly evolution of reviews (w/o France & others)",
+  "monthly": "Monthly evolution of reviews",
+  "yearly-wo-france": "Yearly evolution of reviews (w/o France & others)",
+  "yearly": "Yearly evolution of reviews"
+}

@@ -1,33 +1,32 @@
-import Head from '../components/head'
+// Modules
 import axios from 'axios'
-import BarChart from '../components/bar-chart'
-import DiffTable from '../components/diff-table';
-import MonthChart from '../components/month-chart';
-import Menu from '../components/menu';
-import Select from 'react-select';
 import NProgress from 'nprogress'
-import { Nav } from 'react-bootstrap';
-import Link from 'next/link'
-import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
-import { internationalFlags } from '../utils/flags'
-import Stat from '../components/stat'
-import MultiSelect from '../components/multi-select'
-import { MaxEvolution, Omit } from '../utils/helpers'
-import DoughnutChart from '../components/doughnut-chart'
+import { Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import YearChart from '../components/year-chart';
-import DataViz from '../components/data-viz';
-import {international } from '../test/database'
+import { withTranslation } from '../i18n'
 
-export default class International extends React.Component {
+// Components
+import DataViz from '../components/data-viz';
+import DoughnutChart from '../components/doughnut-chart'
+import Head from '../components/head'
+import Menu from '../components/menu';
+import { MaxEvolution, Omit } from '../utils/helpers'
+import MonthChart from '../components/month-chart';
+import MultiSelect from '../components/multi-select'
+import Stat from '../components/stat'
+import YearChart from '../components/year-chart';
+
+// Utils
+import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
+
+class International extends React.Component {
 
   state = {
     maxEvolution: MaxEvolution(this.props.data['Evolution']),
     selectedYear: { value: this.props.year, label: this.props.year },
     data: this.props.data,
     internationalData: {
-      'Evolution': Omit(this.props.data['Evolution'], ['France', '-']),
-      'Monthly': Omit(this.props.data['Monthly'], ['France', '-'])
+      'Evolution': Omit(this.props.data['Evolution'], ['France', '-'])
     },
     info: {
       topCountries: this.props.info.topCountries.map(el => {
@@ -46,18 +45,19 @@ export default class International extends React.Component {
 
   static async getInitialProps({ req }) {
     const year = Number(req.params.year) || 2016
-    // const response = await axios.get(`http://localhost:3000/BM/international/${year}/annual`);
+    const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${year}/annual`);
 
     return {
-      data: international,
-      info: international.TopInfo,
-      year: year
+      data: response.data,
+      info: response.data.TopInfo,
+      year: year,
+      namespacesRequired: ['international', 'stats', 'filter'],
     }
   }
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/international/${this.props.year}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}`)
+      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${this.props.year}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}`)
       this.setState(prevState => ({
         data: {
           ...prevState.data,
@@ -65,7 +65,7 @@ export default class International extends React.Component {
         },
         internationalData: {
           ...prevState.internationalData,
-          Monthly: Omit(this.props.data['Monthly'], ['France', '-'])
+          Monthly: Omit(monthRes.data['Monthly'], ['France', '-'])
         }
       }))
     } catch (e) {
@@ -101,21 +101,23 @@ export default class International extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     console.log(this.state.topCountries);
-    const res = await this.axiosProgress(
-      (`http://localhost:3000/BM/international/${this.state.selectedYear.value}/?\
-      countries=${this.selected.topCountries.map(el => el.value).join()}&\
-      ages=${this.selected.topAges.value || "-"}`)
-        .replace(/ /g, "")
-    )
+    const res = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${this.state.selectedYear.value}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+
+    const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/international/${this.state.selectedYear.value}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}ages=${this.selected.topAges.value || "-"}`)
+
     if (res.data['Evolution'] === null) {
       toast.error("Not enough information with these parameters!");
     }
     else {
       this.setState({
-        data: res.data,
+        data: {
+          TotalReviews: res.data['TotalReviews'],
+          Evolution: res.data['Evolution'],
+          Monthly: monthRes.data['Monthly']
+        },
         internationalData: {
           'Evolution': Omit(res.data['Evolution'], ['France', '-']),
-          'Monthly': Omit(res.data['Monthly'], ['France', '-'])
+          'Monthly': Omit(monthRes.data['Monthly'], ['France', '-'])
         },
         maxEvolution: MaxEvolution(res.data['Evolution']),
       });
@@ -128,14 +130,14 @@ export default class International extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="International"
+          <Menu title={this.props.t('page-title')}
             year={this.state.selectedYear.value}
             endUrl={``}
             baseUrl={`international`}
-            description="Statistics on the tourist influence of users (TripAdvisor) by country on Bordeaux Metropole.">
+            description={this.props.t('description')}>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Countries</label>
+                <label className="col-md-1 col-form-label text-muted">{this.props.t('filter:countries')}</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries}
@@ -148,7 +150,7 @@ export default class International extends React.Component {
                   default={this.state.info.topAges[0]} name="ages"
                   options={this.state.info.topAges} />
                 <div className="col-auto">
-                  <button type="submit" className="btn btn-outline-primary">Update</button>
+                  <button type="submit" className="btn btn-outline-primary">{this.props.t('filter:update')}</button>
                 </div>
               </div>
             </form>
@@ -156,30 +158,30 @@ export default class International extends React.Component {
         </div>
         <div className="col">
           <div className="test">
-            <Head title="International" />
+            <Head title={this.props.t('page-title')} />
             <div className="row stats">
-              <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
-              <Stat value={this.state.maxEvolution.label} type="most present country (Y/Y-1). " background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
-              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Number of reviews" fa="fas fa-star"></Stat>
+              <Stat value={this.state.selectedYear['value']} type={this.props.t('stats:year')} background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
+              <Stat value={this.state.maxEvolution.label} type={this.props.t('stats:present')} background={statsColors['central']} fa="fas fa-map-pin" addValue={this.state.maxEvolution.value['diff'].value}></Stat>
+              <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} type={this.props.t('stats:reviews')} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} fa="fas fa-star"></Stat>
             </div>
             <div className="row">
-              <DataViz id="reviews-country-wo-france" title="Reviews per country (w/o France & others)" style={{ borderLeft: statsBorderColors['reviews'] }}>
+              <DataViz id="reviews-country-wo-france" title={this.props.t('reviews-wo-france')} style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </DataViz>
 
-              <DataViz id="reviews-country" title="Reviews per country" style={{ borderLeft: statsBorderColors['reviews'] }}>
+              <DataViz id="reviews-country" title={this.props.t('reviews')} style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </DataViz>
             </div>
 
             <div className="row">
-              <DataViz id="monthly-evolution-reviews-wo-france" title="Monthly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['monthly'] }}>
+              <DataViz id="monthly-evolution-reviews-wo-france" title={this.props.t('monthly-wo-france')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 ) : this.loading()}
               </DataViz>
 
-              <DataViz id="monthly-evolution-reviews" title="Monthly evolution of reviews" style={{ borderLeft: statsBorderColors['monthly'] }}>
+              <DataViz id="monthly-evolution-reviews" title={this.props.t('monthly')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 ) : this.loading()}
@@ -187,11 +189,11 @@ export default class International extends React.Component {
             </div>
 
             <div className="row">
-              <DataViz id="yearly-evolution-reviews-wo-france" title="Yearly evolution of reviews (w/o France & others)" style={{ borderLeft: statsBorderColors['yearly'] }}>
+              <DataViz id="yearly-evolution-reviews-wo-france" title={this.props.t('yearly-wo-france')} style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
               </DataViz>
 
-              <DataViz id="yearly-evolution" title="Yearly evolution of reviews" style={{ borderLeft: statsBorderColors['yearly'] }}>
+              <DataViz id="yearly-evolution" title={this.props.t('yearly')} style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
               </DataViz>
             </div>
@@ -203,3 +205,5 @@ export default class International extends React.Component {
   }
 
 }
+
+export default withTranslation(['international', 'stats', 'filter'])(International)

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
+import { withTranslation } from '../i18n'
 
 // Components
 import DataViz from '../components/data-viz';
@@ -29,15 +30,15 @@ import {
 } from '../utils/colors'
 
 
-export default class Destination extends React.Component {
+class Destination extends React.Component {
 
   scope = [
-    { key: 0, label: 'Country', colors: internationalSelectedColors },
-    { key: 1, label: 'Region', colors: nationalSelectedColors },
-    { key: 2, label: 'Department', colors: departmentsSelectedColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php', name:'name_2' },
-    { key: 2.5, label: 'Touristic', colors: touristicColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONbycodetouriIDdata.php', name: 'nom_touri' },
-    { key: 3, label: 'Borough', colors: boroughSelectedColors },
-    { key: 4, label: 'Township', colors: townshipSelectedColors }
+    { key: 0, label: 'country', colors: internationalSelectedColors },
+    { key: 1, label: 'region', colors: nationalSelectedColors },
+    { key: 2, label: 'department', colors: departmentsSelectedColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php', name: 'name_2' },
+    { key: 2.5, label: 'touristic', colors: touristicColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONbycodetouriIDdata.php', name: 'nom_touri' },
+    { key: 3, label: 'borough', colors: boroughSelectedColors },
+    { key: 4, label: 'township', colors: townshipSelectedColors }
   ]
 
   state = {
@@ -71,16 +72,17 @@ export default class Destination extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      const limitareas = Number(req.query.limitareas) || 12
-      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
-      
+      const limitareas = Number(req.query.limitareas) || 20
+      const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${year}/${req.params.from}/${req.params.groupby}/annual?limitareas=${limitareas}`);
+
       return {
         data: response.data,
         info: response.data.TopInfo,
         year: year,
         from: Number(req.params.from),
         groupby: Number(req.params.groupby),
-        limitareas: limitareas
+        limitareas: limitareas,
+        namespacesRequired: ['destination', 'stats', 'filter'],
       }
     } catch (err) {
       console.log(err);
@@ -89,10 +91,10 @@ export default class Destination extends React.Component {
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
+      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
       const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
-      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/info/areas`)
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
+      const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/${this.props.from}/${this.props.groupby}/info/areas`)
 
       this.setState(prevState => ({
         data: {
@@ -138,13 +140,14 @@ export default class Destination extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const link = (`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
+      let scope = this.scope.find(el => el.key == this.props.groupby)
+      const link = (`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`).replace(/\s\s+/g, ' ')
       const res = await this.axiosProgress(link)
-      const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
-      const geoJSON = await axios.get(this.scope.find(el => el.key == this.props.groupby).geoJSON)
-      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/info/areas`)
-      
+      const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`);
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const geoJSON = scope.geoJSON ? await axios.get(scope.geoJSON) : { data: null };
+      const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.state.selectedYear.value}/${this.props.from}/${this.props.groupby}/info/areas`)
+
       this.setState(prevState => ({
         modifyScope: false,
         data: {
@@ -184,22 +187,22 @@ export default class Destination extends React.Component {
             year={this.state.selectedYear.value}
             endUrl={`${this.props.from}/${this.props.groupby}`}
             baseUrl={`destination`}
-            description="Statistics on the tourist influence of users (TripAdvisor) by country.">
+            description={this.props.t('description')}>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="row">
-                <label className="col-md-1"><u>Scope:</u></label>
+                <label className="col-md-2"><u>{this.props.t('filter:scope')}:</u></label>
               </div>
               <div className="form-group row">
                 <div className="col-md-4">
                   <div className="form-group row">
-                    <label className="col-md-2 col-form-label text-muted">From</label>
+                    <label className="col-md-2 col-form-label text-muted">{this.props.t('filter:from')}</label>
                     <Nav variant="pills" defaultActiveKey={this.state.from}
                       onSelect={selectedKey => this.setState({ from: selectedKey, modifyScope: true })}>
                       {this.scope
                         .filter(({ key }) => key <= 3 && key != 2.5)
                         .map(({ key, label }) => (
                           <Nav.Item>
-                            <Nav.Link eventKey={key}>{label}</Nav.Link>
+                            <Nav.Link eventKey={key}>{this.props.t(`filter:${label}`)}</Nav.Link>
                           </Nav.Item>
                         ))}
                     </Nav>
@@ -207,13 +210,13 @@ export default class Destination extends React.Component {
                 </div>
                 <div className="col-md-6">
                   <div className="form-group row">
-                    <label className="col-md-2 col-form-label text-muted">Group By</label>
+                    <label className="col-md-2 col-form-label text-muted">{this.props.t('filter:group-by')}</label>
                     <Nav variant="pills" defaultActiveKey={this.state.groupby}
                       onSelect={selectedKey => this.setState({ groupby: selectedKey, modifyScope: true })}>
                       {this.scope
                         .map(({ key, label }) => (
                           <Nav.Item>
-                            <Nav.Link eventKey={key}>{label}</Nav.Link>
+                            <Nav.Link eventKey={key}>{this.props.t(`filter:${label}`)}</Nav.Link>
                           </Nav.Item>
                         ))}
                     </Nav>
@@ -222,15 +225,15 @@ export default class Destination extends React.Component {
                 {this.state.modifyScope ? this.state.from < this.state.groupby ? (
                   <div className="col-auto ml-auto">
                     <Link href={`/destination/${this.state.selectedYear.value}/${this.state.from}/${this.state.groupby}`}>
-                      <a className="btn btn-outline-primary">Update Scope</a>
+                      <a className="btn btn-outline-primary">{this.props.t('filter:update-scope')}</a>
                     </Link>
                   </div>) : this.notify("Impossible to use 'group by' with this 'from' option.") : ''}
               </div>
               <div className="row">
-                <label className="col-md-1"><u>User:</u></label>
+                <label className="col-md-1"><u>{this.props.t('filter:user')}:</u></label>
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Nationalities</label>
+                <label className="col-md-1 col-form-label text-muted">{this.props.t('filter:nationalities')}</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries} name="countries"
@@ -242,10 +245,10 @@ export default class Destination extends React.Component {
                   options={this.state.info.topAges} />
               </div>
               <div className="row">
-                <label className="col-md-1"><u>Area:</u></label>
+                <label className="col-md-1"><u>{this.props.t('filter:area')}:</u></label>
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Areas</label>
+                <label className="col-md-1 col-form-label text-muted">{this.props.t('filter:areas')}</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleAreasChange}
                   default={this.state.info.topAreas} name="areas"
@@ -253,9 +256,9 @@ export default class Destination extends React.Component {
               </div>
               <div className="form-group row">
                 <div className="col-auto ml-auto">
-                  <button type="submit" className="btn btn-outline-primary" 
-                  onClick={() => this.setState({ loading: true })}
-                  disabled={this.state.loading}>Update</button>
+                  <button type="submit" className="btn btn-outline-primary"
+                    onClick={() => this.setState({ loading: true })}
+                    disabled={this.state.loading}>{this.props.t('filter:update')}</button>
                 </div>
               </div>
 
@@ -266,26 +269,26 @@ export default class Destination extends React.Component {
         <div className="col">
           <Head title="Destination" />
           <div className="row stats">
-            <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.selectedYear['value']} type={this.props.t('stats:year')} background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             {this.state.mostCentral ? (
-              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central area" background={statsColors['central']} fa="fas fa-award"></Stat>
-            ) : <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
-            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
+              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type={this.props.t('stats:centrality')} background={statsColors['central']} fa="fas fa-award"></Stat>
+            ) : <Stat value='' loading={true} type={this.props.t('stats:centrality')} background={statsColors['central']} fa="fas fa-award"></Stat>}
+            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type={this.props.t('stats:going')} fa="fas fa-plane"></Stat>
           </div>
 
           <div className="row">
-            <DataViz id="ingoing-outgoing-evolution" title="Ingoing/Outgoing evolution" style={{ borderLeft: statsBorderColors['going'] }}>
+            <DataViz id="ingoing-outgoing-evolution" title={this.props.t('ingoing-outgoing')} style={{ borderLeft: statsBorderColors['going'] }}>
               <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
           </div>
 
           <div className="row">
-            <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
+            <DataViz id="ingoing-evolution" title={this.props.t('ingoing')} style={{ borderLeft: statsBorderColors['ingoing'] }}>
               <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
-                <Tab eventKey="year" title="Yearly">
+                <Tab eventKey="year" title={this.props.t('yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
+                <Tab eventKey="month" title={this.props.t('monthly')} disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                   ) : this.loading()}
@@ -293,12 +296,12 @@ export default class Destination extends React.Component {
               </Tabs>
             </DataViz>
 
-            <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
+            <DataViz id="outgoing-evolution" title={this.props.t('outgoing')} style={{ borderLeft: statsBorderColors['outgoing'] }}>
               <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
-                <Tab eventKey="year" title="Yearly">
+                <Tab eventKey="year" title={this.props.t('yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
+                <Tab eventKey="month" title={this.props.t('monthly')} disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
                     <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                   ) : this.loading()}
@@ -308,31 +311,32 @@ export default class Destination extends React.Component {
           </div>
 
           <div className="row">
-            <DataViz id="centrality-pagerank" title="Centrality" second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
+            <DataViz id="centrality-pagerank" title={this.props.t('centrality')} second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
-              <Tab eventKey="map" title="Map">
-                  {this.state.data['Centrality'] && selectedScope.geoJSON ? (
-                    <CentralityMap zoom={6}
-                      geoJSON={this.state.geoJSON}
-                      position={[44.8404400, -0.5805000]}
-                      evolution={this.state.data['Centrality']}
-                      mostCentral={this.state.mostCentral}
-                      name={selectedScope.name}
-                      year={this.state.selectedYear['value']} />
+                {selectedScope.geoJSON ? (
+                  <Tab eventKey="map" title={this.props.t('map')}>
+                    {this.state.data['Centrality'] && selectedScope.geoJSON ? (
+                      <CentralityMap zoom={6}
+                        geoJSON={this.state.geoJSON}
+                        position={[44.8404400, -0.5805000]}
+                        evolution={this.state.data['Centrality']}
+                        mostCentral={this.state.mostCentral}
+                        name={selectedScope.name}
+                        year={this.state.selectedYear['value']} />
+                    ) : this.loading()}
+                  </Tab>) : ''}
+                <Tab eventKey="bar-chart" title={this.props.t('centrality')}>
+                  {this.state.data['Centrality'] ? (
+                    <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
+                      evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
+                      type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
+                      step={0.5} valueType=" " />
                   ) : this.loading()}
-                </Tab>
-              <Tab eventKey="bar-chart" title="Bar Chart">
-                {this.state.data['Centrality'] ? (
-                  <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length}
-                    evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']}
-                    type="Rank" colors={this.scope.find(el => el.key == this.props.groupby).colors}
-                    step={0.5} valueType=" " />
-                ) : this.loading()}
                 </Tab>
               </Tabs>
             </DataViz>
 
-            <DataViz id="centrality-evolution" title="Centrality evolution" second="(PageRank Y / Y-2)" style={{ borderLeft: statsBorderColors['central'] }}>
+            <DataViz id="centrality-evolution" title={this.props.t('centrality-evolution')} second="(PageRank Y / Y-2)" style={{ borderLeft: statsBorderColors['central'] }}>
               {this.state.data['Centrality'] ? (
                 <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
               ) : this.loading()}
@@ -343,3 +347,5 @@ export default class Destination extends React.Component {
     )
   }
 }
+
+export default withTranslation(['destination', 'stats', 'filter'])(Destination)

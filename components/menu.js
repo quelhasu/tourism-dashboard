@@ -3,6 +3,7 @@ import { Collapse } from 'reactstrap';
 import Link from 'next/link'
 import { Nav } from 'react-bootstrap';
 import NProgress from 'nprogress'
+import { withTranslation } from '../i18n'
 
 /**
  * Create a menu with personalized content
@@ -17,7 +18,7 @@ import NProgress from 'nprogress'
  * 
  * @extends React.Component<Props>
  */
-export default class Menu extends React.Component {
+class Menu extends React.Component {
   topYear = [
     { value: 2013, label: '2013' },
     { value: 2014, label: '2014' },
@@ -34,6 +35,12 @@ export default class Menu extends React.Component {
     this.state = { collapse: false };
   }
 
+  static async getInitialProps({req}){
+    return {
+      namespacesRequired: ['filter']
+    }
+  }
+
   toggle() {
     this.setState(state => ({ collapse: !state.collapse }));
   }
@@ -48,7 +55,7 @@ export default class Menu extends React.Component {
           </div>
           <div className="col-md-auto ml-auto">
             <button className="btn btn-outline-dark btn-filter" onClick={this.toggle}>
-              <i className="fas fa-filter"></i><span className="ml-3">Filter</span>
+              <i className="fas fa-filter"></i><span className="ml-3">{this.props.t('filter')}</span>
             </button>
           </div>
         </div>
@@ -87,3 +94,5 @@ export default class Menu extends React.Component {
     )
   }
 }
+
+export default withTranslation('filter')(Menu)

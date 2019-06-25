@@ -1,0 +1,19 @@
+{
+  "filter":"Filtre",
+  "scope": "Portée de l'étude",
+  "from": "Depuis",
+  "group-by": "Groupe par",
+  "country": "Pays",
+  "region": "Région",
+  "department": "Departement",
+  "borough": "Arrondissement",
+  "touristic": "Touristique",
+  "township": "Canton",
+  "user": "Utilisateur",
+  "nationalities": "Nationalités",
+  "area": "Zone",
+  "areas": "Zones",
+  "countries": "Pays",
+  "update": "Actualiser",
+  "update-scope": "Actualiser la portée" 
+}

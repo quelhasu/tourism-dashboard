@@ -12,7 +12,7 @@ const options = {
   plugins: {
     datalabels: {
       color: '#fff',
-      font: function(context) {
+      font: function (context) {
         var width = context.chart.width;
         var size = Math.round(width / 95);
         return {
@@ -59,13 +59,15 @@ const options = {
 export default class GoingChart extends React.Component {
 
   chartData = (props) => {
-    this.data.labels = Object.keys(props.evolution).map(key => { return key })
+    let evolution = Object.keys(props.evolution).sort((a, b) => (props.evolution[b][props.year]['Ingoing'] + props.evolution[b][props.year]['Outgoing']) - (props.evolution[a][props.year]['Ingoing'] + props.evolution[a][props.year]['Outgoing']))
 
-    this.data.datasets[0].data = Object.keys(props.evolution).map(key => {
+    this.data.labels = evolution.map(key => { return key })
+
+    this.data.datasets[0].data = evolution.map(key => {
       return props.evolution[key][props.year] ? props.evolution[key][props.year]['Ingoing'] : 0
     })
 
-    this.data.datasets[1].data = Object.keys(props.evolution).map(key => {
+    this.data.datasets[1].data = evolution.map(key => {
       return props.evolution[key][props.year] ? props.evolution[key][props.year]['Outgoing'] : 0
     })
 
@@ -81,7 +83,7 @@ export default class GoingChart extends React.Component {
   constructor(props) {
     super(props);
     this.data = {
-      labels:'',
+      labels: '',
       datasets: [
         {
           label: 'Ingoing',

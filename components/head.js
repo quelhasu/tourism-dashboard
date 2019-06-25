@@ -17,7 +17,7 @@ const defaultOGImage = ''
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{props.title || 'Tourism'}</title>
+    <title>{props.title ? `${props.title} | Neo4Tourism` : 'Neo4Tourism'}</title>
     <meta
       name="description"
       content={props.description || defaultDescription}

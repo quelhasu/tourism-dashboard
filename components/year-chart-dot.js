@@ -1,5 +1,6 @@
-import { Line } from 'react-chartjs-2';
-import { Omit } from '../utils/helpers'
+import Chart from "chart.js";
+import { RandomIndex } from '../utils/helpers'
+import { defaultColors } from '../utils/colors'
 
 /**
  * Create a year chart 
@@ -14,7 +15,10 @@ import { Omit } from '../utils/helpers'
  * @extends React.Component<Props>
  */
 export default class YearChartDot extends React.Component {
+  chartRef = React.createRef();
+  chart = '';
   options = {
+    bezierCurve: false,
     responsive: true,
     maintainAspectRatio: false,
     title: {
@@ -75,21 +79,40 @@ export default class YearChartDot extends React.Component {
 
   constructor(props) {
     super(props);
-    this.data.datasets = chartData(props);
-    this.options.title.text += props.var
-    this.data.labels = Object.getOwnPropertyNames(
+    
+  }
+
+  componentDidMount(){
+    let data = {}
+    data.datasets = chartData(this.props);
+    data.labels = Object.getOwnPropertyNames(
       this.props.evolution[Object.keys(this.props.evolution)[0]]
     ).filter(el => el.match(/^\d{4}$/))
+
+    const myChartRef = this.chartRef.current.getContext("2d");
+    this.chart = new Chart(myChartRef, {
+      type: "line",
+      data: data,
+      options: this.options
+    })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.data.datasets = chartData(nextProps);
+    this.chart.data.datasets = chartData(nextProps);
+    this.chart.data.labels = Object.getOwnPropertyNames(
+      nextProps.evolution[Object.keys(nextProps.evolution)[0]]
+    ).filter(el => el.match(/^\d{4}$/))
+
+    this.chart.update();
   }
 
   render() {
     return (
       <div className="month-chart">
-        <Line width={this.props.width} data={this.data} options={this.options} />
+         <canvas
+          id="myChart"
+          ref={this.chartRef}
+        />
       </div>
     )
   }
@@ -97,17 +120,20 @@ export default class YearChartDot extends React.Component {
 
 function chartData(props) {
   let dataArr = null;
-  return Object.keys(props.evolution).map(key => {
+  var color = '';
+    return Object.keys(props.evolution).map(key => {
+    color = props.colors[key] ? props.colors[key] : defaultColors[RandomIndex(key, defaultColors.length)]
     dataArr = Object.keys(props.evolution[key]).map(elKey => { return props.evolution[key][String(elKey)][props.var] });
     return {
       label: key,
       backgroundColor: '#fff',
-      borderColor: props.colors[key],
+      borderColor: color,
       data: dataArr,
       fill: false,
       pointRadius: 5,
       pointBorderWidth: 2,
       pointBackgroundColor: '#fff',
+      lineTension: 0,
       // showLine: false
     }
   })

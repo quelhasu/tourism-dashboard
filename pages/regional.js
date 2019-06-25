@@ -12,7 +12,7 @@ import YearChartDot from '../components/year-chart-dot'
 import CentralityMap from '../components/centrality-map'
 
 // Utils
-import { statsColors, statsBorderColors, departmentsSelectedColors } from '../utils/colors'
+import { statsColors, statsBorderColors, touristicColors } from '../utils/colors'
 import { MostCentral } from "../utils/helpers"
 import { regional } from "../test/database"
 
@@ -21,9 +21,10 @@ import axios from 'axios'
 import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
+import { withTranslation } from '../i18n'
 
 
-export default class Regional extends React.Component {
+class Regional extends React.Component {
 
   state = {
     geoJSON: this.props.geoJSON,
@@ -53,13 +54,14 @@ export default class Regional extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const year = Number(req.params.year) || 2016
-      const response = await axios.get(`http://localhost:3000/BM/destination/${year}/1/2/annual`);
-      const geoJSON = await axios.get('https://data.dvrc.fr/api/getGeoJSONhull_dept_gadm36.php');
+      const response = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${year}/1/2.5/annual?limitareas=14`);
+      const geoJSON = await axios.get('https://data.dvrc.fr/api/getGeoJSONbycodetouriIDdata.php');
       return {
         geoJSON: geoJSON.data,
         data: response.data,
         info: response.data.TopInfo,
-        year: year
+        year: year,
+        namespacesRequired: ['regional', 'stats', 'destination', 'filter'],
       }
     } catch (err) {
       console.log(err);
@@ -68,9 +70,9 @@ export default class Regional extends React.Component {
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/1/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`);
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
-      const topAreas = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/info/areas`)
+      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/monthly?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/centrality?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
+      const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/info/areas`)
 
       this.setState(prevState => ({
         data: {
@@ -116,9 +118,9 @@ export default class Regional extends React.Component {
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      const res = await this.axiosProgress(`http://localhost:3000/BM/destination/${this.props.year}/1/2/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
-      const monthRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
-      const centralRes = await axios.get(`http://localhost:3000/BM/destination/${this.props.year}/1/2/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const res = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/annual?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/monthly?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/centrality?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
 
       if (res.data['Evolution'] === null) {
         console.log("Not enough information with these parameters!");
@@ -152,13 +154,13 @@ export default class Regional extends React.Component {
             year={this.state.selectedYear.value}
             endUrl={``}
             baseUrl={`regional`}
-            description="Statistics on the tourist influence of users (TripAdvisor) by country, in circulation between French departments, in Bordeaux Metropole.">
+            description={this.props.t('description')}>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="row">
-                <label className="col-md-1"><u>User:</u></label>
+                <label className="col-md-1"><u>{this.props.t('filter:user')}:</u></label>
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Nationalities</label>
+                <label className="col-md-1 col-form-label text-muted">{this.props.t('filter:nationalities')}</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleCountriesChange}
                   default={this.state.info.topCountries} name="countries"
@@ -170,10 +172,10 @@ export default class Regional extends React.Component {
                   options={this.state.info.topAges} />
               </div>
               <div className="row">
-                <label className="col-md-1"><u>Area:</u></label>
+                <label className="col-md-1"><u>{this.props.t('filter:area')}:</u></label>
               </div>
               <div className="form-group row">
-                <label className="col-md-1 col-form-label text-muted">Departments</label>
+                <label className="col-md-1 col-form-label text-muted">{this.props.t('filter:areas')}</label>
                 <MultiSelect class="col-md" isMulti={true} isClearable={true}
                   onChange={this.handleRegionsChange}
                   default={this.state.info.topAreas} name="areas"
@@ -183,7 +185,7 @@ export default class Regional extends React.Component {
                 <div className="col-auto ml-auto">
                   <button type="submit" className="btn btn-outline-primary"
                     onClick={() => this.setState({ loading: true })}
-                    disabled={this.state.loading}>Update</button>
+                    disabled={this.state.loading}>{this.props.t('filter:update')}</button>
                 </div>
               </div>
             </form>
@@ -192,40 +194,40 @@ export default class Regional extends React.Component {
         <div className="col">
           <Head title="Regional" />
           <div className="row stats">
-            <Stat value={this.state.selectedYear['value']} type="Selected Year" background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
+            <Stat value={this.state.selectedYear['value']} type={this.props.t('stats:year')}background={statsColors['selected-year']} fa="fas fa-calendar-day"></Stat>
             {this.state.mostCentral ? (
-              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>) :
-              <Stat loading={true} type="Most central region" background={statsColors['central']} fa="fas fa-award"></Stat>}
-            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type="Going value" fa="fas fa-plane"></Stat>
+              <Stat value={this.state.mostCentral.label} addValue={this.state.mostCentral.value['diff'].value} type={this.props.t('stats:centrality')} background={statsColors['central']} fa="fas fa-award"></Stat>) :
+              <Stat value='' loading={true} type={this.props.t('stats:centrality')} background={statsColors['central']} fa="fas fa-award"></Stat>}
+            <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} background={statsColors['outgoing']} addValue={this.state.data['TotalReviews']['diff'].NB1} type={this.props.t('stats:going')} fa="fas fa-plane"></Stat>
           </div>
 
           <div className="row">
-            <DataViz id="ingoing-outgoing-areas" title="Ingoing/Outgoing per departmens" style={{ borderLeft: statsBorderColors['going'] }}>
-              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={departmentsSelectedColors} />
+            <DataViz id="ingoing-outgoing-areas" title={this.props.t('destination:ingoing-outgoing')} style={{ borderLeft: statsBorderColors['going'] }}>
+              <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={touristicColors} />
             </DataViz>
           </div>
           <div className="row">
-            <DataViz id="ingoing-evolution" title="Ingoing evolution" style={{ borderLeft: statsBorderColors['ingoing'] }}>
+            <DataViz id="ingoing-evolution" title={this.props.t('destination:ingoing')} style={{ borderLeft: statsBorderColors['ingoing'] }}>
               <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
-                <Tab eventKey="year" title="Yearly">
-                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
+                <Tab eventKey="year" title={this.props.t('destination:yearly')}>
+                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={touristicColors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
+                <Tab eventKey="month" title={this.props.t('destination:monthly')} disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
-                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={departmentsSelectedColors} />
+                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Ingoing' colors={touristicColors} />
                   ) : this.loading()}
                 </Tab>
               </Tabs>
             </DataViz>
 
-            <DataViz id="outgoing-evolution" title="Outgoing evolution" style={{ borderLeft: statsBorderColors['outgoing'] }}>
+            <DataViz id="outgoing-evolution" title={this.props.t('destination:outgoing')} style={{ borderLeft: statsBorderColors['outgoing'] }}>
               <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
-                <Tab eventKey="year" title="Yearly">
-                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
+                <Tab eventKey="year" title={this.props.t('destination:yearly')}>
+                  <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={touristicColors} />
                 </Tab>
-                <Tab eventKey="month" title="Monthly" disabled={!this.state.data['Monthly']}>
+                <Tab eventKey="month" title={this.props.t('destination:monthly')} disabled={!this.state.data['Monthly']}>
                   {this.state.data['Monthly'] ? (
-                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={departmentsSelectedColors} />
+                    <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Outgoing' colors={touristicColors} />
                   ) : this.loading()}
                 </Tab>
               </Tabs>
@@ -233,31 +235,31 @@ export default class Regional extends React.Component {
           </div>
 
           <div className="row ">
-            <DataViz id="national-centrality-pagerank" title="National centrality" style={{ borderLeft: statsBorderColors['central'] }}>
+            <DataViz id="national-centrality-pagerank" title={this.props.t('destination:centrality')} style={{ borderLeft: statsBorderColors['central'] }}>
               <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
-                <Tab eventKey="map" title="Map">
+                <Tab eventKey="map" title={this.props.t('destination:map')}>
                   {this.state.data['Centrality'] ? (
                     <CentralityMap zoom={6.5}
                       geoJSON={this.state.geoJSON}
                       position={[44.8404400, -0.5805000]}
                       evolution={this.state.data['Centrality']}
                       mostCentral={this.state.mostCentral}
-                      name='name_2'
+                      name='nom_touri'
                       year={this.state.selectedYear['value']} />
                   ) : this.loading()}
                 </Tab>
-                <Tab eventKey="bar-chart" title="Bar Chart">
+                <Tab eventKey="bar-chart" title={this.props.t('destination:rank')}>
                   {this.state.data['Centrality'] ? (
-                    <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={departmentsSelectedColors} step={0.5} valueType=" " />
+                    <HorizontalBarChart nbItems={Object.keys(this.state.data['Centrality']).length} evolution={this.state.data['Centrality']} year={this.state.selectedYear['value']} type="Rank" colors={touristicColors} step={0.5} valueType=" " />
                   ) : this.loading()}
                 </Tab>
               </Tabs>
 
             </DataViz>
 
-            <DataViz id="ingoing-centrality-evolution" title="Ingoing centrality evolution" style={{ borderLeft: statsBorderColors['central'] }}>
+            <DataViz id="ingoing-centrality-evolution" title={this.props.t('destination:centrality-evolution')} style={{ borderLeft: statsBorderColors['central'] }}>
               {this.state.data['Centrality'] ? (
-                <YearChartDot height={500} width={50} evolution={this.state.data['Centrality']} var='value' colors={departmentsSelectedColors} />
+                <YearChartDot height={500} width={50} evolution={this.state.data['Centrality']} var='value' colors={touristicColors} />
               ) : this.loading()}
             </DataViz>
           </div>
@@ -267,3 +269,5 @@ export default class Regional extends React.Component {
   }
 
 }
+
+export default withTranslation(['regional', 'stats', 'destination', 'filter'])(Regional)

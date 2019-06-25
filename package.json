@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint app",
+    "production": "npm run build && NODE_ENV=production node server.js",
     "postinstall": "npm run build && npm run doc",
     "docs": "rm -rf ./docs && jsdoc ./ --configure conf.json && mv ./docs/tourism-dashboard/*/* ./docs"
   },
@@ -19,10 +20,12 @@
     "chart.js": "^2.8.0",
     "chartjs-plugin-datalabels": "^0.6.0",
     "express": "^4.16.4",
+    "forever": "^1.0.0",
     "html2canvas": "^1.0.0-rc.1",
     "jquery": "^3.4.1",
     "leaflet": "^1.5.1",
     "next": "^8.0.4",
+    "next-i18next": "^0.44.0",
     "next-routes": "^1.4.2",
     "node-sass": "^4.11.0",
     "nprogress": "^0.2.0",
@@ -32,12 +35,14 @@
     "react-dom": "^16.8.6",
     "react-leaflet": "^2.4.0",
     "react-leaflet-control": "^2.1.1",
+    "react-leaflet-heatmap-layer": "^2.0.0",
     "react-leaflet-universal": "^2.1.0",
     "react-pan-zoom-element": "^2.0.1",
     "react-select": "^2.4.3",
     "react-sidebar": "^3.0.2",
     "react-toastify": "^5.2.1",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "seedrandom": "^3.0.1"
   },
   "license": "ISC",
   "devDependencies": {

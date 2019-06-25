@@ -1,0 +1,10 @@
+{
+  "description": "Statistiques sur l'influence touristique des usagers (TripAdvisor) par pays sur Bordeaux Métropole.",
+  "page-title": "International",
+  "reviews-wo-france": "Avis par pays (sans France & autres)",
+  "reviews": "Avis par pays",
+  "monthly-wo-france": "Évolution mensuelle des avis par pays (sans France & autres)",
+  "monthly": "Évolution mensuelle des avis par pays",
+  "yearly-wo-france": "Évolution annuelle des avis par pays (sans France & autres)",
+  "yearly": "Évolution annuelle des avis par pays"
+}

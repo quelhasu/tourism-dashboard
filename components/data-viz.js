@@ -1,6 +1,6 @@
 import React from 'react'
 import { SaveAs } from "../utils/helpers"
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 
 /**
  * Create a DataViz block
@@ -27,12 +27,12 @@ export default class DataViz extends React.Component {
    */
   screenshotDiv = (event) => {
     console.log(event);
-    let current = event.currentTarget
-    while (!current.className.includes('data-viz')) current = current.parentNode
-    let filename = `${current.id}.png`
-    html2canvas(current).then(function (canvas) {
-      SaveAs(canvas.toDataURL(), filename);
-    });
+    // let current = event.currentTarget
+    // while (!current.className.includes('data-viz')) current = current.parentNode
+    // let filename = `${current.id}.png`
+    // html2canvas(current).then(function (canvas) {
+    //   SaveAs(canvas.toDataURL(), filename);
+    // });
   }
 
   render() {
@@ -43,7 +43,7 @@ export default class DataViz extends React.Component {
             <h6 className="text-uppercase text-left">{this.props.title}</h6>
             <p className="text-uppercase mb-4 text-muted text-small text-left">{this.props.second}</p>
           </div>
-          <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div>
+          {/* <div className="col-md-2 ml-auto  text-right"><i onClick={this.screenshotDiv} class="fas fa-download download"></i></div> */}
         </div>
         <div className="row">
           <div className="col">

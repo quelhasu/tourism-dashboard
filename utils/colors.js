@@ -157,8 +157,48 @@ const touristicColors = {
 	"Nord Deux-Sèvres": 'RGB(173, 109, 106)'
 }
 
+const defaultColors = [
+	'rgb(54, 162, 235)',
+	'rgb(237,102,117)',
+	'rgb(100,188,135)',
+	'rgb(104,198,237)',
+	'rgb(190,216,110)',
+	'rgb(249,196,98)',
+	'rgb(202,108,180)',
+	'rgb(119,182,177)',
+	'rgb(95,127,80)',
+	'rgb(168, 64, 79)',
+	'rgb(152, 64, 168)',
+	'rgb(223,180,42)',
+	'rgb(160, 199, 60)',
+	'rgb(199, 97, 60)',
+	'rgb(142, 127, 18)',
+	'rgb(181, 110, 37)',
+	'rgb(111, 136, 32)',
+	'rgb(210, 86, 89)',
+	'rgb(0, 148, 118)',
+	'rgb(192, 108, 85)',
+	'rgb(95, 130, 201)',
+	'rgb(100, 142, 75)',
+	'rgb(92, 92, 92)',
+	'rgb(92, 37, 37)',
+	'rgb(0, 91, 203)',
+	'rgb(140, 60, 170)',
+	'rgb(90, 170, 60)',
+	'rgb(177, 0, 61)',
+	'rgb(0, 177, 116)',
+	'rgb(161, 48, 5)',
+	'rgb(98, 90, 0)',
+	'rgb(128, 124, 89)',
+	'rgb(89, 93, 128)',
+	'rgb(122, 84, 108)',
+	'rgb(84, 84, 84)',
+	'rgb(96, 98, 62)',
+	'rgb(173, 109, 106)'
+]
+
 export {
 	departmentsSelectedColors, internationalSelectedColors,
 	boroughSelectedColors, statsColors, statsBorderColors,
-	nationalSelectedColors, townshipSelectedColors, touristicColors
+	nationalSelectedColors, townshipSelectedColors, touristicColors, defaultColors
 };

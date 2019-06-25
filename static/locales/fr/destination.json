@@ -1,0 +1,12 @@
+{
+  "description": "Statistiques sur l'influence touristique des utilisateurs (TripAdvisor) par pays.",
+  "ingoing-outgoing": "Entrées/Sorties par zones",
+  "ingoing": "Evolution des entrées",
+  "outgoing": "Evolution des sorties",
+  "centrality": "Centralité",
+  "centrality-evolution": "Evolution de la centralité",
+  "yearly": "Annuelle",
+  "monthly": "Mensuelle",
+  "map": "Carte",
+  "rank": "Classement"
+}

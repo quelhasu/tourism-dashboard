@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { i18n, withTranslation } from '../i18n'
 import { Navbar, Nav, NavItem } from "reactstrap";
 import { PascalCase } from "../utils/helpers";
 
@@ -16,7 +17,8 @@ const menu = [
   { href: '/international/2018', label: 'International', icon: '' },
   { href: '/national/2018', label: 'National', icon: '' },
   { href: '/regional/2018', label: 'Regional', icon: '' },
-  { href: '/destination/2018/1/2.5', label: 'Destination', icon: '' }
+  { href: '/destination/2018/1/2.5', label: 'Destination', icon: '' },
+  // { href: '/divers/2018', label: 'Divers', icon: '' }
 ].map(link => {
   link.key = `menu-link-${link.href}-${link.label}`
   return link
@@ -25,7 +27,23 @@ const menu = [
 class Navi extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selected: '' };
+    this.state = {
+      selected: '',
+      disableTrans: false
+    };
+  }
+
+  static async getInitialProps() {
+    return {
+      namespacesRequired: ['nav'],
+    }
+  }
+
+  changeLanguage = (e) => {
+    e.preventDefault();
+    this.setState({ disableTrans: true })
+    i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')
+    setTimeout(()=> this.setState({ disableTrans: false }), 3000);
   }
 
   selectLink = (e) => {
@@ -42,8 +60,8 @@ class Navi extends React.Component {
         <Navbar className="navbar" bg="light" fixed="top" light expand="md">
           <Link href="/">
             <a className="navbar-brand">
-              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/airplane_2708.png" className="navbar-logo" />
-              Tourism
+              <img src="https://images.emojiterra.com/google/android-pie/512px/1f686.png" className="navbar-logo" />
+              <span>Neo4Tourism</span>
             </a>
           </Link>
           <Nav className="mr-auto" navbar>
@@ -58,6 +76,12 @@ class Navi extends React.Component {
               </NavItem>
             ))}
           </Nav>
+          <button
+            type='button'
+            onClick={this.changeLanguage}
+            disabled={this.state.disableTrans}>
+            EN/FR
+          </button>
         </Navbar>
 
         <style jsx>{`
@@ -96,4 +120,4 @@ class Navi extends React.Component {
   }
 }
 
-export default Navi
+export default withTranslation('nav')(Navi)

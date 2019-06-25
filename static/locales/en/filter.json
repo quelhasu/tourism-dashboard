@@ -1,0 +1,19 @@
+{
+  "filter":"Filter",
+  "scope": "Scope",
+  "from": "From",
+  "group-by": "Group By",
+  "country": "Country",
+  "region": "Region",
+  "department": "Department",
+  "borough": "Borough",
+  "touristic": "Touristic",
+  "township": "Township",
+  "user": "User",
+  "nationalities": "Nationalities",
+  "area": "Area",
+  "areas": "Areas",
+  "countries": "Countries",
+  "update": "Update",
+  "update-scope": "Update scope"
+}
