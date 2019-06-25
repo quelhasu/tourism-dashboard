@@ -48,8 +48,8 @@ class MyApp extends App {
                 margin: 0;
                 background: #f7f7f7;              
                 // font-family: 'Lato', sans-serif;
-                font-family: 'Rubik', sans-serif;
-                // font-family: 'Roboto', sans-serif;
+                // font-family: 'Rubik', sans-serif;
+                font-family: 'Roboto', sans-serif;
                 // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
                 padding: 10px;
                 padding-top: 70px;

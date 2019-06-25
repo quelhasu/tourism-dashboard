@@ -38,10 +38,11 @@ h6{
   // border-top: 2px #D50B55 solid;
   // border-bottom: 0.5px solid #d1d1d1;
   // box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2);
+  // box-shadow: 0px 8px 25px -12px rgba(0, 0, 0, 0.2);
   background-color: #FFF!important;
   padding: 0 2.5rem;
-  box-shadow: 0px 8px 25px -12px rgba(0, 0, 0, 0.2);
-  height: $navbar-height;
+  border-bottom: 1.5px solid #eaedf3;
+  // height: $navbar-height;
   
   &-nav{
     height: 100%;
@@ -49,9 +50,6 @@ h6{
 
   &-brand{
     font-size: 1vw !important;
-    span{
-      
-    }
   }
 
   &-logo{
@@ -75,14 +73,11 @@ h6{
       position: relative;
       display: block;
       padding: 16px 0;
-      // margin: 0 12px;
       transition: color 0.1s,background-color 0.1s,padding 0.2s ease-in;
-      // text-transform: uppercase;
       &::before {
         content: '';
         display: block;
         position: absolute;
-        // bottom: 3px;
         bottom: 0;
         left: 0;
         height: 2px;
@@ -98,8 +93,8 @@ h6{
         color:$primary-color !important;
         &::before{
           background-color: $primary-color;
-          transform-origin: left top;
-          transform: scale(1, 1);
+          // transform-origin: left top;
+          // transform: scale(1, 1);
         }
       }
       &:hover::before {
@@ -107,7 +102,6 @@ h6{
         transform: scale(1, 1);
       }
     }   
-    // border-bottom: 2px solid rgba(197, 0, 84, 1);
   }
 
   .nav-link{
@@ -126,21 +120,35 @@ h6{
   transform: translateY(-50%);
 }
 
-.data-viz {
-  padding: 20px;
-  // margin: 6px 3.5px;
-  margin: 8px 7.5px;
-  background: white;
-  border-bottom-color: rgb(209, 209, 209);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px 0px;
-  border-radius: 5px;
+.stats{
+  margin: 0 -9px;
+}
 
-  .statistics{
+.data-viz {
+  // border-bottom-color: rgb(209, 209, 209);
+  // box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px 0px;
+  // box-shadow: 0px 4px 10px 0.1px rgba(0, 0, 0, 0.07);
+  padding: 8px;
+  margin: 12px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #eaedf3;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.04);
+
+  &-statistics{
     color:white !important;
+    padding: 20px;
+    margin: 8px 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.04);
 
     h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
       color: white;
     }
+
+    .far, .fas {
+    font-size: 2vw;
+  }
 
     .text-muted {
       color: #ffffffb3 !important;
@@ -162,7 +170,21 @@ h6{
         }
       }
     }
+  }
 
+  .title{
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content{
+    padding: 10px 15px;
+  }
+
+  h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+    margin: 0;
   }
 
   .info-control {
@@ -175,7 +197,7 @@ h6{
       background: white;
       background: rgba(255, 255, 255, 0.8);
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
+      border-radius: 4px;
   
     h4 {
       margin: 0 0 5px;
@@ -193,10 +215,6 @@ h6{
     text-align: center;
   }
 
-  .far, .fas {
-    font-size: 2vw;
-  }
-
   .stat{
     font-size: 30px;
   }
@@ -208,7 +226,7 @@ h6{
 
 .body-content{
   top: $navbar-height + 2vw;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 
 .basic-multi-select {
@@ -267,7 +285,7 @@ xsmall{
   height: 100%;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px 0px;
-  border-radius: 5px;
+  border-radius: 4px;
   top: 5px;
 }
 
@@ -277,7 +295,8 @@ xsmall{
     color: #C50054;
   }
   .peg{
-    box-shadow: 0 0 10px #C50054, 0 0 5px #C50054
+    // box-shadow: 0 0 10px #C50054, 0 0 5px #C50054
+    box-shadow: none;
   }
 }
 

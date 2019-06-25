@@ -53,8 +53,8 @@ export default class Stat extends React.Component {
     let addValueFa = addValue >= 0 ? <i class="fas fa-caret-up"></i> : <i class="fas fa-caret-down"></i>
     let length = this.props.value.length
     return (
-      <div className="col-md  data-viz " style={{ background: this.props.background }}>
-        <div className="row statistics">
+      <div className="col-md  data-viz-statistics" style={{ background: this.props.background }}>
+        <div className="row ">
           <div className="col-md-2 text-left">
             <i className={`${this.props.fa} center-item`}></i>
           </div>

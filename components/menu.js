@@ -47,7 +47,7 @@ class Menu extends React.Component {
 
   render() {
     return (
-      <div className="px-2">
+      <div className="px-3">
         <div className="row">
           <div className="col-md-auto">
             <h2>{this.props.title}</h2>
