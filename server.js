@@ -47,6 +47,12 @@ app.prepare()
       app.render(req, res, actualPage, queryParams);
     });
 
+    server.get('/divers/:year', (req, res) => {
+      const actualPage = '/divers'
+      const queryParams = { year: req.params.year }
+      app.render(req, res, actualPage, queryParams);
+    });
+
     server.get('*', (req, res) => {
       return handle(req, res);
     });

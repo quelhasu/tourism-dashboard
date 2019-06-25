@@ -70,8 +70,8 @@ class Regional extends React.Component {
 
   async componentDidMount() {
     try {
-      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`);
-      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}`)
+      const monthRes = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/monthly?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`);
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/centrality?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}`)
       const topAreas = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/info/areas`)
 
       this.setState(prevState => ({
@@ -118,9 +118,9 @@ class Regional extends React.Component {
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      const res = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/annual?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
-      const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/monthly?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
-      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/centrality?countries=${this.selected.topCountries.map(el => el.value).join()}&areas=${this.selected.topAreas.map(el => el.value).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const res = await this.axiosProgress(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/annual?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const monthRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/monthly?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
+      const centralRes = await axios.get(`https://bm.dvrc.fr/api/Neo4Tourism/BM/destination/${this.props.year}/1/2.5/centrality?countries=${this.selected.topCountries.map(el => encodeURIComponent(el.value)).join()}&areas=${this.selected.topAreas.map(el => encodeURIComponent(el.value)).join()}&ages=${this.selected.topAges.value || "-"}`)
 
       if (res.data['Evolution'] === null) {
         console.log("Not enough information with these parameters!");

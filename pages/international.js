@@ -1,24 +1,23 @@
-import Head from '../components/head'
+// Modules
 import axios from 'axios'
-import BarChart from '../components/bar-chart'
-import DiffTable from '../components/diff-table';
-import MonthChart from '../components/month-chart';
-import Menu from '../components/menu';
-import Select from 'react-select';
 import NProgress from 'nprogress'
-import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
-import Link from 'next/link'
-import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
-import { internationalFlags } from '../utils/flags'
-import Stat from '../components/stat'
-import MultiSelect from '../components/multi-select'
-import { MaxEvolution, Omit } from '../utils/helpers'
-import DoughnutChart from '../components/doughnut-chart'
+import { Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import YearChart from '../components/year-chart';
-import DataViz from '../components/data-viz';
-import { international } from '../test/database'
 import { withTranslation } from '../i18n'
+
+// Components
+import DataViz from '../components/data-viz';
+import DoughnutChart from '../components/doughnut-chart'
+import Head from '../components/head'
+import Menu from '../components/menu';
+import { MaxEvolution, Omit } from '../utils/helpers'
+import MonthChart from '../components/month-chart';
+import MultiSelect from '../components/multi-select'
+import Stat from '../components/stat'
+import YearChart from '../components/year-chart';
+
+// Utils
+import { internationalSelectedColors, statsColors, statsBorderColors } from '../utils/colors'
 
 class International extends React.Component {
 
@@ -175,7 +174,7 @@ class International extends React.Component {
               </DataViz>
             </div>
 
-             <div className="row">
+            <div className="row">
               <DataViz id="monthly-evolution-reviews-wo-france" title={this.props.t('monthly-wo-france')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
