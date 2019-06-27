@@ -107,8 +107,8 @@ const statsColors = {
 }
 
 const statsBorderColors = {
-	"going": 'rgba(192, 161, 98, 0.2) 7px solid',
-	"central": 'rgba(228, 145, 239, 0.2) 7px solid',
+	"going": 'rgba(117, 185, 3, 0.2) 7px solid',
+	"central": 'rgba(151, 19, 221, 0.2) 7px solid',
 	"ingoing": 'rgba(20, 100, 142, 0.2) 7px solid',
 	"outgoing": 'rgba(247, 140, 86, 0.2) 7px solid',
 	"reviews": 'rgba(247, 173, 157, 0.2) 7px solid',
