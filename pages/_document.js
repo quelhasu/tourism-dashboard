@@ -1,5 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from '../components/footer';
 
 
 export default class MyDocument extends Document {
@@ -35,6 +36,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
+        <Footer/>
       </html>
     )
   }
