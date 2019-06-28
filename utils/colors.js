@@ -116,6 +116,16 @@ const statsBorderColors = {
 	"yearly": 'rgba(164, 191, 249, 0.2) 7px solid'
 }
 
+const badgesColors = {
+	"going": 'linear-gradient(to right, #97bf55, #bbd88c)',
+	"central": 'linear-gradient(to right, #a156c6, #c48edf)',
+	"ingoing": 'linear-gradient(to right, #5a97b6, #90bacf)',
+	"outgoing": 'linear-gradient(to right, #cc8460, #e5b39a)',
+	"reviews": 'linear-gradient(to right, #cb806b, #e5b4a6)',
+	"reviews-monthly": 'linear-gradient(to right, #6ac28c, #a4dcb9)',
+	"reviews-yearly": 'linear-gradient(to right, #6c89cb, #a8bae5)'
+}
+
 const touristicColors = {
 	"Bordeaux": 'rgb(54, 162, 235)',
 	"Saint-Emilion Libournais": 'rgb(237,102,117)',
@@ -199,6 +209,6 @@ const defaultColors = [
 
 export {
 	departmentsSelectedColors, internationalSelectedColors,
-	boroughSelectedColors, statsColors, statsBorderColors,
+	boroughSelectedColors, statsColors, statsBorderColors, badgesColors,
 	nationalSelectedColors, townshipSelectedColors, touristicColors, defaultColors
 };

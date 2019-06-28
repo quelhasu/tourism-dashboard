@@ -43,7 +43,7 @@ class Navi extends React.Component {
     e.preventDefault();
     this.setState({ disableTrans: true })
     i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')
-    setTimeout(()=> this.setState({ disableTrans: false }), 3000);
+    setTimeout(() => this.setState({ disableTrans: false }), 3000);
   }
 
   selectLink = (e) => {
@@ -77,6 +77,7 @@ class Navi extends React.Component {
             ))}
           </Nav>
           <button
+            className="btn btn-outline-secondary btn-sm"
             type='button'
             onClick={this.changeLanguage}
             disabled={this.state.disableTrans}>

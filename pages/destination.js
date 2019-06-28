@@ -1,7 +1,7 @@
 // Modules
 import axios from 'axios'
 import Link from 'next/link'
-import { Nav, Tabs, Tab, Spinner } from 'react-bootstrap';
+import { Nav, Tabs, Tab, Spinner, Badge } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { toast } from 'react-toastify';
 import { withTranslation } from '../i18n'
@@ -39,6 +39,13 @@ class Destination extends React.Component {
     { key: 2.5, label: 'touristic', colors: touristicColors, geoJSON: 'https://data.dvrc.fr/api/getGeoJSONbycodetouriIDdata.php', name: 'nom_touri' },
     { key: 3, label: 'borough', colors: boroughSelectedColors },
     { key: 4, label: 'township', colors: townshipSelectedColors }
+  ]
+
+  anchorLinks = [
+    { href:"#ingoing-outgoing-evolution", text:"Circulation", name:"going"},
+    { href: "#ingoing-evolution", text: "Entrées", name:"ingoing"},
+    { href: "#outgoing-evolution", text:"Sortie", name:"outgoing"},
+    { href: "#centrality-evolution", text:"Centralité", name:"central"}
   ]
 
   state = {
@@ -181,9 +188,11 @@ class Destination extends React.Component {
     let selectedScope = this.scope.find(el => el.key == this.props.groupby);
     const { selectedYear } = this.state;
     return (
-      <div className="col body-content">
+      <div id="top" className="col body-content">
         <div className="options-menu">
-          <Menu title="Destination"
+          <Menu 
+            anchors={this.anchorLinks}
+            title="Destination"
             year={this.state.selectedYear.value}
             endUrl={`${this.props.from}/${this.props.groupby}`}
             baseUrl={`destination`}
@@ -277,14 +286,14 @@ class Destination extends React.Component {
           </div>
 
           <div className="row">
-            <DataViz id="ingoing-outgoing-evolution" title={this.props.t('ingoing-outgoing')} style={{ borderLeft: statsBorderColors['going'] }}>
+            <DataViz anchorId="ingoing-outgoing-evolution" title={this.props.t('ingoing-outgoing')} style={{ borderLeft: statsBorderColors['going'] }}>
               <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={this.scope.find(el => el.key == this.props.groupby).colors} />
             </DataViz>
           </div>
 
           <div className="row">
-            <DataViz id="ingoing-evolution" title={this.props.t('ingoing')} style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+            <DataViz anchorId="ingoing-evolution" title={this.props.t('ingoing')} style={{ borderLeft: statsBorderColors['ingoing'] }}>
+              <Tabs variant="pills" defaultActiveKey="year" id="uncontrolled-tab-example">
                 <Tab eventKey="year" title={this.props.t('yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                 </Tab>
@@ -296,8 +305,8 @@ class Destination extends React.Component {
               </Tabs>
             </DataViz>
 
-            <DataViz id="outgoing-evolution" title={this.props.t('outgoing')} style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+            <DataViz anchorId="outgoing-evolution" title={this.props.t('outgoing')} style={{ borderLeft: statsBorderColors['outgoing'] }}>
+              <Tabs variant="pills" defaultActiveKey="year" id="uncontrolled-tab-example">
                 <Tab eventKey="year" title={this.props.t('yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
                 </Tab>
@@ -311,8 +320,8 @@ class Destination extends React.Component {
           </div>
 
           <div className="row">
-            <DataViz id="centrality-pagerank" title={this.props.t('centrality')} second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
-              <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
+            <DataViz anchorId="centrality-pagerank" title={this.props.t('centrality')} second="(PageRank)" style={{ borderLeft: statsBorderColors['central'] }}>
+              <Tabs variant="pills" defaultActiveKey="map" id="uncontrolled-tab-example">
                 {selectedScope.geoJSON ? (
                   <Tab eventKey="map" title={this.props.t('map')}>
                     {this.state.data['Centrality'] && selectedScope.geoJSON ? (
@@ -336,7 +345,7 @@ class Destination extends React.Component {
               </Tabs>
             </DataViz>
 
-            <DataViz id="centrality-evolution" title={this.props.t('centrality-evolution')} second="(PageRank Y / Y-2)" style={{ borderLeft: statsBorderColors['central'] }}>
+            <DataViz anchorId="centrality-evolution" title={this.props.t('centrality-evolution')} second="(PageRank Y / Y-2)" style={{ borderLeft: statsBorderColors['central'] }}>
               {this.state.data['Centrality'] ? (
                 <YearChartDot height={250} width={50} evolution={this.state.data['Centrality']} var='value' colors={this.scope.find(el => el.key == this.props.groupby).colors} />
               ) : this.loading()}

@@ -37,7 +37,8 @@ export default class DataViz extends React.Component {
 
   render() {
     return (
-      <div id={this.props.id} className={`col data-viz`} style={this.props.style}>
+      <div className={`col data-viz`} style={this.props.style}>
+        <a className="anchor" id={this.props.anchorId}/>
         <div className="row title">
           <div className="col">
             <h6 className="text-uppercase text-left">{this.props.title}</h6>

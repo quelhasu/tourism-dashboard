@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Nav } from 'react-bootstrap';
 import NProgress from 'nprogress'
 import { withTranslation } from '../i18n'
+import { badgesColors } from '../utils/colors'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 /**
  * Create a menu with personalized content
@@ -35,7 +37,7 @@ class Menu extends React.Component {
     this.state = { collapse: false };
   }
 
-  static async getInitialProps({req}){
+  static async getInitialProps({ req }) {
     return {
       namespacesRequired: ['filter']
     }
@@ -50,7 +52,12 @@ class Menu extends React.Component {
       <div className="px-3">
         <div className="row">
           <div className="col-md-auto">
-            <h2>{this.props.title}</h2>
+            <div className="title-content">
+              <h2>{this.props.title}</h2>
+              {this.props.anchors.map(({href, text, name})=>(
+                <AnchorLink href={href} style={{ backgroundImage: `${badgesColors[name]}` }} className="badge badge-secondary" >{text}</AnchorLink>
+              ))}
+            </div>
             <p className="text-muted">{this.props.description}</p>
           </div>
           <div className="col-md-auto ml-auto">

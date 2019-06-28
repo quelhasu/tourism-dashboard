@@ -25,6 +25,13 @@ import { withTranslation } from '../i18n'
 
 class National extends React.Component {
 
+  anchorLinks = [
+    { href: "#ingoing-outgoing-evolution", text: "Circulation", name: "going" },
+    { href: "#ingoing-evolution", text: "Entrées", name: "ingoing" },
+    { href: "#outgoing-evolution", text: "Sortie", name: "outgoing" },
+    { href: "#centrality-evolution", text: "Centralité", name: "central" }
+  ]
+
   state = {
     loading: true,
     geoJSON: this.props.geoJSON,
@@ -154,7 +161,9 @@ class National extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title="National"
+          <Menu
+            anchors={this.anchorLinks}
+            title="National"
             year={this.state.selectedYear.value}
             endUrl={``}
             baseUrl={`national`}
@@ -206,13 +215,13 @@ class National extends React.Component {
           </div>
 
           <div className="row">
-            <DataViz id="ingoing-outgoing-areas" title={this.props.t('destination:ingoing-outgoing')} style={{ borderLeft: statsBorderColors['going'] }}>
+            <DataViz anchorId="ingoing-outgoing-evolution" title={this.props.t('destination:ingoing-outgoing')} style={{ borderLeft: statsBorderColors['going'] }}>
               <GoingChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={departmentsSelectedColors} />
             </DataViz>
           </div>
           <div className="row">
-            <DataViz id="ingoing-evolution" title={this.props.t('destination:ingoing')} style={{ borderLeft: statsBorderColors['ingoing'] }}>
-              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+            <DataViz anchorId="ingoing-evolution" title={this.props.t('destination:ingoing')} style={{ borderLeft: statsBorderColors['ingoing'] }}>
+              <Tabs variant="pills" defaultActiveKey="year" id="uncontrolled-tab-example">
                 <Tab eventKey="year" title={this.props.t('destination:yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Ingoing' colors={departmentsSelectedColors} />
                 </Tab>
@@ -224,8 +233,8 @@ class National extends React.Component {
               </Tabs>
             </DataViz>
 
-            <DataViz id="outgoing-evolution" title={this.props.t('destination:outgoing')} style={{ borderLeft: statsBorderColors['outgoing'] }}>
-              <Tabs defaultActiveKey="year" id="uncontrolled-tab-example">
+            <DataViz anchorId="outgoing-evolution" title={this.props.t('destination:outgoing')} style={{ borderLeft: statsBorderColors['outgoing'] }}>
+              <Tabs variant="pills" defaultActiveKey="year" id="uncontrolled-tab-example">
                 <Tab eventKey="year" title={this.props.t('destination:yearly')}>
                   <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='Outgoing' colors={departmentsSelectedColors} />
                 </Tab>
@@ -239,8 +248,9 @@ class National extends React.Component {
           </div>
 
           <div className="row ">
-            <DataViz id="national-centrality-pagerank" title={this.props.t('destination:centrality')} style={{ borderLeft: statsBorderColors['central'] }}>
-              <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
+            <DataViz anchorId="national-centrality-pagerank" title={this.props.t('destination:centrality')} style={{ borderLeft: statsBorderColors['central'] }}>
+              <a className="anchor" id="centrality-pagerank" />
+              <Tabs variant="pills" defaultActiveKey="map" id="uncontrolled-tab-example" className="justify-content-end">
                 <Tab eventKey="map" title={this.props.t('destination:map')}>
                   {this.state.data['Centrality'] ? (
                     <CentralityMap zoom={6}
@@ -261,7 +271,8 @@ class National extends React.Component {
 
             </DataViz>
 
-            <DataViz id="ingoing-centrality-evolution" title={this.props.t('destination:centrality-evolution')} style={{ borderLeft: statsBorderColors['central'] }}>
+            <DataViz anchorId="ingoing-centrality-evolution" title={this.props.t('destination:centrality-evolution')} style={{ borderLeft: statsBorderColors['central'] }}>
+              <a className="anchor" id="centrality-evolution" />
               {this.state.data['Centrality'] ? (
                 <YearChartDot height={500} width={50} evolution={this.state.data['Centrality']} var='value' colors={departmentsSelectedColors} />
               ) : this.loading()}

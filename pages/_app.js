@@ -10,6 +10,7 @@ import { appWithTranslation } from '../i18n';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../static/style.scss";
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../components/footer';
 
 
 Router.events.on('routeChangeStart', url => {
@@ -51,7 +52,6 @@ class MyApp extends App {
                 // font-family: 'Rubik', sans-serif;
                 font-family: 'Roboto', sans-serif;
                 // font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
-                padding: 10px;
                 padding-top: 70px;
               }
           `}</style>

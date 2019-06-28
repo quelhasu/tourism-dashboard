@@ -21,6 +21,12 @@ import { internationalSelectedColors, statsColors, statsBorderColors } from '../
 
 class International extends React.Component {
 
+  anchorLinks = [
+    { href: "#reviews-country-wo-france", text: "Répartition Avis", name: "reviews" },
+    { href: "#monthly-evolution-reviews", text: "Evolution Mensuelle", name: "reviews-monthly" },
+    { href: "#yearly-evolution-reviews-wo-france", text: "Evolution Annuelle", name: "reviews-yearly" }
+  ]
+
   state = {
     maxEvolution: MaxEvolution(this.props.data['Evolution']),
     selectedYear: { value: this.props.year, label: this.props.year },
@@ -130,7 +136,9 @@ class International extends React.Component {
     return (
       <div className="col body-content">
         <div className="options-menu">
-          <Menu title={this.props.t('page-title')}
+          <Menu 
+            anchors={this.anchorLinks}
+            title={this.props.t('page-title')}
             year={this.state.selectedYear.value}
             endUrl={``}
             baseUrl={`international`}
