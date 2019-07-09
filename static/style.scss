@@ -2,7 +2,7 @@ $primary-color: #da276b8d;
 $text-color: #333;
 
 $font-size: 50px;
-$responsive-font-size: 1vw;
+$responsive-font-size: 1rem;
 
 $navbar-height: 3vw;
 
@@ -12,26 +12,36 @@ $navbar-height: 3vw;
   }
 }
 
-* {
-  @include large-smartphone(){
-    font-size: $responsive-font-size;
+@mixin smartphone{
+  @media(max-width: 800px){
+    @content;
   }
 }
+
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
   color: $text-color;
 }
 
 h1{
-  font-size: 2.5vw;
+  font-size: 2.5rem;
 }
 
 h5{
-  font-size: 2vw;
+  font-size: 2rem;
+  @include smartphone(){
+    font-size: 1rem;
+  }
+  &.reduce{
+    font-size: 1.5rem;
+    @include smartphone(){
+      font-size: 0.95rem;
+    }
+  }
 }
 
 h6{
-  font-size: 1vw;
+  font-size: 1rem;
 }
 
 .navbar{
@@ -43,17 +53,20 @@ h6{
   background-color: #FFF!important;
   padding: 0 2.5rem;
   border-bottom: 1.5px solid #e7e7e7;
+  @include smartphone(){
+    padding: 0.5rem 0.75rem;
+  }
   
   &-nav{
     height: 100%;
-  }
-
-  &-brand{
-    font-size: 1vw !important;
+    flex-direction: row;
+    @include smartphone(){
+      margin-top: 10px;
+    }
   }
 
   &-logo{
-    height: 2vw;
+    height: 30px;
     margin-right: 10px;
   }
 
@@ -61,12 +74,22 @@ h6{
     text-decoration: none;
     transition: color 0.1s, background-color 0.1s;
     min-width: 6vw;
+    margin: 0 auto;
     text-align: center;
+    @include smartphone(){
+      min-width: 0;
+    }
     &.active{
-      background-color: #F5F5F5
+      background-color: #F5F5F5;
+      @include smartphone(){
+        background: #FFF;
+      }
     }
     &:hover{
-      background-color: #F5F5F5
+      background-color: #F5F5F5;
+      @include smartphone(){
+        background: #FFF;
+      }
     }
     a {
       height: 100%;
@@ -108,16 +131,27 @@ h6{
     position: relative;
     top: 50%;
     transform: translateY(-50%); 
-    font-size: 0.8vw;
+    font-size: 0.7rem;
   }
 
+  .translate{
+    @include smartphone(){
+      width: 100%;
+    }
+    @include large-smartphone(){
+      width: initial;
+    }
+  }
 }
 
-.center-item{
+.center-item {
   margin-bottom: 1rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  @include smartphone(){
+    transform: translateY(50%);
+  }
 }
 
 .stats{
@@ -146,13 +180,20 @@ h6{
     border-radius: 4px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.04);
 
+    @include smartphone(){
+      padding: 10px 20px;
+    }
+
     h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
       color: white;
     }
 
     .far, .fas {
-    font-size: 2vw;
-  }
+      font-size: 2rem;
+      @include smartphone(){
+        font-size: 1rem;
+      }
+    }
 
     .text-muted {
       color: #ffffffb3 !important;
@@ -160,9 +201,14 @@ h6{
 
     .additional-value {
       color: #ffffff4d;
-      font-size: 2.5vw;
+      font-size: 2.5rem;
+      left: 4.5rem;
       position: absolute;
-      left: 4.5vw;
+      @include smartphone(){
+        font-size: 1.5rem;
+        left: 3.5rem;
+      }
+      
 
       &-image{
         position: absolute;
@@ -193,6 +239,7 @@ h6{
       &:hover{
         background: #b6b6b6;
         color: #FFF;
+        
       }
 
       &.active{
@@ -256,7 +303,11 @@ h6{
 }
 
 .body-content{
-  padding: $navbar-height + 2vw 40px 0px 40px;
+  padding: 70px 40px 0px 40px;
+  
+  @include smartphone(){
+    padding: 70px 0px 0px 0px;
+  }
 
   .title-content{
     *{
@@ -285,7 +336,10 @@ h6{
 }
 
 .text-small {
-  font-size: 0.9vw;
+  font-size: 0.9rem;
+  @include smartphone(){
+    font-size: 0.75rem;
+  }
 }
 
 xsmall{
@@ -295,11 +349,17 @@ xsmall{
 .btn{
   &-filter{
     margin-top: 10px;
-    @include large-smartphone(){
-    padding: 5px;
-    line-height: 0.5;
+    @include smartphone(){
+      padding: 8px 5px;
+      line-height: 0;
+    }
   }
-}
+
+  &.btn-sm{
+    @include smartphone(){
+      font-size: 0.7rem;
+    }
+  }
 }
 
 .horizontal-bar{
@@ -313,15 +373,21 @@ xsmall{
 
 .going-chart{
   height: 40vh;
-  @include large-smartphone(){
-    height: 25vh;
+  @include smartphone(){
+    height: 50vh;
   }
 }
 
 .month-chart{
   height: 40vh;
   @include large-smartphone(){
-    height: 25vh;
+    height: 50vh;
+  }
+}
+
+.doughnut-chart{
+  @include large-smartphone(){
+    height: 50vh;
   }
 }
 
@@ -346,9 +412,4 @@ xsmall{
     // box-shadow: 0 0 10px #C50054, 0 0 5px #C50054
     box-shadow: none;
   }
-}
-
-#nprogress .spinner-icon {
-  // border-top-color: red;
-  // border-left-color: red;
 }

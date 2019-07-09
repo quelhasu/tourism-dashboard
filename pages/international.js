@@ -173,23 +173,23 @@ class International extends React.Component {
               <Stat value={this.state.data['TotalReviews'][this.state.selectedYear['value']].NB1.toLocaleString()} type={this.props.t('stats:reviews')} background={statsColors['reviews']} addValue={this.state.data['TotalReviews']['diff'].NB1} fa="fas fa-star"></Stat>
             </div>
             <div className="row">
-              <DataViz id="reviews-country-wo-france" title={this.props.t('reviews-wo-france')} style={{ borderLeft: statsBorderColors['reviews'] }}>
+              <DataViz anchorId="reviews-country-wo-france" title={this.props.t('reviews-wo-france')} style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.internationalData['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </DataViz>
 
-              <DataViz id="reviews-country" title={this.props.t('reviews')} style={{ borderLeft: statsBorderColors['reviews'] }}>
+              <DataViz anchorId="reviews-country" title={this.props.t('reviews')} style={{ borderLeft: statsBorderColors['reviews'] }}>
                 <DoughnutChart evolution={this.state.data['Evolution']} year={this.state.selectedYear['value']} colors={internationalSelectedColors} />
               </DataViz>
             </div>
 
             <div className="row">
-              <DataViz id="monthly-evolution-reviews-wo-france" title={this.props.t('monthly-wo-france')} style={{ borderLeft: statsBorderColors['monthly'] }}>
+              <DataViz anchorId="monthly-evolution-reviews-wo-france" title={this.props.t('monthly-wo-france')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.internationalData['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 ) : this.loading()}
               </DataViz>
 
-              <DataViz id="monthly-evolution-reviews" title={this.props.t('monthly')} style={{ borderLeft: statsBorderColors['monthly'] }}>
+              <DataViz anchorId="monthly-evolution-reviews" title={this.props.t('monthly')} style={{ borderLeft: statsBorderColors['monthly'] }}>
                 {this.state.data['Monthly'] ? (
                   <MonthChart height={250} width={50} evolution={this.state.data['Monthly']} var='Reviews' colors={internationalSelectedColors} />
                 ) : this.loading()}
@@ -197,11 +197,11 @@ class International extends React.Component {
             </div>
 
             <div className="row">
-              <DataViz id="yearly-evolution-reviews-wo-france" title={this.props.t('yearly-wo-france')} style={{ borderLeft: statsBorderColors['yearly'] }}>
+              <DataViz anchorId="yearly-evolution-reviews-wo-france" title={this.props.t('yearly-wo-france')} style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.internationalData['Evolution']} var='value' colors={internationalSelectedColors} />
               </DataViz>
 
-              <DataViz id="yearly-evolution" title={this.props.t('yearly')} style={{ borderLeft: statsBorderColors['yearly'] }}>
+              <DataViz anchorId="yearly-evolution" title={this.props.t('yearly')} style={{ borderLeft: statsBorderColors['yearly'] }}>
                 <YearChart height={250} width={50} evolution={this.state.data['Evolution']} var='value' colors={internationalSelectedColors} />
               </DataViz>
             </div>

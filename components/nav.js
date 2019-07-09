@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { i18n, withTranslation } from '../i18n'
-import { Navbar, Nav, NavItem } from "reactstrap";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
 import { PascalCase } from "../utils/helpers";
 
 
@@ -57,32 +57,35 @@ class Navi extends React.Component {
     let browserUrlMatch = browserUrl ? browserUrl[0] : "Default"
     return (
       <div>
-        <Navbar className="navbar" bg="light" fixed="top" light expand="md">
+        <Navbar collapseOnSelect className="navbar" bg="light" fixed="top" light expand="md">
           <Link href="/">
-            <a className="navbar-brand">
+            <Navbar.Brand className="navbar-brand">
               <img src="https://images.emojiterra.com/google/android-pie/512px/1f686.png" className="navbar-logo" />
               <span>Neo4Tourism</span>
-            </a>
+            </Navbar.Brand>
           </Link>
-          <Nav className="mr-auto" navbar>
-            {menu.map(({ key, as, href, label, icon }) => (
-              <NavItem key={key} className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''} `}>
-                <Link prefetch key={`link-${key}`} href={href} as={as}>
-                  <a className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''} nav-link`}
-                    onClick={this.selectLink.bind(this, label)} >
-                    {label} <i className={icon}></i>
-                  </a>
-                </Link>
-              </NavItem>
-            ))}
-          </Nav>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto" navbar>
+              {menu.map(({ key, as, href, label, icon }) => (
+                <NavItem key={key} className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''} `}>
+                  <Link prefetch key={`link-${key}`} href={href} as={as}>
+                    <a className={`${PascalCase(browserUrlMatch) == label ? 'active' : ''} nav-link`}
+                      onClick={this.selectLink.bind(this, label)} >
+                      {label} <i className={icon}></i>
+                    </a>
+                  </Link>
+                </NavItem>
+              ))}
+            </Nav>
           <button
-            className="btn btn-outline-secondary btn-sm"
+            className="btn btn-outline-secondary btn-sm translate"
             type='button'
             onClick={this.changeLanguage}
             disabled={this.state.disableTrans}>
             EN/FR
           </button>
+          </Navbar.Collapse>
         </Navbar>
 
         <style jsx>{`

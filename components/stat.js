@@ -63,11 +63,11 @@ export default class Stat extends React.Component {
           <div className="col">
             <div className="row">
               <div className="col text-right font-weight-bold">
-                <h5 style={length > 15 ? { fontSize: '1.5vw' } : { fontSize: '2vw' } }>{this.props.value}</h5>
+                <h5 className={length > 15 ? 'reduce' : ''}>{this.props.value}</h5>
               </div>
             </div>
             <div className="row">
-              <div className="col text-sm-right text-muted text-uppercase text-small">{this.props.type}</div>
+              <div className="col text-right text-muted text-uppercase text-small">{this.props.type}</div>
             </div>
           </div>
         </div>

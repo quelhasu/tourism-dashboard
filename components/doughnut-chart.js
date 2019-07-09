@@ -82,8 +82,9 @@ export default class DoughnutChart extends React.Component {
 
   render() {
     return (
-      <div className="doughnut-chart">
+      <div>
         <canvas
+        className="doughnut-chart"
           id="myChart"
           ref={this.chartRef}
         />
