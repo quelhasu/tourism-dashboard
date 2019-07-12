@@ -65,7 +65,7 @@ All the colors variables for departments, countries or cities are available in t
 
 ## 📱 Responsive
 
-| ![](https://img.shields.io/badge/mobile-50-orange.svg)  | ![](https://img.shields.io/badge/large%20mobile-100-brightgreen.svg) |
-| :-----------------------------------------------------: | :------------------------------------------------------------------: |
-| <img src="static/img/dashboard-mobile.png" height=450/> |        <img src="static/img/dashboard-ipad.png" height=500/>         |
-|                       Smartphone                        |                                 iPad                                 |
+|                        Smartphone                         |                                  iPad                                   |
+| :-------------------------------------------------------: | :---------------------------------------------------------------------: |
+|  <img src="static/img/dashboard-mobile.png" height=450/>  |          <img src="static/img/dashboard-ipad.png" height=500/>          |
+| ![](https://img.shields.io/badge/mobile-50%25-orange.svg) | ![](https://img.shields.io/badge/large%20mobile-100%25-brightgreen.svg) |
