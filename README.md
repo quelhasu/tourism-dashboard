@@ -1,4 +1,4 @@
-<main class="markdown-bodyk">
+<img src="https://images.emojiterra.com/twitter/512px/2708.png" align=right width=80>
 
 # Tourism Dashboard
 
