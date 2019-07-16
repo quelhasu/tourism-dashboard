@@ -1,4 +1,5 @@
-# Tourism Dashboard
+Tourism Dashboard
+=================
 
 [![CircleCI](https://david-dm.org/quelhasu/tourism-dashboard.svg)](https://david-dm.org/quelhasu/tourism-dashboard.svg)
 ![GitHub top language](https://img.shields.io/github/languages/top/quelhasu/tourism-dashboard.svg)
@@ -18,7 +19,8 @@ Dashoard for the Neo4Tourism framework allowing the visualization of tourism dat
   <a href="https://github.com/quelhasu/tourism-api">Tourism API REST</a>
 </p>
 
-## 👨‍💻 Installation
+Installation
+------------
 
 ```bash
 $ git clone https://github.com/quelhasu/tourism-dashboard
@@ -42,8 +44,9 @@ $ docker build -t tourism-dashboard .
 ...
 $ docker run -d -p 8000:8000 tourism-dashboard
 ```
-
-## 🔭 Study Scope
+ 
+Study Scope
+-----------
 
 You can change the API address according to your case, as well as the area studied, for example here the study is about _Bordeaux Metropole_:
 
@@ -54,7 +57,8 @@ You can change the API address according to your case, as well as the area studi
 }
 ```
 
-## 🛣️ Add new routes
+Add new routes
+--------------
 
 Go to `server.js` file and add this in `app.prepare()` function:
 
@@ -73,7 +77,8 @@ If you want to access it via the navigation bar, modify the `menu` constant `nav
 const menu = [...{ href: "/add/new/route/1548", label: "New Route", icon: "" }];
 ```
 
-## 🌍 Translation
+Translation
+-----------
 
 Write all necessary translations into a file under `locales/{en,fr}` directory.  
 Add withTranslation module if you want to use i18n in component or page:
@@ -98,6 +103,7 @@ Then you can use translation available in your previous edited/created file:
 <h1> {this.props.t("test-translation")} </h1>
 ```
 
-## 💄 Customize colors
+Customize colors
+----------------
 
 All the colors variables for departments, countries or cities are available in the `utils/colors.js` file.
