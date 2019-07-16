@@ -18,6 +18,42 @@ Dashoard for the Neo4Tourism framework allowing the visualization of tourism dat
   <a href="https://github.com/quelhasu/tourism-api">Tourism API REST</a>
 </p>
 
+## 👨‍💻 Installation
+
+```bash
+$ git clone https://github.com/quelhasu/tourism-dashboard
+```
+
+### Development
+
+```bash
+$ cd tourism-dashboard
+$ npm i
+$ npm run dev
+```
+
+### Docker
+
+Run the dockerfile or you can also include it in `docker-compose.yml` file.
+
+```bash
+$ cd tourism-dashboard
+$ docker build -t tourism-dashboard .
+...
+$ docker run -d -p 8000:8000 tourism-dashboard
+```
+
+## 🔭 Study Scope
+
+You can change the API address according to your case, as well as the area studied, for example here the study is about _Bordeaux Metropole_:
+
+```json
+{
+  ...
+  "study":"BM"
+}
+```
+
 ## 🛣️ Add new routes
 
 Go to `server.js` file and add this in `app.prepare()` function:
@@ -65,10 +101,3 @@ Then you can use translation available in your previous edited/created file:
 ## 💄 Customize colors
 
 All the colors variables for departments, countries or cities are available in the `utils/colors.js` file.
-
-## 📱 Responsive
-
-|                        Smartphone                         |                                  iPad                                   |
-| :-------------------------------------------------------: | :---------------------------------------------------------------------: |
-|  <img src="static/img/dashboard-mobile.png" height=450/>  |          <img src="static/img/dashboard-ipad.png" height=500/>          |
-| ![](https://img.shields.io/badge/mobile-50%25-orange.svg) | ![](https://img.shields.io/badge/large%20mobile-100%25-brightgreen.svg) |
