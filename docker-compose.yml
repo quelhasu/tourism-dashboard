@@ -1,0 +1,18 @@
+version: "2"
+services:
+  dashboard-bm:
+    container_name: dashboard-bm
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - "8001:8000"
+    networks:
+      neo4tourism:
+        ipv4_address: 172.23.0.4
+networks:
+  neo4tourism:
+    external:
+      name: stage_neo4tourism

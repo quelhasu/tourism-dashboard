@@ -16,7 +16,7 @@ import "../static/style.scss";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/footer";
 
-var CONFIG = require("../config.json");
+var CONFIG = require("../config/config.json");
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading: ${url}`);
