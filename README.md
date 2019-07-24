@@ -9,7 +9,7 @@ Tourism Dashboard
 Dashoard for the Neo4Tourism framework allowing the visualization of tourism data from TripAdvisor in order to simulate and understand tourism behaviors from aggregated graphs from Neo4J. It is therefore possible to see a trend that emerges, common behaviors through maps and graphs.
 
 <p align="center">
-<img src="static/img/dashboard-panels.png" align="center" height=300>
+<img src="static/img/dashboard-panels-next.png" align="center" height=400>
 </p>
 
 <p align="center">
