@@ -6,7 +6,8 @@ Tourism Dashboard
 ![GitHub last commit](https://img.shields.io/github/last-commit/quelhasu/tourism-dashboard.svg?logo=github)
 ![Responsiveness](https://img.shields.io/badge/responsiveness-75%25-green.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARUAAAIACAMAAACbwwhlAAABX1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8P/Ub/AAAAdHRSTlMAAQMEBQcICQoLDQ4QGBocHSAjJCUoKSssLS4yNTk8PT9ERUZLT1BRU1RYWVpdYGNlZ2tsbXFyc3d7fH1+gIeIiYqNkpyfoKKkpaart7i5v8HJyszNztDS09XW19jb3N7g4+Xn6evs7e7v8PHy8/f4+/z9/t6YSr4AAAUCSURBVHgB7dltVxNkHIDxv2ZgCqJIOU0T0UrBlNIofCApQs0c+KCUiZgGaYROdn//05lz7oFt+kLtHO/f9RF+b69oW9/o1GxxYaWc3uPKKwvF2anRvni9hibmSimbSnMTQ/HKPptP2TV/MLr26a8py4r7o2PbfymnXLvSF+375G7KuMU90a4v/01Zt3Y0NjZZTplXPhOtjSel8WhupJSUSiPRWGEVSaXVQtTrXQJSbam3rjKJo9Zk1Opfo1Frrb+mMgOj3kxUK6yzqLdeqKpMo2hsuqqySKKxxai0F0Rzeysq5zg0d66ico1Dc9cqKsscmluOiB4MrfVEDFJobTBimEJrwxFjFFobizhBobUTVKhQoULlLUSFChUqVKhQobJ8/w22/L6ojMYbbJQKlfZRoULl9tU32O13ryIqVKhQoUKFChUqVKhQoSIqVKhQoUKFChUqVKhQofLWokKFCpWlj7Pqj9dTuRtZdZsKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFB5m1GhQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoUKFSpUqFChQoXK6mxWPeqkIipUqFChQuXdR4UKFSpUqFChQoUKFSqiQoUKFSpUqNy5+MPp01MX71B52Z/f7Y4XDX57n0qlf77viYY+nHhEJf0+GC3t+i17leL22NC2q5mr3Noabdp6K2uVhwPRtoGHOauMRYfGMla5uSk6tOlmvipHomNHslV5vCU6tuVxriqXokuXclU5GV06mavK4ejS4VxVCtGlQq4qu6JLu3JVORBdOpCryrHo0rFcVc5Gl87mqnIjunQjV5W0Mzq2M2WrciE6diFflScD0aGBJ/mqpMvRocspY5V0Ktp2KmWtUjoUbTpUylslPT0RG/rqqUv207Zo6qMfU6KS/vpmS93kg68fJirP+3v2ix2bIzbv+Pzn5ZSo1Hv24MGz9D9XVzmeWtLxiGEKrQ1H7KbQ2u6IHgqt9UTECobmViIirnNo7npF5TyH5s5XVPZxaG5fVLoHorF78bxpEo1NV1UK6yjqrRei2gyLejPxov41GLXW+qPWJI1ak/Gy3iUc1ZZ6o15hFUil1UI0NlJKSaWRaG48JY1Ha2fKuZuUz8TGjq7ljbJ2NNq1ZzFnlMU90b6+K/miXOmLju0v5mlS3B9dOzifn8n8wXhlQxNzpXxESnMTQ/F69Y1OzRYXVsrvM0d5ZaE4OzXaF236DxCC6jilCbe/AAAAAElFTkSuQmCC)
 
-Dashoard for the Neo4Tourism framework allowing the visualization of tourism data from TripAdvisor in order to simulate and understand tourism behaviors from aggregated graphs from Neo4J. It is therefore possible to see a trend that emerges, common behaviors through maps and graphs.
+Dashboard for the Neo4Tourism framework allowing the **visualization** of tourism data from TripAdvisor in order to simulate and understand **tourism behaviors** from aggregated graphs from Neo4J. Thus, these data make it possible to establish emerging trends and also to understand tourist behaviour **through graphs and maps**.  
+This project is a micro-service of the **Neo4Tourism framework** including the [REST API](https://github.com/quelhasu/tourism-api), the Neo4J database and the [administrator dashboard](https://github.com/quelhasu/tourism-admin).
 
 <p align="center">
 <img src="static/img/dashboard-panels-next.png" align="center" height=400>
@@ -40,10 +41,12 @@ Run the dockerfile or you can also include it in `docker-compose.yml` file.
 
 ```bash
 $ cd tourism-dashboard
-$ docker build -t tourism-dashboard .
+$ docker-compose build
 ...
-$ docker run -d -p 8000:8000 tourism-dashboard
+$ docker-compose up -d
 ```
+The application is then accessible with the allocated port in the `docker-compos.yml` file (default 8001).  
+In order to manage multiple container for different studied areas, you can modify this file to change the name of the `container_name`, like `dashboard-lyon` for example. 
  
 Study Scope
 -----------
