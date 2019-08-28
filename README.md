@@ -45,19 +45,18 @@ $ docker-compose build
 ...
 $ docker-compose up -d
 ```
-The application is then accessible with the allocated port in the `docker-compos.yml` file (default 8001).  
+The application is then accessible with the allocated port in the `docker-compos.yml` file (default 8000).  
 In order to manage multiple container for different studied areas, you can modify this file to change the name of the `container_name`, like `dashboard-lyon` for example. 
+
+Pay attention to the API url in the following section, depending on the IP address used inside the docker network for example.
  
 Study Scope
 -----------
 
-You can change the API address according to your case, as well as the area studied, for example here the study is about _Bordeaux Metropole_:
+You can change the API address in `config/config.json` according to your case, as well as the area studied, for example here the study is about _Bordeaux Metropole_:
 
 ```json
-{
-  ...
-  "study":"BM"
-}
+{"study":"BM","API":"http://your-url:3000"}
 ```
 
 Add new routes
