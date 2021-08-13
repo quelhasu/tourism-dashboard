@@ -24,7 +24,7 @@
     "html2canvas": "^1.0.0-rc.1",
     "jquery": "^3.4.1",
     "leaflet": "^1.5.1",
-    "next": "^9.0.1",
+    "next": "^11.1.0",
     "next-i18next": "^0.44.0",
     "next-redux-wrapper": "^3.0.0-alpha.3",
     "next-routes": "^1.4.2",
